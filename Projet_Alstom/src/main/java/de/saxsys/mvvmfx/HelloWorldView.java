@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Window;
 
@@ -17,8 +18,13 @@ public class HelloWorldView implements FxmlView<HelloWorldViewModel>, Initializa
     private Label helloLabel;
     
     @FXML
+    private TextArea textArea;
+    
+    @FXML
     public void changeText(){
-    	viewModel.changeText();
+    	System.out.println(this.textArea.getText());
+    	
+    	viewModel.changeText(this.textArea.getText());
     };
     
     
