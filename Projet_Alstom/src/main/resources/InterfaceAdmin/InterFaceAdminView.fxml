@@ -44,13 +44,13 @@
                         <Insets left="5.0" right="10.0" fx:id="x2" />
                       </GridPane.margin>
                     </TextField>
-                    <Label prefWidth="81.0" text="Nom" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label prefWidth="148.0" text="Nom locomotive" wrapText="true" GridPane.columnIndex="0" GridPane.rowIndex="1">
                       <GridPane.margin>
                         <Insets left="15.0" fx:id="x1" />
                       </GridPane.margin>
                     </Label>
                     <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="2" />
-                    <Label prefWidth="81.0" text="Type" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="2" />
+                    <Label prefWidth="81.0" text="Type" wrapText="true" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="2" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="116.0" />
@@ -71,6 +71,11 @@
         <Tab text="Wagon">
           <content>
             <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="503.0" />
+          </content>
+        </Tab>
+        <Tab text="Attelage">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
           </content>
         </Tab>
       </tabs>
