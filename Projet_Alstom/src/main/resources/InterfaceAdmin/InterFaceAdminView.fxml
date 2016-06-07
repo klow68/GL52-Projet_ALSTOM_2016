@@ -6,16 +6,15 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" cache="false" cacheHint="DEFAULT" depthTest="ENABLE" prefHeight="325.0" prefWidth="332.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="InterfaceAdmin.InterfaceAdminView">
+<VBox alignment="CENTER" cache="false" cacheHint="DEFAULT" depthTest="ENABLE" prefHeight="478.0000999999975" prefWidth="502.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="InterfaceAdmin.InterfaceAdminView">
   <children>
-    <GridPane disable="false" focusTraversable="false" gridLinesVisible="false" prefHeight="451.0" prefWidth="331.0" scaleX="1.0">
+    <Pane prefHeight="22.0" prefWidth="333.0">
       <children>
-        <Separator prefWidth="200.0" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1" />
-        <MenuBar GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="0">
+        <MenuBar layoutX="0.0" layoutY="0.0" prefWidth="502.9999755859375">
           <menus>
-            <Menu mnemonicParsing="false" text="Fichier">
+            <Menu mnemonicParsing="false" text="File">
               <items>
-                <MenuItem mnemonicParsing="false" text="Quitter" fx:id="exit" />
+                <MenuItem mnemonicParsing="false" text="Close" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Edit">
@@ -30,46 +29,52 @@
             </Menu>
           </menus>
         </MenuBar>
-        <TextField prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-          <GridPane.margin>
-            <Insets left="5.0" right="10.0" fx:id="x2" />
-          </GridPane.margin>
-        </TextField>
-        <Label prefWidth="81.0" text="Nom Train" GridPane.columnIndex="1" GridPane.rowIndex="1">
-          <GridPane.margin>
-            <Insets left="5.0" fx:id="x1" />
-          </GridPane.margin>
-        </Label>
-        <ImageView fitHeight="33.75" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="1">
-          <image>
-            <Image url="@Images/9901_render_Ryu___Soul.png" />
-          </image>
-        </ImageView>
-        <TextField prefWidth="200.0" GridPane.columnIndex="2" GridPane.margin="$x2" GridPane.rowIndex="2" />
-        <Label prefWidth="81.0" text="Nom Train" GridPane.columnIndex="1" GridPane.rowIndex="2">
-          <GridPane.margin>
-            <Insets left="5.0" fx:id="x1" />
-          </GridPane.margin>
-        </Label>
-        <ImageView fitHeight="33.75" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="2">
-          <image>
-            <Image url="@Images/9901_render_Ryu___Soul.png" />
-          </image>
-        </ImageView>
       </children>
-      <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="110.0" minWidth="10.0" prefWidth="54.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="116.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="163.0" />
-      </columnConstraints>
-      <rowConstraints>
-        <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-      </rowConstraints>
-    </GridPane>
+    </Pane>
+    <TabPane prefHeight="454.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE">
+      <tabs>
+        <Tab text="Locomotive">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="362.0001220703125" prefWidth="503.0" visible="true">
+              <children>
+                <GridPane disable="false" focusTraversable="false" gridLinesVisible="false" layoutX="0.0" layoutY="0.0" prefHeight="418.0" prefWidth="503.0" scaleX="1.0">
+                  <children>
+                    <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                      <GridPane.margin>
+                        <Insets left="5.0" right="10.0" fx:id="x2" />
+                      </GridPane.margin>
+                    </TextField>
+                    <Label prefWidth="81.0" text="Nom" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                      <GridPane.margin>
+                        <Insets left="15.0" fx:id="x1" />
+                      </GridPane.margin>
+                    </Label>
+                    <TextField prefWidth="200.0" GridPane.columnIndex="1" GridPane.margin="$x2" GridPane.rowIndex="2" />
+                    <Label prefWidth="81.0" text="Type" GridPane.columnIndex="0" GridPane.margin="$x1" GridPane.rowIndex="2" />
+                  </children>
+                  <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="116.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="163.0" minWidth="10.0" prefWidth="163.0" />
+                  </columnConstraints>
+                  <rowConstraints>
+                    <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="120.0" minHeight="10.0" prefHeight="85.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="133.0" minHeight="10.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="77.0" vgrow="SOMETIMES" />
+                    <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
+                  </rowConstraints>
+                </GridPane>
+              </children>
+            </AnchorPane>
+          </content>
+        </Tab>
+        <Tab text="Wagon">
+          <content>
+            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="369.0" prefWidth="503.0" />
+          </content>
+        </Tab>
+      </tabs>
+    </TabPane>
   </children>
   <padding>
     <Insets />
