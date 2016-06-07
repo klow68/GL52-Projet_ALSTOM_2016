@@ -42,7 +42,7 @@
           </menus>
         </MenuBar>
         <Button mnemonicParsing="false" onMouseClicked="#changeText" text="change Texte" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-        <TextArea prefHeight="75.0" prefWidth="313.0" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+        <TextArea id="textArea" fx:id="textAreaP" prefHeight="75.0" prefWidth="313.0" wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
           <GridPane.margin>
             <Insets bottom="5.0" top="5.0" />
           </GridPane.margin>

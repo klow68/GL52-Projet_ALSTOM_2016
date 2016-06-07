@@ -18,15 +18,14 @@ public class HelloWorldView implements FxmlView<HelloWorldViewModel>, Initializa
     private Label helloLabel;
     
     @FXML
-    private TextArea textArea;
+    private TextArea textAreaP;
     
     @FXML
     public void changeText(){
-    	System.out.println(this.textArea.getText());
+    	System.out.println(this.textAreaP.getText());
     	
-    	viewModel.changeText(this.textArea.getText());
+    	viewModel.changeText(this.textAreaP.getText());
     };
-    
     
     @FXML
     private AnchorPane menuViewPane;
