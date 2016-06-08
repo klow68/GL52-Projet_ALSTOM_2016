@@ -4,16 +4,26 @@ public class JsonProperty {
 
 	private Integer id;
 	private Integer idOnglet;
+	private String property;
 	private String type;
 
 	public JsonProperty() {
 
 	}
 
-	public JsonProperty(Integer id, Integer idOnglet, String type) {
+	public JsonProperty(Integer id, Integer idOnglet,String property, String type) {
 		this.id = id;
 		this.idOnglet = idOnglet;
+		this.property = property;
 		this.type = type;
+	}
+
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 	public Integer getId() {

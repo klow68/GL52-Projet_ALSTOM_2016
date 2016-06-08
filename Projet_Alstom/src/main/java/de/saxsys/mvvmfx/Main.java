@@ -1,9 +1,5 @@
 package de.saxsys.mvvmfx;
 
-import InterfaceAdmin.InterfaceAdminView;
-import InterfaceAdmin.InterfaceAdminViewModel;
-import de.saxsys.mvvmfx.FluentViewLoader;
-import de.saxsys.mvvmfx.ViewTuple;
 import de.saxsys.mvvmfx.FluentViewLoader.FxmlViewStep;
 import javafx.application.Application;
 import javafx.scene.Parent;

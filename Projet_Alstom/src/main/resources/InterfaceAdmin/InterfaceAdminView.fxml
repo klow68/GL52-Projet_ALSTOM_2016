@@ -10,7 +10,7 @@
   <children>
     <Pane prefHeight="22.0" prefWidth="333.0">
       <children>
-        <MenuBar layoutX="0.0" layoutY="0.0" prefWidth="502.9999755859375">
+        <MenuBar layoutX="0.0" layoutY="-9.0" prefHeight="31.0" prefWidth="502.9999755859375">
           <menus>
             <Menu mnemonicParsing="false" text="File">
               <items>
@@ -31,7 +31,7 @@
         </MenuBar>
       </children>
     </Pane>
-    <TabPane fx:id="tabPaneAdmin" prefHeight="454.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE" />
+    <TabPane fx:id="tabPaneAdmin" prefHeight="439.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE" />
   </children>
   <padding>
     <Insets />

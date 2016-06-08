@@ -2,7 +2,6 @@ package de.saxsys.mvvmfx;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
 
 public class HelloWorldViewModel implements ViewModel {
 

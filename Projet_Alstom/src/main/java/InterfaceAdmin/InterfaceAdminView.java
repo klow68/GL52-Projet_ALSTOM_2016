@@ -17,8 +17,11 @@ import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import model.json.JsonOnglet;
 import model.json.JsonProperty;
 import model.json.JsonSelect;
@@ -27,6 +30,9 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 	@FXML
 	private TabPane tabPaneAdmin;
+	
+	@FXML
+	private TextField input;
 
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
@@ -59,12 +65,12 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				onglet.setId(Integer.parseInt((String) jsonObject.get("id")));
 				onglet.setOnglet((String) jsonObject.get("onglet"));
 				listeOnglet.add(onglet);
-				System.out.println(onglet.getId());
 			}
 			else if ((String) jsonObject.get("property") != null) {
 				JsonProperty property = new JsonProperty();
 				property.setId(Integer.parseInt((String) jsonObject.get("idOnglet")));
 				property.setIdOnglet(Integer.parseInt((String) jsonObject.get("idOnglet")));
+				property.setProperty((String) jsonObject.get("property"));
 				property.setType((String) jsonObject.get("type"));
 				listeProperty.add(property);
 			}
@@ -87,6 +93,26 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 		for (JsonOnglet onglet : listeOnglet) {
 			Tab tab = new Tab(onglet.getOnglet());
 			tabPaneAdmin.getTabs().add(tab);
+			GridPane grid = new GridPane();
+			int i = 0;
+			for (JsonProperty property : listeProperty) {
+				Label label = new Label(); 
+				label.textProperty().set(property.getProperty());
+				grid.add(label, 0, i);
+				
+				if (property.getType().equals("input")){
+					TextField input = new TextField();
+					grid.add(input, 1, i);
+					this.input = input;
+					input.textProperty().addListener((observable, oldValue, newValue) -> {
+					    System.out.println("textfield changed from " + oldValue + " to " + newValue);
+					});
+				}
+				
+				i++;
+			}
+			tab.setContent(grid);
+			
 		}
 		
 	}
