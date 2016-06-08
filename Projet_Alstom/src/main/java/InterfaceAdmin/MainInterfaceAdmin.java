@@ -1,17 +1,16 @@
-package de.saxsys.mvvmfx;
+package InterfaceAdmin;
 
-import InterfaceAdmin.InterfaceAdminView;
-import InterfaceAdmin.InterfaceAdminViewModel;
+
 import de.saxsys.mvvmfx.FluentViewLoader;
-import de.saxsys.mvvmfx.ViewTuple;
 import de.saxsys.mvvmfx.FluentViewLoader.FxmlViewStep;
+import de.saxsys.mvvmfx.ViewTuple;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-public class Main extends Application {
+public class MainInterfaceAdmin extends Application {
 	public static void main(String... args) {
 		Application.launch(args);
 	}
@@ -21,8 +20,8 @@ public class Main extends Application {
 		try{
 			stage.setTitle("Hello World Application");
 
-			 FxmlViewStep<HelloWorldView, HelloWorldViewModel> view = FluentViewLoader.fxmlView(HelloWorldView.class);
-		     ViewTuple<HelloWorldView, HelloWorldViewModel> viewTuple =	view.load();
+			 FxmlViewStep<InterfaceAdminView, InterfaceAdminViewModel> view = FluentViewLoader.fxmlView(InterfaceAdminView.class);
+		     ViewTuple<InterfaceAdminView, InterfaceAdminViewModel> viewTuple =	view.load();
 
 		    Parent root = viewTuple.getView();
 		    stage.setScene(new Scene(root));

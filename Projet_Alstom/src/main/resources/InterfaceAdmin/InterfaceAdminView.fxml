@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" cache="false" cacheHint="DEFAULT" depthTest="ENABLE" prefHeight="478.0000999999975" prefWidth="502.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="InterfaceAdmin.InterfaceAdminView">
+  <children>
+    <Pane prefHeight="22.0" prefWidth="333.0">
+      <children>
+        <MenuBar layoutX="0.0" layoutY="0.0" prefWidth="502.9999755859375">
+          <menus>
+            <Menu mnemonicParsing="false" text="File">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Close" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+      </children>
+    </Pane>
+    <TabPane fx:id="tabPaneAdmin" prefHeight="454.0" prefWidth="503.0" tabClosingPolicy="UNAVAILABLE" />
+  </children>
+  <padding>
+    <Insets />
+  </padding>
+</VBox>
