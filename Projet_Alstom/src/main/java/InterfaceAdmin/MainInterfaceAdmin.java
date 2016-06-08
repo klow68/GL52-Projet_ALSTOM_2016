@@ -1,6 +1,14 @@
 package InterfaceAdmin;
 
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+
+import org.json.simple.parser.ParseException;
+
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.FluentViewLoader.FxmlViewStep;
 import de.saxsys.mvvmfx.ViewTuple;
@@ -11,8 +19,10 @@ import javafx.stage.Stage;
 
 
 public class MainInterfaceAdmin extends Application {
-	public static void main(String... args) {
+	public static void main(String... args) throws FileNotFoundException, IOException, ParseException, URISyntaxException {
 		Application.launch(args);
+		
+		
 	}
 
 	@Override
@@ -26,8 +36,12 @@ public class MainInterfaceAdmin extends Application {
 		    Parent root = viewTuple.getView();
 		    stage.setScene(new Scene(root));
 		    stage.show();
+		    
+		    
 		}catch(Exception e){
 			System.out.println(e.toString());
 		}
+		
+		
 	}
 }
