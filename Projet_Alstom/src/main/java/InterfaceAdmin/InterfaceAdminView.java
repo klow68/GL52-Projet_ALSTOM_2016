@@ -17,8 +17,12 @@ import org.json.simple.parser.ParseException;
 
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -34,14 +38,22 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 	private TabPane tabPaneAdmin;
 
 	@FXML
-	private Map<Integer, TextField> map;
+	private Map<Integer, TextField> mapTextField;
+	
+	@FXML
+	private Map<Integer, ChoiceBox<String>> mapChoiceBox;
+	
+	@FXML
+	private Map<Integer, CheckBox> mapCheckBox;
 
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
-		map = new HashMap();
+		mapTextField = new HashMap();
+		mapChoiceBox = new HashMap();
+		mapCheckBox = new HashMap();
 		ArrayList<JsonOnglet> listeOnglet = new ArrayList<>();
 		ArrayList<JsonProperty> listeProperty = new ArrayList<>();
 		ArrayList<JsonSelect> listeSelect = new ArrayList<>();
@@ -104,12 +116,24 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					if (property.getType().equals("input")) {
 						TextField input = new TextField();
 						grid.add(input, 1, i);
-						this.map.put(property.getId(), input);
+						this.mapTextField.put(property.getId(), input);
 
 					} else if (property.getType().equals("select")) {
-
+						ChoiceBox<String> select = new ChoiceBox<>();
+						ObservableList<String> selectlist = FXCollections.observableArrayList();
+						for (JsonSelect selectAttribute : listeSelect) {
+							if (selectAttribute.getIdProperty()==property.getId()){
+								selectlist.add(selectAttribute.getNameSelect());
+							}
+						}
+						select.setItems(selectlist);
+						grid.add(select, 1, i);
+						this.mapChoiceBox.put(property.getId(), select);
+						
 					} else if (property.getType().equals("checkbox")) {
-
+						CheckBox check = new CheckBox();
+						grid.add(check, 1, i);
+						this.mapCheckBox.put(property.getId(), check);
 					}
 
 					i++;
@@ -120,12 +144,13 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 		}
 
 		// Pas besoin de faire de binding il est déjà fait
-		this.map.get(3).textProperty().addListener((observable, oldValue, newValue) -> {
+		this.mapTextField.get(3).textProperty().addListener((observable, oldValue, newValue) -> {
 			System.out.println("textfield changed from " + oldValue + " to " + newValue);
 		});
 		
 		// set liste property/onglet/select dans le vue model
-		
-
+		this.viewModel.setListeOnglet(listeOnglet);
+		this.viewModel.setListeProperty(listeProperty);
+		this.viewModel.setListeSelect(listeSelect);
 	}
 }

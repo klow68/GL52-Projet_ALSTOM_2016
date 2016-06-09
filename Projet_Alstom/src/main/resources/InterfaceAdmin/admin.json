@@ -5,4 +5,5 @@
 ,{"id":"4", "idOnglet":"1", "property":"Type Locomotive", "type":"select"}
 ,{"id":"5", "idProperty":"4", "nameSelect":"Electrique"}
 ,{"id":"6", "idProperty":"4", "nameSelect":"Vapeur"}
+,{"id":"7", "idOnglet":"1", "property":"Est un poney", "type":"checkbox"}
 ]
