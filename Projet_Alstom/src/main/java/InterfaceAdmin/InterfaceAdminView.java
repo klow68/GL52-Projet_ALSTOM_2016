@@ -93,12 +93,6 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				select.setIdProperty(Integer.parseInt((String) jsonObject.get("idProperty")));
 				select.setNameSelect((String) jsonObject.get("nameSelect"));
 				listeSelect.add(select);
-			} else if ((String) jsonObject.get("boolean") != null) {
-				JsonSelect select = new JsonSelect();
-				select.setId(Integer.parseInt((String) jsonObject.get("id")));
-				select.setIdProperty(Integer.parseInt((String) jsonObject.get("idProperty")));
-				select.setNameSelect((String) jsonObject.get("nameSelect"));
-				listeSelect.add(select);
 			}
 		}
 
