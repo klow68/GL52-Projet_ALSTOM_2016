@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import org.json.simple.JSONArray;
@@ -30,15 +32,16 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 	@FXML
 	private TabPane tabPaneAdmin;
-	
+
 	@FXML
-	private TextField input;
+	private Map<Integer, TextField> map;
 
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
 
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
+		map = new HashMap();
 		ArrayList<JsonOnglet> listeOnglet = new ArrayList<>();
 		ArrayList<JsonProperty> listeProperty = new ArrayList<>();
 		ArrayList<JsonSelect> listeSelect = new ArrayList<>();
@@ -59,29 +62,26 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 		for (Object o : a) {
 			JSONObject jsonObject = (JSONObject) o;
-			
+
 			if ((String) jsonObject.get("onglet") != null) {
 				JsonOnglet onglet = new JsonOnglet();
 				onglet.setId(Integer.parseInt((String) jsonObject.get("id")));
 				onglet.setOnglet((String) jsonObject.get("onglet"));
 				listeOnglet.add(onglet);
-			}
-			else if ((String) jsonObject.get("property") != null) {
+			} else if ((String) jsonObject.get("property") != null) {
 				JsonProperty property = new JsonProperty();
-				property.setId(Integer.parseInt((String) jsonObject.get("idOnglet")));
+				property.setId(Integer.parseInt((String) jsonObject.get("id")));
 				property.setIdOnglet(Integer.parseInt((String) jsonObject.get("idOnglet")));
 				property.setProperty((String) jsonObject.get("property"));
 				property.setType((String) jsonObject.get("type"));
 				listeProperty.add(property);
-			}
-			else if ((String) jsonObject.get("nameSelect") != null) {
+			} else if ((String) jsonObject.get("nameSelect") != null) {
 				JsonSelect select = new JsonSelect();
 				select.setId(Integer.parseInt((String) jsonObject.get("id")));
 				select.setIdProperty(Integer.parseInt((String) jsonObject.get("idProperty")));
 				select.setNameSelect((String) jsonObject.get("nameSelect"));
 				listeSelect.add(select);
-			}
-			else if ((String) jsonObject.get("boolean") != null) {
+			} else if ((String) jsonObject.get("boolean") != null) {
 				JsonSelect select = new JsonSelect();
 				select.setId(Integer.parseInt((String) jsonObject.get("id")));
 				select.setIdProperty(Integer.parseInt((String) jsonObject.get("idProperty")));
@@ -89,31 +89,43 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				listeSelect.add(select);
 			}
 		}
-		
+
 		for (JsonOnglet onglet : listeOnglet) {
 			Tab tab = new Tab(onglet.getOnglet());
 			tabPaneAdmin.getTabs().add(tab);
 			GridPane grid = new GridPane();
 			int i = 0;
 			for (JsonProperty property : listeProperty) {
-				Label label = new Label(); 
-				label.textProperty().set(property.getProperty());
-				grid.add(label, 0, i);
-				
-				if (property.getType().equals("input")){
-					TextField input = new TextField();
-					grid.add(input, 1, i);
-					this.input = input;
-					input.textProperty().addListener((observable, oldValue, newValue) -> {
-					    System.out.println("textfield changed from " + oldValue + " to " + newValue);
-					});
+				if (property.getIdOnglet() == onglet.getId()) {
+					Label label = new Label();
+					label.textProperty().set(property.getProperty());
+					grid.add(label, 0, i);
+
+					if (property.getType().equals("input")) {
+						TextField input = new TextField();
+						grid.add(input, 1, i);
+						this.map.put(property.getId(), input);
+
+					} else if (property.getType().equals("select")) {
+
+					} else if (property.getType().equals("checkbox")) {
+
+					}
+
+					i++;
 				}
-				
-				i++;
 			}
 			tab.setContent(grid);
-			
+
 		}
+
+		// Pas besoin de faire de binding il est déjà fait
+		this.map.get(3).textProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("textfield changed from " + oldValue + " to " + newValue);
+		});
 		
+		// set liste property/onglet/select dans le vue model
+		
+
 	}
 }
