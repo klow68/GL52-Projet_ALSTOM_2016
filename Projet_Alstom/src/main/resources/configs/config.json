@@ -1,5 +1,6 @@
 [
     {
+	"id":"8",
         "class":"Loco",
         "label":"Type",
         "type":"combo",
@@ -9,8 +10,9 @@
                 "class":"Loco",
                 "label":"Vapeur",
                 "type":"select",
-                "Stype":[
+		"select":[
                     {
+			"id":"10",
                         "class":"Loco",
                         "label":"CO2",
                         "type":"input"
@@ -21,12 +23,21 @@
                 "id":"2",
                 "class":"Loco",
                 "label":"Electrique",
-                "type":"select"
+                "type":"select",
+		"select":[
+                    {
+			"id":"11",
+                        "class":"Loco",
+                        "label":"36 WATT",
+                        "type":"input"
+                    }
+                ]
             },
-            {}
+            
         ]
     },
     {
+	"id":"9",
         "class":"Loco",
         "label":"masse",
         "type":"input"
