@@ -1,0 +1,34 @@
+[
+    {
+        "class":"Loco",
+        "label":"Type",
+        "type":"combo",
+        "select":[
+            {
+                "id":"1",
+                "class":"Loco",
+                "label":"Vapeur",
+                "type":"select",
+                "Stype":[
+                    {
+                        "class":"Loco",
+                        "label":"CO2",
+                        "type":"input"
+                    }
+                ]
+            },
+            {
+                "id":"2",
+                "class":"Loco",
+                "label":"Electrique",
+                "type":"select"
+            },
+            {}
+        ]
+    },
+    {
+        "class":"Loco",
+        "label":"masse",
+        "type":"input"
+    }
+]

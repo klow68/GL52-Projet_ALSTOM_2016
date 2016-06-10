@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 import org.json.simple.parser.ParseException;
 
+import ModelObject.GestionnaireConfig;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.FluentViewLoader.FxmlViewStep;
 import de.saxsys.mvvmfx.ViewTuple;
@@ -31,6 +32,8 @@ public class MainInterfaceAdmin extends Application {
 			 FxmlViewStep<InterfaceAdminView, InterfaceAdminViewModel> view = FluentViewLoader.fxmlView(InterfaceAdminView.class);
 		     ViewTuple<InterfaceAdminView, InterfaceAdminViewModel> viewTuple =	view.load();
 
+		    GestionnaireConfig GC = new GestionnaireConfig();
+		    GC.run();
 		    Parent root = viewTuple.getView();
 		    stage.setScene(new Scene(root));
 		    stage.show();
