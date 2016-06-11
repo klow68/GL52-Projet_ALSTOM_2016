@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox prefHeight="500.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="DragDrop.DragDropView">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Pane prefHeight="500.0" prefWidth="700.0">
+      <children>
+        <VBox fx:id="vbox" layoutX="0.0" layoutY="25.0" prefHeight="473.0" prefWidth="700.0">
+          <children>
+            <Label fx:id="convoiLabel" prefHeight="45.0" prefWidth="119.0" text="Edition du convoi" />
+            <HBox fx:id="convoiBox" prefHeight="94.0" prefWidth="700.0" style="-fx-border-style: solid ;&#10;    -fx-padding: 15;&#10;    -fx-spacing: 10;" />
+            <Label fx:id="elementsLabel" prefHeight="45.0" prefWidth="150.0" text="Elements disponibles" />
+            <HBox fx:id="elementsBox" prefHeight="129.0" prefWidth="700.0" />
+            <Label fx:id="gestionLabel" text="Gestion" />
+            <HBox fx:id="gestionBox" prefHeight="155.0" prefWidth="700.0" />
+          </children>
+        </VBox>
+        <MenuBar layoutX="0.0" layoutY="1.0" prefWidth="706.9999755859375">
+          <menus>
+            <Menu mnemonicParsing="false" text="File">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Close" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Delete" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+              <items>
+                <MenuItem mnemonicParsing="false" text="About" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+      </children>
+    </Pane>
+  </children>
+</VBox>
