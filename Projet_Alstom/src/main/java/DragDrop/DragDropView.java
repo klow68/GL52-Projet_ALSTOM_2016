@@ -68,6 +68,7 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
     	convoiList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
     	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
     	convoiList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
+    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
 //    	convoiList.add(test);
 
     	elementsList = new ArrayList<DraggableImageView>();
@@ -76,7 +77,7 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
     	elementsList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
     	
     	List<DraggableImageView> gestionList = new ArrayList<DraggableImageView>();
-    	gestionList.add(new DraggableImageView("DragDrop/Images/corbeille.png", ImageViewType.IMAGE, this));
+    	gestionList.add(new DraggableImageView("DragDrop/Images/corbeille.png", ImageViewType.RECYCLE_BIN, this));
     	
     	viewModel.setConvoiList(convoiList);
     	viewModel.setElementsList(elementsList);

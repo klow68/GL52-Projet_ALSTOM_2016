@@ -122,15 +122,36 @@ public class DraggableImageView extends ImageView {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 DraggableImageView source = (DraggableImageView) event.getGestureSource();
+                
+                boolean separator = false;
+                boolean belongsToConvoi = false;
+                
                 if (db.hasImage()) {
                     
                 	System.out.println("HAS IMAGE");
                 	
-                	if(source.getElemType() == ImageViewType.IMAGE) {
-	                    Image temp = source.getImage();
-	                    source.setImage(getImage());
-	                    setImage(temp);
-	                    setElemType(source.getElemType());
+                	if(source.getElemType() == ImageViewType.IMAGE && getElemType() == ImageViewType.RECYCLE_BIN) {
+                		
+                		if(!parent.getElementsBox().getChildren().contains(source)) {
+	                		parent.getConvoiBox().getChildren().remove(parent.getConvoiBox().getChildren().indexOf(source)+1);
+	                		parent.getElementsBox().getChildren().add(source);
+                		}
+                	} else {
+                	
+	                	if(getElemType() == ImageViewType.SEPARATOR) separator = true;
+	                	if(parent.convoiBox.getChildren().contains(source)) belongsToConvoi = true;
+	                	if((source.getElemType() == ImageViewType.IMAGE)) {
+	                		if((separator && !belongsToConvoi) || !separator) {
+			                    Image temp = source.getImage();
+			                    if(separator && source.getElemType() == ImageViewType.IMAGE) {
+			                    	source.setVisible(false);
+			                    } else {
+			                    	source.setImage(getImage());
+			                    }
+			                    setImage(temp);
+			                    setElemType(source.getElemType());
+	                		}
+	                	}
                 	}
                 	
                     success = true;
@@ -142,13 +163,11 @@ public class DraggableImageView extends ImageView {
                 updateRights();
                 updateSize();
                 
-                DraggableImageView here;
-				here = instance;
-
 				System.out.println(parent.convoiBox.getChildren().contains(instance));
-				parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(here), new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
-				parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(here)+1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
-
+				if(separator && !belongsToConvoi) {
+					parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(instance), new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
+					parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(instance)+1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
+				}
                 event.consume();
             }
         });
