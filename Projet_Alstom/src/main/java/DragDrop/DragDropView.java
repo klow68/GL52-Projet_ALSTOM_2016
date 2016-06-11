@@ -10,13 +10,26 @@ import de.saxsys.mvvmfx.InjectViewModel;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 public class DragDropView implements FxmlView<DragDropViewModel>, Initializable  {
 
+	@FXML
+	private Pane pane;
+	
+	@FXML
+	private ScrollPane scrollpane;
+	
 	@FXML
 	private VBox vbox;
 	
@@ -37,6 +50,12 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
     
     @FXML
     private HBox gestionBox;
+    
+    @FXML
+    private Button save;
+    
+    @FXML
+    private Button cancel;
 
     @InjectViewModel
     private DragDropViewModel viewModel;
@@ -47,19 +66,27 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     	
-//    	DraggableImageView test = new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE);
-//    	test.setId("Plus");
-    	
-//    	test.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//            @Override
-//            public void handle(MouseEvent event) {
-////            	List<DraggableImageView> convoiList_temp= new ArrayList<>();
-////            	convoiList_temp.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE));
-////            	convoiBox.getChildren().addAll(convoiList_temp);
-//            	
-////            	convoiBox.getChildren().add(1, new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
-//            }
-//        });
+    	save.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("SAVE THE CONVOI");
+	    		
+	    		List<DraggableImageView> convoiSave = new ArrayList<DraggableImageView>();
+	    		List<Node> convoiNodes = convoiBox.getChildren();
+	    		
+	    		for(Node node : convoiNodes) {
+	    			if(((DraggableImageView) node).getElemType() != ImageViewType.SEPARATOR) convoiSave.add((DraggableImageView) node);
+	    		}
+	    		
+	    		for(DraggableImageView dg : convoiSave) {
+	    			System.out.println(dg.getElemType());
+	    		}
+	    		
+	    		viewModel.setConvoiList(convoiSave);				
+			}
+    		
+		});
         
     	convoiList = new ArrayList<DraggableImageView>();
     	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
@@ -75,9 +102,13 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
     	elementsList.add(new DraggableImageView("DragDrop/Images/voiture.jpg", ImageViewType.IMAGE, this));
     	elementsList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
     	elementsList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
+    	elementsList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
+    	elementsList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
     	
     	List<DraggableImageView> gestionList = new ArrayList<DraggableImageView>();
     	gestionList.add(new DraggableImageView("DragDrop/Images/corbeille.png", ImageViewType.RECYCLE_BIN, this));
+    	
+    	
     	
     	viewModel.setConvoiList(convoiList);
     	viewModel.setElementsList(elementsList);
@@ -94,6 +125,26 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
 		convoiBox.getChildren().add(id-1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
 		convoiBox.getChildren().add(id+1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
 		
+		
+	}
+	
+	@FXML
+	public void saveConvoi() {
+		
+		System.out.println("SAVE THE CONVOI");
+		
+		List<DraggableImageView> convoiSave = new ArrayList<DraggableImageView>();
+		List<Node> convoiNodes = convoiBox.getChildren();
+		
+		for(Node node : convoiNodes) {
+			convoiSave.add((DraggableImageView) node);
+		}
+		
+		for(DraggableImageView dg : convoiSave) {
+			System.out.println(dg.getElemType());
+		}
+		
+		viewModel.setConvoiList(convoiSave);
 		
 	}
 

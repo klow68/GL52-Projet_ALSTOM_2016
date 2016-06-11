@@ -25,7 +25,7 @@ public class MainDragDrop extends Application {
 		    Parent root = viewTuple.getView();
 		    
 		    stage.setScene(new Scene(root));
-		    stage.setMaximized(true);
+//		    stage.setMaximized(true);
 		    stage.show();
 		    
 		}catch(Exception e){

@@ -1,26 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="500.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="DragDrop.DragDropView">
+<VBox prefHeight="800.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="DragDrop.DragDropView">
   <!-- TODO Add Nodes -->
   <children>
-    <Pane prefHeight="500.0" prefWidth="700.0">
+    <Pane prefHeight="800.0" prefWidth="1200.0">
       <children>
-        <VBox fx:id="vbox" layoutX="0.0" layoutY="25.0" prefHeight="473.0" prefWidth="700.0">
-          <children>
-            <Label fx:id="convoiLabel" prefHeight="45.0" prefWidth="119.0" text="Edition du convoi" />
-            <HBox fx:id="convoiBox" prefHeight="94.0" prefWidth="700.0" style="-fx-border-style: solid ;&#10;    -fx-padding: 15;&#10;    -fx-spacing: 10;" />
-            <Label fx:id="elementsLabel" prefHeight="45.0" prefWidth="150.0" text="Elements disponibles" />
-            <HBox fx:id="elementsBox" prefHeight="129.0" prefWidth="700.0" />
-            <Label fx:id="gestionLabel" text="Gestion" />
-            <HBox fx:id="gestionBox" prefHeight="155.0" prefWidth="700.0" />
-          </children>
-        </VBox>
-        <MenuBar layoutX="0.0" layoutY="1.0" prefWidth="706.9999755859375">
+        <ScrollPane fx:id="scrollpane" layoutX="0.0" layoutY="0.0" prefHeight="800.0" prefWidth="1200.0">
+          <content>
+            <VBox fx:id="vbox" prefHeight="776.0" prefWidth="1200.0">
+              <children>
+                <Label fx:id="convoiLabel" prefHeight="45.0" prefWidth="119.0" text="Edition du convoi">
+                  <VBox.margin>
+                    <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
+                  </VBox.margin>
+                </Label>
+                <HBox fx:id="convoiBox" prefHeight="129.0" prefWidth="1200.0" style="-fx-border-style: solid ;&#10;    -fx-padding: 15;&#10;    -fx-spacing: 10;" />
+                <Label fx:id="elementsLabel" prefHeight="45.0" prefWidth="150.0" text="Elements disponibles" VBox.margin="$x1" />
+                <HBox fx:id="elementsBox" prefHeight="129.0" prefWidth="700.0" />
+                <Label fx:id="gestionLabel" text="Gestion" VBox.margin="$x1" />
+                <HBox fx:id="gestionBox" prefHeight="155.0" prefWidth="700.0">
+                  <children>
+                    <Button fx:id="save" mnemonicParsing="false" text="Sauvegarder">
+                      <HBox.margin>
+                        <Insets bottom="150.0" left="15.0" right="15.0" top="15.0" />
+                      </HBox.margin>
+                    </Button>
+                    <Button id="cancel" cancelButton="true" mnemonicParsing="false" text="Annuler">
+                      <HBox.margin>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
+                      </HBox.margin>
+                    </Button>
+                  </children>
+                </HBox>
+              </children>
+            </VBox>
+          </content>
+        </ScrollPane>
+        <MenuBar layoutX="0.0" layoutY="1.0" prefWidth="1199.9999755859376">
           <menus>
             <Menu mnemonicParsing="false" text="File">
               <items>

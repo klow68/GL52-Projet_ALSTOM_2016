@@ -145,6 +145,7 @@ public class DraggableImageView extends ImageView {
 			                    Image temp = source.getImage();
 			                    if(separator && source.getElemType() == ImageViewType.IMAGE) {
 			                    	source.setVisible(false);
+			                    	source.setFitWidth(10);
 			                    } else {
 			                    	source.setImage(getImage());
 			                    }
