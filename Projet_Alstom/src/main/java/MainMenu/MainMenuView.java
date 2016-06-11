@@ -7,6 +7,7 @@ import InterfaceAdmin.InterfaceAdminView;
 import InterfaceAdmin.InterfaceAdminViewModel;
 import InterfaceTech.InterfaceTechView;
 import InterfaceTech.InterfaceTechViewModel;
+import ModelObject.GestionnaireConfig;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -54,7 +55,8 @@ public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable 
 	
 	 
 	public void initialize(URL location, ResourceBundle resources) {
-		
+		 GestionnaireConfig GC = new  GestionnaireConfig();
+		 GC.run();
 	}
 
 }
