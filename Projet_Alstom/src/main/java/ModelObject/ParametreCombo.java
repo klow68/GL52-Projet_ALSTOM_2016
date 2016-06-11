@@ -1,6 +1,10 @@
 package ModelObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class ParametreCombo extends Parametre {
 	
@@ -22,6 +26,31 @@ public class ParametreCombo extends Parametre {
 	}
 	public ArrayList<Parametre> getSelects() {
 		return selects;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void addAllSelect(JSONArray tableau){
+		Iterator<JSONObject> ite = tableau.iterator();
+		int id;
+		String classe;
+		String label;
+		typeParametre typeFils;
+		
+		while(ite.hasNext()){
+			JSONObject job = ite.next();
+			id = Integer.parseInt(job.get("id").toString());
+			classe = job.get("class").toString();
+			label = job.get("label").toString();
+			typeFils = typeParametre.SELECT;
+			
+			//Un select aura toujours un champs input dedans
+			
+			JSONArray heritage = (JSONArray) job.get("select") ;
+			
+			selects.add(new ParametreSelect(id,classe,label,typeFils,heritage));
+			
+			
+		}
 	}
 
 }
