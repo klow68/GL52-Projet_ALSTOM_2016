@@ -17,8 +17,6 @@ import org.json.simple.parser.ParseException;
 
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
-import de.saxsys.mvvmfx.ViewModel;
-import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,8 +25,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -37,9 +33,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import model.json.JsonOnglet;
 import model.json.JsonProperty;
 import model.json.JsonSelect;
@@ -61,7 +55,9 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
+	
+	
+	
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		
@@ -121,6 +117,11 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			tab.setId(String.valueOf(onglet.getId()));
 			tabPaneAdmin.getTabs().add(tab);
 			GridPane grid = new GridPane();
+			grid.setId("gridMain");
+			GridPane gridButton = new GridPane();
+			gridButton.setId("gridButton"+onglet.getOnglet());
+			GridPane gridParam = new GridPane();
+			gridParam.setId("gridParam"+onglet.getOnglet());
 			
 			/*Bouton de choix */
 			Button creer = new Button("Créer");
@@ -150,9 +151,10 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			creer.setId("creer_" + onglet.getOnglet());
 			ouvrir.setId("ouvrir_" + onglet.getOnglet());
 			
-			grid.add(creer, 0, 0);
-			grid.add(ouvrir, 1, 0);
-					
+			grid.add(gridButton, 0, 0);
+			gridButton.add(creer, 0, 0);
+			gridButton.add(ouvrir, 1, 0);
+			grid.add(gridParam, 0, 1);		
 			
 		
 			
@@ -181,9 +183,23 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 		
 		if(id==-1)System.out.println("Erreur interne : onglet non trouvé");
 		else for(Tab tab : tabPaneAdmin.getTabs()){
+			
 			if(tab.getId().equals(String.valueOf(id))){
-				
 				GridPane grid = new GridPane();
+				
+				
+				for (Node n: tab.getContent().lookupAll("GridPane")) {
+					if (n instanceof GridPane) {
+						GridPane gride = (GridPane) n;
+						System.out.println(gride.getId()+" test");
+						if (gride.getId() == "gridParam"+tab.getId()){
+							grid = (GridPane) n;
+							System.out.println("oui");
+						}
+					}
+				}
+				
+				
 				//On refait les boutons
 				
 				/*Bouton de choix */
@@ -276,6 +292,9 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					
 				}
 				tab.setContent(grid);
+
+				
+				
 			}
 		}
 	}
