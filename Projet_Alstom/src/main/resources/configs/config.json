@@ -15,7 +15,8 @@
 			"id":"10",
                         "class":"Loco",
                         "label":"CO2",
-                        "type":"input"
+                        "type":"input",
+			"input":"double"
                     }
                 ]
             },
@@ -29,7 +30,8 @@
 			"id":"11",
                         "class":"Loco",
                         "label":"36 WATT",
-                        "type":"input"
+                        "type":"input",
+			"input":"double"
                     }
                 ]
             },
@@ -40,6 +42,7 @@
 	"id":"9",
         "class":"Loco",
         "label":"masse",
-        "type":"input"
+        "type":"input",
+	"input":"integer"
     }
 ]

@@ -3,14 +3,12 @@ package ModelObject;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import ModelObject.Parametre.typeParametre;
-import ModelObject.ParametreInput.typeInput;
 
 public class GestionnaireConfig {
 	
@@ -44,7 +42,7 @@ public class GestionnaireConfig {
 		for (Object o : a) {
 			JSONObject ob = (JSONObject) o;
 			
-			Parametre para = null;
+			Parametre para;
 			
 			//si l'onglet n'existe pas
 			Onglet onglet = null;
@@ -64,26 +62,16 @@ public class GestionnaireConfig {
 			//On va   de quel type de parametre on traite
 			
 			switch(type){
-			case COMBO:
-				
-				//Idée : on boucle tant que tab
-				//Dans le combo on aura QUE des select
+			case COMBO:				
 				para = new ParametreCombo(id,onglet.getName(),label,typeParametre.COMBO);
-				
-				ArrayList<ParametreSelect> paraSelect = new ArrayList<ParametreSelect>();
-				
+												
 				JSONArray array = (JSONArray) ob.get("select");
-				Iterator<JSONObject> ite = array.iterator();
-				while(ite.hasNext()){
-					JSONObject job = ite.next();
-					if(job.get("type").toString().equals("select"))	System.out.println(job.get("select").toString());
-				}
-			
+				((ParametreCombo) para).addAllSelect(array);
 				
-				
+				onglet.addParametre(para);
 				break;
 			case INPUT:
-				para = new ParametreInput(id,onglet.getName(),label,type,typeInput.INTEGER);
+				para = new ParametreInput(id,onglet.getName(),label,type,ob.get("input").toString());
 				onglet.addParametre(para);
 				break;
 			default:
@@ -96,6 +84,30 @@ public class GestionnaireConfig {
 		}
 		
 		
+		
+	}
+	
+	public void test(){
+		//Bienvenue en enfer
+		
+		Onglet onglet = onglets.get(0);
+		System.out.println("Onglet : " + onglet.getName());
+	//	onglet.getParametres().size();
+		
+		for(Parametre p : onglet.getParametres()){
+			if(p.getTypePara()==typeParametre.COMBO){
+				ParametreCombo combo = (ParametreCombo) p;
+				System.out.println("Combobox : " +combo.getLabel());
+				for(Parametre s : combo.getSelects() ){
+					System.out.println("Select : " +s.getLabel());
+				}
+			}
+			else{
+				ParametreInput input = (ParametreInput)p;
+				System.out.println("input " +input.getLabel());
+				
+			}
+		}
 		
 	}
 	public ArrayList<Onglet> getOnglets() {
