@@ -13,12 +13,13 @@ public class DraggableImageView extends ImageView {
 	
 	private ImageViewType elemType;
 	private DragDropView parent;
+	private DraggableImageView instance;
 	
-	public DraggableImageView(String url, ImageViewType elemType) {
+	public DraggableImageView(String url, ImageViewType elemType, DragDropView parent) {
 		
 		this.elemType = elemType;
-		//this.parent = dragDropView;
-		
+		this.parent = parent;
+		this.instance = this;
 		setImage(new Image(url));
 		
 		updateRights();
@@ -120,12 +121,10 @@ public class DraggableImageView extends ImageView {
                 /* if there is a string data on dragboard, read it and use it */
                 Dragboard db = event.getDragboard();
                 boolean success = false;
-                
+                DraggableImageView source = (DraggableImageView) event.getGestureSource();
                 if (db.hasImage()) {
                     
                 	System.out.println("HAS IMAGE");
-                	
-                	DraggableImageView source = (DraggableImageView) event.getGestureSource();
                 	
                 	if(source.getElemType() == ImageViewType.IMAGE) {
 	                    Image temp = source.getImage();
@@ -143,6 +142,13 @@ public class DraggableImageView extends ImageView {
                 updateRights();
                 updateSize();
                 
+                DraggableImageView here;
+				here = instance;
+
+				System.out.println(parent.convoiBox.getChildren().contains(instance));
+				parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(here), new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
+				parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(here)+1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
+
                 event.consume();
             }
         });
