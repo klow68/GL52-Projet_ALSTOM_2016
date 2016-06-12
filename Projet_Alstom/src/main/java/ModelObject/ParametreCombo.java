@@ -10,26 +10,11 @@ public class ParametreCombo extends Parametre {
 	
 	private ArrayList<Parametre> selects = null;
 
-	public ParametreCombo(int _id, String _classe, String _label, typeParametre _type) {
-		super(_id, _classe, _label, _type);
-		selects = new ArrayList<Parametre>();
-		
-	}
-
-	public void addSelect(Parametre para){
-		if(para.typePara.equals(typeParametre.SELECT)){
-			selects.add(para);
-		}
-		else{
-			System.out.println("Erreur interne : mauvais select");
-		}
-	}
-	public ArrayList<Parametre> getSelects() {
-		return selects;
-	}
-	
 	@SuppressWarnings("unchecked")
-	public void addAllSelect(JSONArray tableau){
+	public ParametreCombo(int _id, String _classe, String _label, typeParametre _type, JSONArray tableau) {
+		super(_id, _classe, _label, _type);
+		
+		selects = new ArrayList<Parametre>();
 		Iterator<JSONObject> ite = tableau.iterator();
 		int id;
 		String classe;
@@ -51,6 +36,39 @@ public class ParametreCombo extends Parametre {
 			
 			
 		}
+		
 	}
 
+	public void addSelect(Parametre para){
+		if(para.typePara.equals(typeParametre.SELECT)){
+			selects.add(para);
+		}
+		else{
+			System.out.println("Erreur interne : mauvais select");
+		}
+	}
+	public ArrayList<Parametre> getSelects() {
+		return selects;
+	}
+	
+	
+	public Parametre getParametre(int id){
+		
+		Parametre tmp = null;
+		
+		for(Parametre p : selects){
+			if(p.getId()==id) {tmp = p;return tmp;}
+			
+			
+			if(p.getTypePara() == typeParametre.COMBO){
+				ParametreCombo pc = (ParametreCombo) p;
+				
+				tmp = pc.getParametre(id);
+			}
+			
+		}
+		return tmp;
+	}
+
+	
 }

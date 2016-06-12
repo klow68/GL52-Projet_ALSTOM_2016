@@ -5,7 +5,7 @@ public abstract class  Parametre{
 	protected int id = -1;
 	protected String classe = null;
 	protected String label = null;
-	enum typeParametre{COMBO,SELECT,INPUT}
+	public enum typeParametre{COMBO,SELECT,INPUT}
 	protected typeParametre typePara = null;
 	
 	public Parametre(int _id, String _classe,String _label,typeParametre _type ){
@@ -42,7 +42,7 @@ public abstract class  Parametre{
 		}
 		return ret;
 	}
-	
+
 
 
 	

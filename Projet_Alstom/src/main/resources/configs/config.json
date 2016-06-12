@@ -17,6 +17,13 @@
                         "label":"CO2",
                         "type":"input",
 			"input":"double"
+                    },
+		    {
+			"id":"10",
+                        "class":"Loco",
+                        "label":"MERDE",
+                        "type":"input",
+			"input":"double"
                     }
                 ]
             },

@@ -2,7 +2,7 @@ package ModelObject;
 
 public class ParametreInput extends Parametre {
 
-	enum typeInput{INTEGER,DOUBLE,STRING}
+	enum typeInput{INTEGER,DOUBLE,STRING,BOOLEAN}
 	private typeInput type = null;
 	
 
@@ -21,6 +21,7 @@ public class ParametreInput extends Parametre {
 		case("double") : return typeInput.DOUBLE;
 		case("integer"): return typeInput.INTEGER;
 		case("string"): return typeInput.STRING;
+		case("boolean"): return typeInput.BOOLEAN;
 		default : 
 			System.out.println("Erreur interne : mauvaise type input"); return null;
 		}

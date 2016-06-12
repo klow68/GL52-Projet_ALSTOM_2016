@@ -2,6 +2,8 @@ package ModelObject;
 
 import java.util.ArrayList;
 
+import ModelObject.Parametre.typeParametre;
+
 public class Onglet {
 	
 	private String name = null;
@@ -25,7 +27,19 @@ public class Onglet {
 		return onglets;
 	}
 
-	
+	public Parametre getParametre(int id){
+		
+		Parametre tmp = null;
+		for(Parametre p : onglets){
+			if(p.getId()==id) tmp = p;;
+			
+			if(p.getTypePara()==typeParametre.COMBO) tmp = ((ParametreCombo)p).getParametre(id);
+			
+			
+		}
+		
+		return tmp;
+	}
 	
 
 }

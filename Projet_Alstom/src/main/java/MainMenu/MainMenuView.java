@@ -8,6 +8,7 @@ import InterfaceAdmin.InterfaceAdminViewModel;
 import InterfaceTech.InterfaceTechView;
 import InterfaceTech.InterfaceTechViewModel;
 import ModelObject.GestionnaireConfig;
+import ObjectData.GestionnaireDonnees;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.FxmlView;
 import de.saxsys.mvvmfx.InjectViewModel;
@@ -58,6 +59,8 @@ public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable 
 		 GestionnaireConfig GC = new  GestionnaireConfig();
 		 GC.run();
 		 //GC.test();
+		 GestionnaireDonnees GD = new GestionnaireDonnees();
+		 GD.run(GC);
 	}
 
 }

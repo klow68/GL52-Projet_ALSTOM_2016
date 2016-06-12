@@ -1,5 +1,6 @@
 package ModelObject;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -7,19 +8,19 @@ import org.json.simple.JSONObject;
 
 public class ParametreSelect extends Parametre {
 	
-	private Parametre paraSelect = null;
+	private ArrayList<Parametre> parametres = null;
 
 
-	public ParametreSelect(int _id, String _classe, String _label, typeParametre _type, Parametre _parametre) {
+	public ParametreSelect(int _id, String _classe, String _label, typeParametre _type, ArrayList<Parametre> _parametres) {
 		super(_id, _classe, _label, _type);
-		paraSelect = _parametre;
+		parametres = _parametres;
 	}
 	public ParametreSelect(int _id, String _classe, String _label, typeParametre _type,JSONArray tableau) {
 		super(_id, _classe, _label, _type);
 		//Nous devons étudier la chose que nous avons recu...
 		
-		//Le tab est composé soit d'un input ou bien d'encore une combobox ...
-		
+		//Le tab est composé des parametres que doit afficher le select une fois choisi 
+		parametres = new ArrayList<Parametre>();
 		@SuppressWarnings("unchecked")
 		Iterator<JSONObject> ite = tableau.iterator();
 		while(ite.hasNext()){
@@ -35,7 +36,7 @@ public class ParametreSelect extends Parametre {
 				classe = job.get("class").toString();
 				label = job.get("label").toString();
 				typo = typeParametre.INPUT;
-				paraSelect = new ParametreInput(id,classe,label,typo,job.get("input").toString());
+				parametres.add( new ParametreInput(id,classe,label,typo,job.get("input").toString()));
 				break;
 			case("combo"):
 				//Un combo ...
@@ -45,8 +46,7 @@ public class ParametreSelect extends Parametre {
 				typo = typeParametre.COMBO;
 				
 				JSONArray tabCombo = (JSONArray) job.get("select");
-				paraSelect = new ParametreCombo(id,classe,label,typo);
-				((ParametreCombo) paraSelect).addAllSelect(tabCombo);
+				parametres.add(new ParametreCombo(id,classe,label,typo,tabCombo));
 				
 				
 				break;
@@ -58,12 +58,9 @@ public class ParametreSelect extends Parametre {
 	}
 
 
-	public Parametre getParaSelect() {
-		return paraSelect;
+	public ArrayList<Parametre> getParametres() {
+		return parametres;
 	}
 	
-	public typeParametre getTypeSelect(){
-		return paraSelect.typePara;
-	}
 
 }

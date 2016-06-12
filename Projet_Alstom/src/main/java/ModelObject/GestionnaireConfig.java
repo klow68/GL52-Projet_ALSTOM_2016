@@ -29,12 +29,13 @@ public class GestionnaireConfig {
 
 		JSONArray a = null;
 		
+		
+		
 		try {
 			a = (JSONArray) parser.parse(new FileReader(file));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 		//Nous allons parcourir chaque ligne du fichier selon une procédure
 		
 		//1er On récupère tous les onglets
@@ -63,10 +64,7 @@ public class GestionnaireConfig {
 			
 			switch(type){
 			case COMBO:				
-				para = new ParametreCombo(id,onglet.getName(),label,typeParametre.COMBO);
-												
-				JSONArray array = (JSONArray) ob.get("select");
-				((ParametreCombo) para).addAllSelect(array);
+				para = new ParametreCombo(id,onglet.getName(),label,typeParametre.COMBO,(JSONArray)ob.get("select"));
 				
 				onglet.addParametre(para);
 				break;
@@ -100,6 +98,10 @@ public class GestionnaireConfig {
 				System.out.println("Combobox : " +combo.getLabel());
 				for(Parametre s : combo.getSelects() ){
 					System.out.println("Select : " +s.getLabel());
+					ParametreSelect sq = (ParametreSelect) s;
+					for(Parametre q : sq.getParametres()){
+						System.out.println(q.getLabel());
+					}
 				}
 			}
 			else{
@@ -129,6 +131,20 @@ public class GestionnaireConfig {
 		return null;
 	}
 	
+	public Parametre getParametre(int id){
+		
+		Parametre tmp = null;
+		for(Onglet o : onglets){
+			
+			for(Parametre p : o.getParametres()){
+				if(p.getId()==id){ tmp = p;return tmp;}
+				
+				if(p.getTypePara()==typeParametre.COMBO) tmp = ((ParametreCombo) p).getParametre(id);
+			}
+		}
+		
+		return tmp;
+	}
 	
 	
 
