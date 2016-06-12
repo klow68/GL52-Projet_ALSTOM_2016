@@ -28,6 +28,7 @@
 					"id":"12",
 				        "class":"Loco",
 				        "label":"CO2",
+<<<<<<< HEAD
 				        "type":"select"
 					
                     		},
@@ -37,6 +38,10 @@
 				        "label":"CO2",
 				        "type":"select"
 					
+=======
+				        "type":"select",
+					"input":"double"
+>>>>>>> branch 'master' of https://github.com/klow68/GL52-Projet_ALSTOM_2016.git
                     		}
 			]
                     }
