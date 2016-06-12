@@ -1,7 +1,7 @@
 [{
 	"typeObject":"Loco",
 	"idObject":"1",
-	"data":[{"idConfig":"8","values":"1"},{"idConfig":"1","values":"13,54"}]
+	"data":[{"idConfig":"8","values":"1"},{"idConfig":"10","values":"13.54"}]
 	
 }
 ]

@@ -2,7 +2,7 @@ package ModelObject;
 
 public class ParametreInput extends Parametre {
 
-	enum typeInput{INTEGER,DOUBLE,STRING,BOOLEAN}
+	public enum typeInput{INTEGER,DOUBLE,STRING,BOOLEAN}
 	private typeInput type = null;
 	
 

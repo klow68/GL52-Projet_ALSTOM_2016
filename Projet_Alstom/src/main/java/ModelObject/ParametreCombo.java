@@ -20,17 +20,15 @@ public class ParametreCombo extends Parametre {
 		String classe;
 		String label;
 		typeParametre typeFils;
-		
 		while(ite.hasNext()){
 			JSONObject job = ite.next();
 			id = Integer.parseInt(job.get("id").toString());
 			classe = job.get("class").toString();
 			label = job.get("label").toString();
 			typeFils = typeParametre.SELECT;
-			
-			//Un select aura toujours un champs input dedans
-			
-			JSONArray heritage = (JSONArray) job.get("select") ;
+			JSONArray heritage = null;
+			if(job.get("select")!=null)  heritage = (JSONArray) job.get("select") ;
+			else heritage = new JSONArray();
 			
 			selects.add(new ParametreSelect(id,classe,label,typeFils,heritage));
 			
@@ -53,9 +51,7 @@ public class ParametreCombo extends Parametre {
 	
 	
 	public Parametre getParametre(int id){
-		
 		Parametre tmp = null;
-		
 		for(Parametre p : selects){
 			if(p.getId()==id) {tmp = p;return tmp;}
 			
@@ -64,6 +60,13 @@ public class ParametreCombo extends Parametre {
 				ParametreCombo pc = (ParametreCombo) p;
 				
 				tmp = pc.getParametre(id);
+				if(tmp!=null)return tmp;
+			}
+			if(p.getTypePara() == typeParametre.SELECT){
+				ParametreSelect pc = (ParametreSelect) p;
+				
+				tmp = pc.getParametre(id);
+				if(tmp!=null)return tmp;
 			}
 			
 		}

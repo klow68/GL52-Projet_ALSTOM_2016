@@ -40,11 +40,12 @@ public class GestionnaireDonnees {
 		}
 		
 		for (Object o : a) {
-			//On parcours chaque objet qui peut etre loco/wagon
+			//On parcourt chaque objet qui peut etre loco/wagon
 			JSONObject ob = (JSONObject) o;
-			System.out.println(o.toString());
+			
 			String typeObject = ob.get("typeObject").toString();
 			int idObject = Integer.parseInt(ob.get("idObject").toString());
+			
 			ObjectClass objet = new ObjectClass(idObject,typeObject);
 			
 			
@@ -57,15 +58,30 @@ public class GestionnaireDonnees {
 				
 				//On regarde à quoi correspond l'ID
 				Parametre p = GC.getParametre(idData);
-				System.out.println(p.getLabel());
 				if(p.getTypePara()==typeParametre.COMBO){
 					//On s'attend à avoir un autre parametre contenant l'id du select
 					int idReference = Integer.parseInt(job.get("idConfig").toString());
-					
+					objet.addData(new DataObject(idReference,p));
+				}
+				else{
+					objet.addData(new DataObject(job.get("values"),p));
 				}
 			}
-			
+			objets.add(objet);
 		}
+	}
+	
+	public void test(){
+		//SEULE TA FOI T AIDERA MON FILS
+		
+		for(ObjectClass oc : getObjets()){
+			//T ES ENCORE EN VIE MECREANT ?
+			for(DataObject dob : oc.getDonnees()){
+				System.out.println(dob.getValue());
+				//BAM T MORT !
+			}
+		}
+		
 	}
 	
 

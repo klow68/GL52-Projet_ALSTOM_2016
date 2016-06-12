@@ -132,7 +132,6 @@ public class GestionnaireConfig {
 	}
 	
 	public Parametre getParametre(int id){
-		
 		Parametre tmp = null;
 		for(Onglet o : onglets){
 			
@@ -140,9 +139,9 @@ public class GestionnaireConfig {
 				if(p.getId()==id){ tmp = p;return tmp;}
 				
 				if(p.getTypePara()==typeParametre.COMBO) tmp = ((ParametreCombo) p).getParametre(id);
+				if(tmp != null)return tmp;
 			}
 		}
-		
 		return tmp;
 	}
 	

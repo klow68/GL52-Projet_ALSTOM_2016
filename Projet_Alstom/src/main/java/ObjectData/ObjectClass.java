@@ -26,4 +26,8 @@ public class ObjectClass {
 		return typeClass;
 	}
 	
+	public void addData(DataObject da){
+		donnees.add(da);
+	}
+	
 }
