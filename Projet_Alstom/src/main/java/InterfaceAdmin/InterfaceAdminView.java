@@ -139,60 +139,85 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 	}
 
+	private int numGridi;
+
 	// num grid strat à 2 pour correspondre à la grid de Param
-	private void traitementParametre(ArrayList<Parametre> listeParam, GridPane grid, GridPane gridMain, int numGrid) {
+	private void traitementParametre(ArrayList<Parametre> listeParam, GridPane grid, GridPane gridMain, int numGrid, Tab tab) {
 		int i = 0;
+		numGridi = numGrid;
 		for (Parametre param : listeParam) {
 			Label label = new Label(param.getLabel());
-			if (param.getTypePara()==typeParametre.INPUT) {
-				//TODO if boolean 
-				
+			if (param.getTypePara() == typeParametre.INPUT) {
+				// TODO if boolean
+
 				ParametreInput paramI = (ParametreInput) param;
 				TextField input = new TextField();
 				// afin de pouvoir le récuperé plus tard
 				input.setId(Integer.toString(param.getId()));
 				grid.add(input, 1, i);
-//			} else if (param.getTypePara()==typeParametre.CHECK) {
-//				// ParametreCheck paramC = (ParametreCheck) param;
-//				CheckBox check = new CheckBox();
-//				check.setId(Integer.toString(param.getId()));
-//
-//				// TODO Sous-type
-//				
-//				grid.add(check, 1, i);
-			} else if (param.getTypePara()==typeParametre.COMBO) {
+				// } else if (param.getTypePara()==typeParametre.CHECK) {
+				// // ParametreCheck paramC = (ParametreCheck) param;
+				// CheckBox check = new CheckBox();
+				// check.setId(Integer.toString(param.getId()));
+				//
+				// // TODO Sous-type
+				//
+				// grid.add(check, 1, i);
+			} else if (param.getTypePara() == typeParametre.COMBO) {
 				ParametreCombo paramCombo = (ParametreCombo) param;
 				ChoiceBox<String> combo = new ChoiceBox<>();
 				combo.setId(Integer.toString(paramCombo.getId()));
-				
+
 				ObservableList<String> selectlist = FXCollections.observableArrayList();
 				for (Parametre selectAttribute : paramCombo.getSelects()) {
 					ParametreSelect paramS = (ParametreSelect) selectAttribute;
+
+					// ArrayList<Parametre> list = paramS.getParametres();
+					// for (Parametre parametre : list) {
+					//
+					// }
 					selectlist.add(paramS.getLabel());
+					// System.out.println(paramS.getLabel());
 				}
 				combo.setItems(selectlist);
-				
-				
+
 				// for Sparam
 				combo.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 					public void changed(ObservableValue ov, Number value, Number new_value) {
+						int j = 0;
+						// foreach des select
 						for (Parametre selectAttribute : paramCombo.getSelects()) {
+
 							ParametreSelect paramS = (ParametreSelect) selectAttribute;
-							// if subParam
-							// create GridPane gridSub
-							// id de la grid
-							// traitementParametre(listeParam, gridSub, gridMain, numGrid++); 
-							// DEMANDER A LAKEU
-							// COMMENT ON RECUPERE LES SOUS PARAMATRE
+
+							GridPane gridSub = new GridPane();
+							if (new_value.intValue() == j) {
+								
+								gridSub.setId(paramS.getId() + "Sub");
+								traitementParametre(paramS.getParametres(), gridSub, gridMain, numGridi + 1, tab);
+							}else{
+								for (Node n : tab.getContent().lookupAll("GridPane")) {
+									if (n instanceof GridPane) {
+										GridPane gride = (GridPane) n;
+										if (gride.getId().equals(paramS.getId() + "Sub")) {
+											((GridPane) n).getChildren().clear();
+										}
+									}
+								}
+							}
+							j++;
 						}
 					}
 				});
 				grid.add(combo, 1, i);
 			}
-			
+
 			// grid add element
 			grid.add(label, 0, i);
 			i++;
+		}
+		if (numGridi != 2) {
+			gridMain.add(grid, 0, numGridi);
 		}
 	}
 
@@ -210,7 +235,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			}
 		}
 
-		traitementParametre(onglet.getParametres(), grid, gridMain, 2);
+		traitementParametre(onglet.getParametres(), grid, gridMain, 2, tab);
 
 		// String[] tabTmp = idButton.split("_");
 		// int id = viewModel.getIdOnglet(tabTmp[1]);

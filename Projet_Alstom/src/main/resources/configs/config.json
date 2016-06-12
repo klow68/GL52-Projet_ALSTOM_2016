@@ -28,7 +28,7 @@
 					"id":"12",
 				        "class":"Loco",
 				        "label":"CO2",
-				        "type":"input",
+				        "type":"select",
 					"input":"double"
                     		}
 			]
