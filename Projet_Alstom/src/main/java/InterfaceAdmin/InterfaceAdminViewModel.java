@@ -10,6 +10,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import ModelObject.GestionnaireConfig;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewModel;
 import de.saxsys.mvvmfx.ViewTuple;
@@ -29,8 +30,14 @@ public class InterfaceAdminViewModel implements ViewModel {
 	private ArrayList<JsonOnglet> listeOnglet;
 	private ArrayList<JsonSelect> listeSelect;
 	
+	private GestionnaireConfig gestionaire;
+
 	public InterfaceAdminViewModel(){
-		
+		gestionaire = new GestionnaireConfig();
+	}
+	
+	public GestionnaireConfig getGestionaire() {
+		return gestionaire;
 	}
 
 	public void setListeProperty(ArrayList<JsonProperty> listeProperty) {
@@ -45,14 +52,14 @@ public class InterfaceAdminViewModel implements ViewModel {
 		this.listeSelect = listeSelect;
 	}
 	
-	public Integer getIdOnglet(String labelOnglet){
-		
-		int id = -1;
-		for (JsonOnglet onglet : listeOnglet){
-			if( onglet.getOnglet().equals(labelOnglet)) id = onglet.getId();
-		}
-		return id;
-	}
+//	public Integer getIdOnglet(String labelOnglet){
+//		
+//		int id = -1;
+//		for (JsonOnglet onglet : listeOnglet){
+//			if( onglet.getOnglet().equals(labelOnglet)) id = onglet.getId();
+//		}
+//		return id;
+//	}
 
 	public ArrayList<JsonProperty> getListeProperty() {
 		return listeProperty;
