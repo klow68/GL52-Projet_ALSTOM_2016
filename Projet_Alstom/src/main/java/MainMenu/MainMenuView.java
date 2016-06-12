@@ -58,7 +58,7 @@ public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable 
 	public void initialize(URL location, ResourceBundle resources) {
 		 GestionnaireConfig GC = new  GestionnaireConfig();
 		 GC.run();
-		 //GC.test();
+		 GC.test();
 		 GestionnaireDonnees GD = new GestionnaireDonnees();
 		 GD.run(GC);
 	}
