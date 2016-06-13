@@ -11,6 +11,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import ModelObject.GestionnaireConfig;
+import ObjectData.GestionnaireDonnees;
 import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewModel;
 import de.saxsys.mvvmfx.ViewTuple;
@@ -31,9 +32,16 @@ public class InterfaceAdminViewModel implements ViewModel {
 	private ArrayList<JsonSelect> listeSelect;
 	
 	private GestionnaireConfig gestionaire;
+	
+	private GestionnaireDonnees gestionaireDonnees;
 
 	public InterfaceAdminViewModel(){
 		gestionaire = new GestionnaireConfig();
+		gestionaireDonnees = new GestionnaireDonnees();
+	}
+	
+	public GestionnaireDonnees getGestionaireDonnees() {
+		return gestionaireDonnees;
 	}
 	
 	public GestionnaireConfig getGestionaire() {
