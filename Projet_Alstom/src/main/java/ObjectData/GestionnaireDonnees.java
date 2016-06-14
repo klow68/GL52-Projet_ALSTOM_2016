@@ -34,7 +34,7 @@ public class GestionnaireDonnees {
 	
 	public void run(GestionnaireConfig GC){
 		fichier = new File("src/main/resources/data/data.json");
-		
+		objets = new ArrayList<ObjectClass>();
 		this.GC = GC;
 		
 		JSONParser parser = new JSONParser();
@@ -53,8 +53,9 @@ public class GestionnaireDonnees {
 			
 			String typeObject = ob.get("typeObject").toString();
 			int idObject = Integer.parseInt(ob.get("idObject").toString());
+			String URL = ob.get("URLImage").toString();
 			
-			ObjectClass objet = new ObjectClass(idObject,typeObject);
+			ObjectClass objet = new ObjectClass(idObject,typeObject,URL);
 			
 			
 			JSONArray tabDonnees = (JSONArray) ob.get("data");
@@ -99,14 +100,12 @@ public class GestionnaireDonnees {
 		ObjectClass objet = null;
 		int index = 0;
 		String document;
-		System.out.println("Id recue par la fct :   " + id);
 		
 		for(ObjectClass oc : this.objets){
 			if(oc.getId() == id ){
 				existe = true;
 				objet = oc;
 				index = objets.indexOf(oc);
-				System.out.println("ert " + objet.id);
 				break;
 			}
 		}
@@ -117,7 +116,7 @@ public class GestionnaireDonnees {
 				if(id < oc.getId()) id = oc.getId();
 			}
 			id++;
-			objet = new ObjectClass(id,type);			
+			objet = new ObjectClass(id,type,"");			
 			
 		}else{
 			//On mets à jour la liste
@@ -127,6 +126,10 @@ public class GestionnaireDonnees {
 		
 		ArrayList<DataObject> data = new ArrayList<DataObject>();
 
+		for(Entry<Integer, String> ligne : Name.entrySet()){
+			System.out.println(ligne.getKey() + " -> " + ligne.getValue());
+			data.add(new DataObject(ligne.getValue(),GC.getParametre(ligne.getKey())));
+		}
 		
 		for(Entry<Integer, String> ligne : donnees.entrySet()){
 			data.add(new DataObject(ligne.getValue(),GC.getParametre(ligne.getKey())));
@@ -139,6 +142,7 @@ public class GestionnaireDonnees {
 			
 			document += "{\"typeObject\":\"" + o.getTypeClass() + "\"\n,";
 			document += "\"idObject\":\"" + o.getId() + "\"\n,";
+			document += "\"URLImage\":\"" + o.getURL() + "\"\n,";
 			document += "\"data\"\n:[";
 			for(DataObject d : o.getDonnees()){
 				document += "{\"idConfig\":\"" + d.getParametre().getId() + "\",";
@@ -159,6 +163,15 @@ public class GestionnaireDonnees {
 		}
 		
 
+	}
+	
+	public ObjectClass getObject(int id){
+		
+		ObjectClass o = null;
+		for(ObjectClass ite : objets){
+			if(ite.getId()==id) o =ite;
+		}
+		return o;
 	}
 
 	
