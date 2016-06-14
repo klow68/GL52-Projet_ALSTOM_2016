@@ -81,22 +81,7 @@ public class InterfaceAdminViewModel implements ViewModel {
 		return listeSelect;
 	}
 	
-	public void rechercheToutObjetBDD(String type){
-		//NE PAS APPELER SINON BOUM TOUT EXPLOSE ET TU MEURS DU DECES !
-		File file = new File("src/main/resources/InterfaceAdmin/"+type+".json");
-		JSONParser parser = new JSONParser();
-
-		JSONArray a = null;
-		try {
-			a = (JSONArray) parser.parse(new FileReader(file));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
+	
 	
 	
 }

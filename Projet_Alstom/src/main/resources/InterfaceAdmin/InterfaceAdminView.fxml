@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" cache="false" cacheHint="DEFAULT" depthTest="ENABLE" prefHeight="478.0000999999975" prefWidth="502.0000999999975" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="InterfaceAdmin.InterfaceAdminView">
+
+<VBox alignment="CENTER" cache="false" cacheHint="DEFAULT" depthTest="ENABLE" prefHeight="478.0000999999975" prefWidth="502.0000999999975" styleClass="" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="InterfaceAdmin.InterfaceAdminView">
   <children>
     <Pane prefHeight="22.0" prefWidth="333.0">
       <children>
@@ -36,4 +38,7 @@
   <padding>
     <Insets />
   </padding>
+  <stylesheets>
+    <URL value="@InterfaceAdminView.css" />
+  </stylesheets>
 </VBox>

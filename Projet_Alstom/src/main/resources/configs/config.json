@@ -64,8 +64,8 @@
     {
 	"id":"9",
         "class":"Loco",
-        "label":"masse",
+        "label":"nom de ta mère",
         "type":"input",
-	"input":"integer"
+	"input":"string"
     }
 ]

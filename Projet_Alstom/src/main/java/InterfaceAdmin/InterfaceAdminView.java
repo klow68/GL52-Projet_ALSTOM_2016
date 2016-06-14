@@ -256,6 +256,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 		numGridi = numGrid;
 		for (Parametre param : listeParam) {
 			Label label = new Label(param.getLabel() + " : ");
+
 			if (param.getTypePara() == typeParametre.INPUT) {
 
 				ParametreInput paramI = (ParametreInput) param;
@@ -339,7 +340,6 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				});
 				grid.add(combo, 1, i);
 			}
-
 			// grid add element
 			grid.add(label, 0, i);
 			i++;

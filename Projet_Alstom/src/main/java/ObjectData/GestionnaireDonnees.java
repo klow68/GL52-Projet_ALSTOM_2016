@@ -3,6 +3,7 @@ package ObjectData;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -60,7 +61,7 @@ public class GestionnaireDonnees {
 				Parametre p = GC.getParametre(idData);
 				if(p.getTypePara()==typeParametre.COMBO){
 					//On s'attend à avoir un autre parametre contenant l'id du select
-					// J'ai changer par value -.-
+					// J'ai changé par value -.-
 					int idReference = Integer.parseInt(job.get("values").toString());
 					objet.addData(new DataObject(idReference,p));
 				}
@@ -82,6 +83,10 @@ public class GestionnaireDonnees {
 				//BAM T MORT !
 			}
 		}
+		
+	}
+	
+	public void sauvegarde(int id, String type, HashMap<Integer,String> donnees){
 		
 	}
 	
