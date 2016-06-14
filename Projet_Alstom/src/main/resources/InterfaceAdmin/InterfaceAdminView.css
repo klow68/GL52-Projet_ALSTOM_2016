@@ -748,7 +748,7 @@ GridPane{
 	-fx-background-color: -swatch-toolbar;
 	-fx-border-width: 0 0 2 0;
 	-fx-border-color: -swatch-grey;
-	-fx-min-height: 48;
+
 	-fx-alignment: CENTER_LEFT;
 }
 

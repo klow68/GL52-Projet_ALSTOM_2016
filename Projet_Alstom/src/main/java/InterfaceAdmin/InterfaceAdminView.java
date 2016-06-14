@@ -1,6 +1,5 @@
 package InterfaceAdmin;
 
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -84,9 +84,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			for (ObjectClass objectC : gestionnaireData.getObjets()) {
 				if (objectC.getTypeClass().equals(tab.getText())) {
 					cbList.add(objectC.getDonnees().get(0).getValue());
-					// TODO change to ID
 					idList.add((Integer) objectC.getId());
-					System.out.println(objectC.getId());
 				}
 			}
 
@@ -301,7 +299,11 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 			grid.add(gridParam, 0, 1);
 
-			tab.setContent(grid);
+			ScrollPane sp = new ScrollPane();
+			sp.setFitToWidth(true);
+			sp.setContent(grid);
+			//grid.add(sp, 0, 1);
+			tab.setContent(sp);
 
 		}
 
@@ -333,8 +335,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 								gridSub.setId(check.getId() + "Sub");
 								// TODO
-								// traitementParametre(check.getParametres(),
-								// gridSub, gridMain, numGridi + 1, tab);
+//								 traitementParametre(check.getParametres(), gridSub, gridMain, numGridi + 1, tab);
 							} else {
 								for (Node n : tab.getContent().lookupAll("GridPane")) {
 									if (n instanceof GridPane) {
