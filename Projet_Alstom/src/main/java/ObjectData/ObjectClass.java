@@ -29,5 +29,8 @@ public class ObjectClass {
 	public void addData(DataObject da){
 		donnees.add(da);
 	}
+	public void setParametres(ArrayList<DataObject> _donnees){
+		donnees = _donnees;
+	}
 	
 }

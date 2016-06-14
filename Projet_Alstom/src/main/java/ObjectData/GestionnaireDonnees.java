@@ -2,8 +2,11 @@ package ObjectData;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -18,6 +21,8 @@ public class GestionnaireDonnees {
 	ArrayList<ObjectClass> objets;
 	File fichier;
 	
+	GestionnaireConfig GC = null;
+	
 	public GestionnaireDonnees(){
 		objets = new ArrayList<ObjectClass>();
 		
@@ -29,6 +34,8 @@ public class GestionnaireDonnees {
 	
 	public void run(GestionnaireConfig GC){
 		fichier = new File("src/main/resources/data/data.json");
+		
+		this.GC = GC;
 		
 		JSONParser parser = new JSONParser();
 
@@ -87,7 +94,67 @@ public class GestionnaireDonnees {
 	}
 	
 	public void sauvegarde(int id, String type, HashMap<Integer,String> donnees){
+		boolean existe = false;
+		ObjectClass objet = null;
+		int index = 0;
+		String document;
 		
+		for(ObjectClass oc : this.objets){
+			if(oc.getId() == id ){
+				existe = true;
+				objet = oc;
+				index = objets.indexOf(oc);
+			}
+		}
+		
+
+		if(!existe){
+			//On le crée
+			for(ObjectClass oc : objets){
+				if(id < oc.getId()) id = oc.getId();
+			}
+			id++;
+			objet = new ObjectClass(id,type);			
+			
+		}else{
+			//On mets à jour la liste
+			objets.remove(index);
+		}
+		
+		ArrayList<DataObject> data = new ArrayList<DataObject>();
+		for(Entry<Integer, String> ligne : donnees.entrySet()){
+			//System.out.println(ligne.getKey() + " -> "+ligne.getValue());
+			data.add(new DataObject(ligne.getValue(),GC.getParametre(ligne.getKey())));
+		}
+		objet.setParametres(data);
+		
+		objets.add(objet);
+		
+		document = "[";
+		for(ObjectClass o : objets){
+			
+			document += "{\"typeObject\":\"" + o.getTypeClass() + "\",";
+			document += "\"idObject\":\"" + o.getId() + "\",";
+			document += "\"data\":[";
+			for(DataObject d : o.getDonnees()){
+				document += "{\"idConfig\":\"" + d.getParametre().getId() + "\",";
+				document += "\"values\":\"" + d.getValue() + "\"},";
+			}
+			document += "]},";
+			
+		}
+		document += "]";
+		FileWriter writer;
+		try {
+			writer = new FileWriter(fichier);
+			writer.write(document);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+
 	}
 	
 

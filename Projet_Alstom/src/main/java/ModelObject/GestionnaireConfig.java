@@ -89,24 +89,24 @@ public class GestionnaireConfig {
 		//Bienvenue en enfer
 		
 		Onglet onglet = onglets.get(0);
-		System.out.println("Onglet : " + onglet.getName());
+		//System.out.println("Onglet : " + onglet.getName());
 	//	onglet.getParametres().size();
 		
 		for(Parametre p : onglet.getParametres()){
 			if(p.getTypePara()==typeParametre.COMBO){
 				ParametreCombo combo = (ParametreCombo) p;
-				System.out.println("Combobox : " +combo.getLabel());
+				//System.out.println("Combobox : " +combo.getLabel());
 				for(Parametre s : combo.getSelects() ){
-					System.out.println("Select : " +s.getLabel());
+					//System.out.println("Select : " +s.getLabel());
 					ParametreSelect sq = (ParametreSelect) s;
 					for(Parametre q : sq.getParametres()){
-						System.out.println(q.getLabel());
+						//System.out.println(q.getLabel());
 					}
 				}
 			}
 			else{
 				ParametreInput input = (ParametreInput)p;
-				System.out.println("input " +input.getLabel());
+				//System.out.println("input " +input.getLabel());
 				
 			}
 		}

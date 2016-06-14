@@ -210,7 +210,13 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 								Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
 								System.out.println("id: " + p.getId() + " | value : " + ((ChoiceBox) n).getValue());
 								if (null != ((ChoiceBox) n).getValue()) {
-									map.put(p.getId(), ((ChoiceBox) n).getValue().toString());
+									int id = -1;
+									for (Parametre param : ((ParametreCombo)p).getSelects()) {
+										if(param.getLabel().equals(((ChoiceBox) n).getValue().toString())){
+											id = param.getId();
+										}
+									}
+									map.put(p.getId(), Integer.toString(id));
 								} else {
 									AsChampNull = true;
 								}
