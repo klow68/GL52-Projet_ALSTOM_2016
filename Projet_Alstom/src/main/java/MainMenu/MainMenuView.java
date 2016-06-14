@@ -61,7 +61,7 @@ public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable 
 		//GC.test();
 		 GestionnaireDonnees GD = new GestionnaireDonnees();
 		 GD.run(GC);
-		 GD.test();
+		 //GD.test();
 	}
 
 }

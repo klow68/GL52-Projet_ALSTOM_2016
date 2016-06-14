@@ -176,7 +176,6 @@ public class GestionnaireDonnees {
 		try {
 			convoiFile.createNewFile();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -224,7 +223,7 @@ public class GestionnaireDonnees {
 		
 		List<Integer> elementsIds = new ArrayList<Integer>();
 		
-		String nomConvoi = a.get("nomConvoi").toString();
+		//String nomConvoi = a.get("nomConvoi").toString();
 		
 		JSONArray tabDonnees = (JSONArray) a.get("elements");
 		for(Object obj : tabDonnees){
@@ -236,6 +235,48 @@ public class GestionnaireDonnees {
 		return elementsIds;
 	}
 
+	public void exporterObjet(int id){
+		String chaineFichier ;
+		String document;
+		
+		ObjectClass objet = this.getObject(id);
+		chaineFichier = objet.getId()+"-"+objet.getDonnees().get(0).getValue();
+		File file = new File("src/main/resources/Export/"+chaineFichier+".json");
 	
+		document= "[{";
+		document += "\"name\":\""+objet.getDonnees().get(0).getValue()+"\",";
+		document += "\"id\":\""+objet.getId()+"\",";
+		document +=  "\"typeObject\":\""+objet.getTypeClass()+"\",";
+		document +=  "\"URL\":\""+objet.getURL()+"\",";
+		document +=  "\"data\":[";
+		for(DataObject data : objet.getDonnees()){
+			document +=  "{\"inputName\":\""+data.getParametre().getLabel()+"\",";
+			document +=  "\"inputType\":\""+data.getParametre().getTypePara()+"\",";
+			document +=  "\"inputId\":\""+data.getParametre().getId()+"\",";
+			if(data.getParametre().getTypePara()==typeParametre.COMBO){
+				document +=  "\"inputValue\":\""+GC.getParametre( (Integer) data.getValue()).getLabel() +"\"}";
+			}else{
+				document +=  "\"inputValue\":\""+data.getValue()+"\"}";
+			}	
+			document += ",";
+		}
+		
+		document += "]}]";
+		
+		FileWriter writer;
+		try {
+			writer = new FileWriter(file);
+			writer.write(document);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void importerObject(String URL){
+		
+	}
 
 }
