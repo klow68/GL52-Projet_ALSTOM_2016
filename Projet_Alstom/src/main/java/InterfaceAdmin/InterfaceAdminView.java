@@ -173,7 +173,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 												}
 											}
 										}
-
+										fileImage.setText(objectD.getURL());
 										// ********************************
 
 									}
@@ -227,13 +227,25 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 						String name = selectedFile.getName();
 						if (name.substring(name.lastIndexOf(".") + 1).equals("json")) {
 							error.setText("");
-							// ajouter 
-							gestionnaireData.importerObject(selectedFile.getPath());
+							// ajouter
+							int id = gestionnaireData.importerObject(selectedFile.getPath());
 							// refresh data
 							gestionnaireData.run(viewModel.getGestionaire());
+							// afficher les valeur a remplir
+							afficherOnglet(tab, onglet);
+							
 							// modifier la selection de cb
 							// avec la val ajouter
+							ObjectClass oc = gestionnaireData.getObject(id);
+
+							if (oc.getTypeClass().equals(tab.getText())) {
+								cbList.add(oc.getDonnees().get(0).getValue());
+								idList.add((Integer) oc.getId());
+							}
+							cb .getItems().add(oc.getDonnees().get(0).getValue());
+							cb.setValue(oc.getDonnees().get(0).getValue());
 							
+
 						} else {
 							error.setText("Erreur : le fichier n'est pas un fichier json");
 						}
@@ -297,7 +309,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 						if (n instanceof TextField) {
 							n.getId();
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-							if (null != ((TextField) n).getText()) {
+							if (null != ((TextField) n).getText() && !((TextField) n).getText().equals("")) {
 								String[] toAdd = { Integer.toString(p.getId()), ((TextField) n).getText() };
 								textResult.add(toAdd);
 							} else {
@@ -352,14 +364,14 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 					if (!AsChampNull && !UrlImage.equals("")) {
 						error.setText("");
-						 gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), UrlImage, saveResult);
+						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), UrlImage, saveResult);
 					} else {
 						// do something to show the user is a fool
 						String s = "Erreur : ";
 						if (UrlImage.equals("")) {
 							s = "Il manque l'image. ";
 						}
-						if(AsChampNull){
+						if (AsChampNull) {
 							s += "Un des champs n'est pas remplie. ";
 						}
 						error.setText(s);
@@ -387,9 +399,9 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			gridButton.add(importB, 7, 0);
 
 			gridButton.add(urlButton, 0, 1);
-			gridButton.add(fileImage, 1, 1);
+			gridButton.add(fileImage, 1, 1, 6, 1);
 
-			gridButton.add(error, 0, 2);
+			gridButton.add(error, 0, 2, 6, 1);
 
 			grid.add(gridParam, 0, 1);
 
