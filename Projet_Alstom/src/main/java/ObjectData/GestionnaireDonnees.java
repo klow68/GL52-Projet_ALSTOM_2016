@@ -98,16 +98,18 @@ public class GestionnaireDonnees {
 		ObjectClass objet = null;
 		int index = 0;
 		String document;
+		System.out.println("Id recue par la fct :   " + id);
 		
 		for(ObjectClass oc : this.objets){
 			if(oc.getId() == id ){
 				existe = true;
 				objet = oc;
 				index = objets.indexOf(oc);
+				System.out.println("ert " + objet.id);
+				break;
 			}
 		}
 		
-
 		if(!existe){
 			//On le crée
 			for(ObjectClass oc : objets){
@@ -121,24 +123,25 @@ public class GestionnaireDonnees {
 			objets.remove(index);
 		}
 		
+		
 		ArrayList<DataObject> data = new ArrayList<DataObject>();
+
+		
 		for(Entry<Integer, String> ligne : donnees.entrySet()){
-			//System.out.println(ligne.getKey() + " -> "+ligne.getValue());
 			data.add(new DataObject(ligne.getValue(),GC.getParametre(ligne.getKey())));
 		}
 		objet.setParametres(data);
-		
 		objets.add(objet);
 		
 		document = "[";
 		for(ObjectClass o : objets){
 			
-			document += "{\"typeObject\":\"" + o.getTypeClass() + "\",";
-			document += "\"idObject\":\"" + o.getId() + "\",";
-			document += "\"data\":[";
+			document += "{\"typeObject\":\"" + o.getTypeClass() + "\"\n,";
+			document += "\"idObject\":\"" + o.getId() + "\"\n,";
+			document += "\"data\"\n:[";
 			for(DataObject d : o.getDonnees()){
 				document += "{\"idConfig\":\"" + d.getParametre().getId() + "\",";
-				document += "\"values\":\"" + d.getValue() + "\"},";
+				document += "\"values\":\"" + d.getValue() + "\"}\n,";
 			}
 			document += "]},";
 			
@@ -156,6 +159,7 @@ public class GestionnaireDonnees {
 		
 
 	}
+
 	
 
 }

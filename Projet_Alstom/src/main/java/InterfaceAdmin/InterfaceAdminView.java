@@ -96,9 +96,8 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 						// System.out.println(idList.get(new_value.intValue()));
 
 						// chargement des donnée
-						for (ObjectClass objectD : gestionnaireData.getObjets()) {
-
-							mapIdCreat.put(tab.getText(), objectD.getId());
+						for (ObjectClass objectD : gestionnaireData.getObjets()) {							
+							mapIdCreat.put(tab.getText(), idList.get(new_value.intValue()));
 							// si bon numéro d'objet à charger
 							if (objectD.getId() == idList.get(new_value.intValue())) {
 								// selectiond de tous les paramètres
@@ -248,6 +247,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					}
 					System.out.println("map : " + mapIdCreat.get(tab.getText()));
 					if (!AsChampNull) {
+						System.out.println("save : "+mapIdCreat.get(tab.getText()));
 						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), map);
 					} else {
 						// do something to show the user is a fool
