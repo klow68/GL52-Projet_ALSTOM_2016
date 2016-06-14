@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import javax.print.attribute.standard.NumberOfDocuments;
+
 import ModelObject.Onglet;
 import ModelObject.Parametre;
 import ModelObject.Parametre.typeParametre;
@@ -33,7 +35,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
+import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.NumberStringConverter;
 
 public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, Initializable {
 
@@ -356,6 +361,14 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					TextField input = new TextField();
 					// afin de pouvoir le récuperé plus tard
 					input.setId(Integer.toString(param.getId()));
+					ParametreInput p = (ParametreInput) param;
+					if (typeInput.DOUBLE == p.getType()){
+						input.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
+					}else if (typeInput.INTEGER == p.getType()){
+						input.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
+					}else if (typeInput.STRING == p.getType()){
+						
+					}
 					grid.add(input, 1, i);
 				}
 
