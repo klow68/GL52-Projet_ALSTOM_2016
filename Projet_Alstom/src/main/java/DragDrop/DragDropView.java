@@ -52,6 +52,12 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
     private HBox gestionBox;
     
     @FXML
+    private Button chargerConvoi;
+    
+    @FXML
+    private Button chargerElements;
+    
+    @FXML
     private Button save;
     
     @FXML
