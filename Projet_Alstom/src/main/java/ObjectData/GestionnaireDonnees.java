@@ -5,8 +5,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -94,7 +92,7 @@ public class GestionnaireDonnees {
 		
 	}
 	
-	public void sauvegarde(int id, String type, HashMap<Integer,String> donnees, HashMap<Integer,String> Name){
+	public void sauvegarde(int id, String type, ArrayList<String[]> donnees){
 		// map Name ne contien que le name et donnees ne contient PAS le name dans ça liste
 		boolean existe = false;
 		ObjectClass objet = null;
@@ -126,13 +124,10 @@ public class GestionnaireDonnees {
 		
 		ArrayList<DataObject> data = new ArrayList<DataObject>();
 
-		for(Entry<Integer, String> ligne : Name.entrySet()){
-			System.out.println(ligne.getKey() + " -> " + ligne.getValue());
-			data.add(new DataObject(ligne.getValue(),GC.getParametre(ligne.getKey())));
-		}
 		
-		for(Entry<Integer, String> ligne : donnees.entrySet()){
-			data.add(new DataObject(ligne.getValue(),GC.getParametre(ligne.getKey())));
+		
+		for(String[] ligne : donnees){
+			data.add(new DataObject(ligne[1],GC.getParametre(Integer.parseInt(ligne[0]))));
 		}
 		objet.setParametres(data);
 		objets.add(objet);
