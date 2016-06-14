@@ -191,8 +191,12 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 						System.out.println("File selected: " + selectedFile.getName());
 						String mimetype= new MimetypesFileTypeMap().getContentType(selectedFile);
 				        String type = mimetype.split("/")[0];
-				        if(type.equals("image"))
-				            System.out.println("It's an image");
+				        if(type.equals("image")){
+				        	for (Integer integer : idList) {
+								
+							}
+				        	System.out.println("It's an image");
+				        }
 				        else 
 				            System.out.println("It's NOT an image");
 					}
@@ -202,7 +206,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			export.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					//TODO
+					gestionnaireData.exporterObjet(mapIdCreat.get(tab.getText()));
 				}
 			});
 
