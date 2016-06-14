@@ -76,7 +76,8 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				if (objectC.getTypeClass().equals(tab.getText())) {
 					cbList.add(objectC.getDonnees().get(0).getValue());
 					// TODO change to ID
-					idList.add((Integer) objectC.getDonnees().get(0).getValue());
+					idList.add((Integer) objectC.getId());
+					System.out.println(objectC.getId());
 				}
 				i++;
 			}
@@ -88,7 +89,79 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 				cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 					public void changed(ObservableValue ov, Number value, Number new_value) {
-						System.out.println(idList.get(new_value.intValue()));
+						// System.out.println(idList.get(new_value.intValue()));
+
+						// chargement des donnée
+						for (ObjectClass objectD : gestionnaireData.getObjets()) {
+							System.out.println(objectD.getId() + " : " + idList.get(new_value.intValue()));
+							// si bon numéro d'objet à charger
+							if (objectD.getId() == idList.get(new_value.intValue())) {
+								// selectiond de tous les paramètres
+								for (DataObject data : objectD.getDonnees()) {
+
+									// ********************************
+									for (Node n : tab.getContent().lookupAll("CheckBox")) {
+										if (n instanceof CheckBox) {
+											n.getId();
+											if (Integer.parseInt(n.getId()) == data.getParametre().getId()) {
+												System.out.println("CheckBoxOpen");
+												((CheckBox) n).setSelected((boolean) data.getValue());
+											}
+										}
+									}
+									for (Node n : tab.getContent().lookupAll("TextField")) {
+										if (n instanceof TextField) {
+											n.getId();
+											if (Integer.parseInt(n.getId()) == data.getParametre().getId()) {
+												ParametreInput paramI = (ParametreInput) data.getParametre();
+												switch (paramI.getType()) {
+												case DOUBLE:
+													System.out.println("double");
+													System.out.println(data.getValue());
+													((TextField) n).setText(Double.toString((double) data.getValue()));
+													break;
+												case INTEGER:
+													System.out.println("integer");
+													System.out.println(data.getValue());
+													((TextField) n).setText(Integer.toString((Integer) data.getValue()));
+													break;
+												case STRING:
+													System.out.println("string");
+													System.out.println(data.getValue());
+													((TextField) n).setText((String) data.getValue());
+													break;
+												// case default :
+												// System.out.println("Erreur
+												// interne : mauvaise type
+												// input"); break;
+												}
+
+											}
+										}
+									}
+									for (Node n : tab.getContent().lookupAll("ChoiceBox")) {
+										if (n instanceof ChoiceBox) {
+											if (n.getId() != null) {
+												n.getId();
+												if (Integer.parseInt(n.getId()) == data.getParametre().getId()) {
+													Parametre p = viewModel.getGestionaire()
+															.getParametre(data.getParametre().getId());
+													if (p instanceof ParametreCombo) {
+														System.out.println(((ParametreCombo) p)
+																.getParametre((int) data.getValue()).getLabel());
+														((ChoiceBox) n).setValue(((ParametreCombo) p)
+																.getParametre((int) data.getValue()).getLabel());
+													}
+
+												}
+											}
+										}
+									}
+									// ********************************
+
+								}
+							}
+						}
 					}
 				});
 			} else {
@@ -125,7 +198,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							n.getId();
 							// System.out.println(n.getId());
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-							System.out.println("id: " + p.getId() + " | value : " + ((CheckBox) n).getText());
+							System.out.println("id: " + p.getId() + " | value : " + ((CheckBox) n).isSelected());
 						}
 					}
 					for (Node n : tab.getContent().lookupAll("TextField")) {
@@ -182,7 +255,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 		int i = 0;
 		numGridi = numGrid;
 		for (Parametre param : listeParam) {
-			Label label = new Label(param.getLabel());
+			Label label = new Label(param.getLabel() + " : ");
 			if (param.getTypePara() == typeParametre.INPUT) {
 
 				ParametreInput paramI = (ParametreInput) param;

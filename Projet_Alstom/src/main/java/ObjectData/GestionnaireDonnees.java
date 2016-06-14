@@ -60,7 +60,8 @@ public class GestionnaireDonnees {
 				Parametre p = GC.getParametre(idData);
 				if(p.getTypePara()==typeParametre.COMBO){
 					//On s'attend à avoir un autre parametre contenant l'id du select
-					int idReference = Integer.parseInt(job.get("idConfig").toString());
+					// J'ai changer par value -.-
+					int idReference = Integer.parseInt(job.get("values").toString());
 					objet.addData(new DataObject(idReference,p));
 				}
 				else{
