@@ -201,14 +201,21 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				public void handle(ActionEvent event) {
 					HashMap<Integer, String> map = new HashMap<>();
 					Boolean AsChampNull = false;
+					HashMap<Integer, String> name = new HashMap<>();
 					for (Node n : tab.getContent().lookupAll("TextField")) {
+						boolean first = true;
 						if (n instanceof TextField) {
 							n.getId();
 							// System.out.println(n.getId());
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
 							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
 							if (null != ((TextField) n).getText()) {
-								map.put(p.getId(), ((TextField) n).getText());
+								if (first)
+									name.put(p.getId(), ((TextField) n).getText());
+								else
+									map.put(p.getId(), ((TextField) n).getText());
+								
+								
 							} else {
 								AsChampNull = true;
 							}
@@ -248,7 +255,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					System.out.println("map : " + mapIdCreat.get(tab.getText()));
 					if (!AsChampNull) {
 						System.out.println("save : "+mapIdCreat.get(tab.getText()));
-						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), map);
+						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), map, name);
 					} else {
 						// do something to show the user is a fool
 						System.out.println("crétin");

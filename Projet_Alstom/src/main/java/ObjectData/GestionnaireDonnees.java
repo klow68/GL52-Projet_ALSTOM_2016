@@ -93,7 +93,8 @@ public class GestionnaireDonnees {
 		
 	}
 	
-	public void sauvegarde(int id, String type, HashMap<Integer,String> donnees){
+	public void sauvegarde(int id, String type, HashMap<Integer,String> donnees, HashMap<Integer,String> Name){
+		// map Name ne contien que le name et donnees ne contient PAS le name dans ça liste
 		boolean existe = false;
 		ObjectClass objet = null;
 		int index = 0;
