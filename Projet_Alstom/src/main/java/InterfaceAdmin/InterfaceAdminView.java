@@ -202,8 +202,9 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					HashMap<Integer, String> map = new HashMap<>();
 					Boolean AsChampNull = false;
 					HashMap<Integer, String> name = new HashMap<>();
+					boolean first = true;
 					for (Node n : tab.getContent().lookupAll("TextField")) {
-						boolean first = true;
+						
 						if (n instanceof TextField) {
 							n.getId();
 							// System.out.println(n.getId());
@@ -211,6 +212,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
 							if (null != ((TextField) n).getText()) {
 								if (first){
+									System.out.println("check");
 									name.put(p.getId(), ((TextField) n).getText());
 									first = false;
 								}
@@ -257,6 +259,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					System.out.println("map : " + mapIdCreat.get(tab.getText()));
 					if (!AsChampNull) {
 						System.out.println("save : "+mapIdCreat.get(tab.getText()));
+						System.out.println(name.size());
 						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), map, name);
 					} else {
 						// do something to show the user is a fool
