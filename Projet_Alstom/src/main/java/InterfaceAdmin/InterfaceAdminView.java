@@ -91,6 +91,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			Label error = new Label();
 			error.setWrapText(true);
 			error.setTextFill(Color.RED);
+			error.setStyle("-fx-color: red");
 
 			urlButton.setVisible(false);
 			final Label label = new Label("Sélection : ");
