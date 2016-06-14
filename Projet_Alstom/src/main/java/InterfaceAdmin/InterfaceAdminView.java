@@ -226,8 +226,14 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					if (selectedFile != null) {
 						String name = selectedFile.getName();
 						if (name.substring(name.lastIndexOf(".") + 1).equals("json")) {
-							gestionnaireData.importerObject(selectedFile.getPath());
 							error.setText("");
+							// ajouter 
+							gestionnaireData.importerObject(selectedFile.getPath());
+							// refresh data
+							gestionnaireData.run(viewModel.getGestionaire());
+							// modifier la selection de cb
+							// avec la val ajouter
+							
 						} else {
 							error.setText("Erreur : le fichier n'est pas un fichier json");
 						}
@@ -346,8 +352,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 					if (!AsChampNull && !UrlImage.equals("")) {
 						error.setText("");
-						// gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()),
-						// tab.getText(), saveResult, UrlImage);
+						 gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), UrlImage, saveResult);
 					} else {
 						// do something to show the user is a fool
 						String s = "Erreur : ";
