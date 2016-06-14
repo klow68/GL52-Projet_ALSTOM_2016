@@ -205,12 +205,12 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
         
     	convoiList = new ArrayList<DraggableImageView>();
     	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
-    	convoiList.add(new DraggableImageView("DragDrop/Images/voiture.jpg", ImageViewType.IMAGE, this));
-    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
-    	convoiList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
-    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
-    	convoiList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
-    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
+//    	convoiList.add(new DraggableImageView("DragDrop/Images/voiture.jpg", ImageViewType.IMAGE, this));
+//    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
+//    	convoiList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
+//    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
+//    	convoiList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
+//    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
 //    	convoiList.add(test);
 
     	
