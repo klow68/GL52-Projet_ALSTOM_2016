@@ -210,8 +210,10 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
 							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
 							if (null != ((TextField) n).getText()) {
-								if (first)
+								if (first){
 									name.put(p.getId(), ((TextField) n).getText());
+									first = false;
+								}
 								else
 									map.put(p.getId(), ((TextField) n).getText());
 								
