@@ -202,6 +202,19 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				public void handle(ActionEvent event) {
 					HashMap<Integer, String> map = new HashMap<>();
 					Boolean AsChampNull = false;
+					for (Node n : tab.getContent().lookupAll("TextField")) {
+						if (n instanceof TextField) {
+							n.getId();
+							// System.out.println(n.getId());
+							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
+							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
+							if (null != ((TextField) n).getText()) {
+								map.put(p.getId(), ((TextField) n).getText());
+							} else {
+								AsChampNull = true;
+							}
+						}
+					}
 					for (Node n : tab.getContent().lookupAll("ChoiceBox")) {
 						if (n instanceof ChoiceBox) {
 							if (n.getId() != null) {
@@ -231,19 +244,6 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							System.out.println("id: " + p.getId() + " | value : " + ((CheckBox) n).isSelected());
 							map.put(p.getId(), Boolean.toString(((CheckBox) n).isSelected()));
 
-						}
-					}
-					for (Node n : tab.getContent().lookupAll("TextField")) {
-						if (n instanceof TextField) {
-							n.getId();
-							// System.out.println(n.getId());
-							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
-							if (null != ((TextField) n).getText()) {
-								map.put(p.getId(), ((TextField) n).getText());
-							} else {
-								AsChampNull = true;
-							}
 						}
 					}
 					System.out.println("map : " + mapIdCreat.get(tab.getText()));
