@@ -254,7 +254,7 @@ public class GestionnaireDonnees {
 			document +=  "\"inputType\":\""+data.getParametre().getTypePara()+"\",";
 			document +=  "\"inputId\":\""+data.getParametre().getId()+"\",";
 			if(data.getParametre().getTypePara()==typeParametre.COMBO){
-				document +=  "\"inputValue\":\""+GC.getParametre( (Integer) data.getValue()).getLabel() +"\"}";
+				document +=  "\"inputValue\":\""+ data.getValue()+"-"+GC.getParametre( (Integer) data.getValue()).getLabel() +"\"}";
 			}else{
 				document +=  "\"inputValue\":\""+data.getValue()+"\"}";
 			}	
@@ -276,7 +276,56 @@ public class GestionnaireDonnees {
 	}
 	
 	public void importerObject(String URL){
+		File file = new File(URL);
+		JSONParser parser = new JSONParser();
+
+		JSONArray a = null;
+		
+		try {
+			a = (JSONArray) parser.parse(new FileReader(file));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		for (Object o : a) {
+			JSONObject job = (JSONObject) o;
+			ObjectClass objet = new ObjectClass(Integer.parseInt(job.get("id").toString()),job.get("typeObject").toString(),job.get("URL").toString());
+			
+			JSONArray data = (JSONArray) job.get("data");
+			for(Object ob : data){
+				JSONObject da = (JSONObject) ob;
+				DataObject dataobject = null;
+				if(da.get("inputType").toString().equals("COMBO")){
+					String tmp[] = da.get("inputValue").toString().split("-");
+					 dataobject = new DataObject(tmp[0],GC.getParametre(Integer.parseInt(da.get("inputId").toString())));
+					 System.out.println("-->"+dataobject.getParametre().getLabel());
+					
+				}else {
+					dataobject = new DataObject(da.get("inputValue"),GC.getParametre(Integer.parseInt(da.get("inputId").toString())));
+				}
+				objet.addData(dataobject);
+			}
+			
+			if(getObject(objet.getId())!=null){
+				objets.remove(getObject(objet.getId()));
+				
+			}
+			
+			objets.add(objet);
+			ArrayList<String[]> donnees = new ArrayList<String[]>();
+			for(DataObject dao : objet.getDonnees()){
+				String st[] = new String[2];
+				
+				st[0] = String.valueOf(dao.getParametre().getId());
+				st[1] = String.valueOf(dao.getValue());
+				System.out.println(st[0] + " o " +st[1]);
+				donnees.add(st);
+			}
+			sauvegarde(objet.getId() , objet.getTypeClass() , donnees);
+		}
+		
 		
 	}
+
 
 }
