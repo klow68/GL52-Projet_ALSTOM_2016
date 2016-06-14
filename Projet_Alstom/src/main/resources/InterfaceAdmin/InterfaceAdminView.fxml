@@ -7,7 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" cache="false" cacheHint="DEFAULT" depthTest="ENABLE" prefHeight="492.0" prefWidth="593.0" styleClass="" stylesheets="@InterfaceAdminView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InterfaceAdmin.InterfaceAdminView">
+<VBox alignment="CENTER" cache="false" cacheHint="DEFAULT" depthTest="ENABLE" prefHeight="492.0" prefWidth="715.0" styleClass="" stylesheets="@InterfaceAdminView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="InterfaceAdmin.InterfaceAdminView">
   <children>
     <Pane maxHeight="170.0" maxWidth="1.7976931348623157E308" prefHeight="27.0" prefWidth="593.0" VBox.vgrow="NEVER">
       <children>

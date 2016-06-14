@@ -1,9 +1,12 @@
 package InterfaceAdmin;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import javax.activation.MimetypesFileTypeMap;
 
 import ModelObject.Onglet;
 import ModelObject.Parametre;
@@ -36,6 +39,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
@@ -77,6 +81,9 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			Button creer = new Button("Créer");
 			Button ouvrir = new Button("Ouvrir");
 			Button save = new Button("Sauvegarder");
+			Button export = new Button("Export");
+			Button urlButton = new Button("url");
+			urlButton.setVisible(false);
 			final Label label = new Label("Sélection : ");
 
 			ArrayList<Object> cbList = new ArrayList<>();
@@ -97,6 +104,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					public void changed(ObservableValue ov, Number value, Number new_value) {
 						// System.out.println(idList.get(new_value.intValue()));
 						if (new_value.intValue() != -1) {
+							urlButton.setVisible(true);
 							// chargement des donnée
 							for (ObjectClass objectD : gestionnaireData.getObjets()) {
 								mapIdCreat.put(tab.getText(), idList.get(new_value.intValue()));
@@ -173,12 +181,37 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			label.setVisible(false);
 			cb.setVisible(false);
 
-			creer.setOnAction(new EventHandler<ActionEvent>() {
+			urlButton.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					FileChooser fileChooser = new FileChooser();
+					fileChooser.setTitle("Choisir une image");
+					File selectedFile = fileChooser.showOpenDialog(null);
+					if (selectedFile != null) {
+						System.out.println("File selected: " + selectedFile.getName());
+						String mimetype= new MimetypesFileTypeMap().getContentType(selectedFile);
+				        String type = mimetype.split("/")[0];
+				        if(type.equals("image"))
+				            System.out.println("It's an image");
+				        else 
+				            System.out.println("It's NOT an image");
+					}
+				}
+			});
+			
+			export.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					//TODO
+				}
+			});
 
+			creer.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					label.setVisible(false);
 					cb.setVisible(false);
+					urlButton.setVisible(false);
 					mapIdCreat.put(tab.getText(), -1);
 					for (Node n : tab.getContent().lookupAll("GridPane")) {
 						if (n instanceof GridPane) {
@@ -228,7 +261,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							n.getId();
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
 							if (null != ((TextField) n).getText()) {
-								String[] toAdd = {Integer.toString(p.getId()),((TextField) n).getText()};
+								String[] toAdd = { Integer.toString(p.getId()), ((TextField) n).getText() };
 								textResult.add(toAdd);
 							} else {
 								AsChampNull = true;
@@ -249,7 +282,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 											id = param.getId();
 										}
 									}
-									String[] toAdd = {Integer.toString(p.getId()),Integer.toString(id)};
+									String[] toAdd = { Integer.toString(p.getId()), Integer.toString(id) };
 									saveResult.add(toAdd);
 								} else {
 									AsChampNull = true;
@@ -261,17 +294,18 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 						if (n instanceof CheckBox) {
 							n.getId();
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-							String[] toAdd = {Integer.toString(p.getId()),Boolean.toString(((CheckBox) n).isSelected())};
+							String[] toAdd = { Integer.toString(p.getId()),
+									Boolean.toString(((CheckBox) n).isSelected()) };
 							saveResult.add(toAdd);
 						}
 					}
 					saveResult.addAll(textResult);
 					System.out.println("map : " + mapIdCreat.get(tab.getText()));
 					if (!AsChampNull) {
-//						System.out.println(saveResult);
-//						for (String[] save : saveResult) {
-//							System.out.println(save[0]+" : "+save[1]);
-//						}
+						// System.out.println(saveResult);
+						// for (String[] save : saveResult) {
+						// System.out.println(save[0]+" : "+save[1]);
+						// }
 						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), saveResult);
 					} else {
 						// do something to show the user is a fool
@@ -296,13 +330,15 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 			gridButton.add(label, 3, 0);
 			gridButton.add(cb, 4, 0);
+			gridButton.add(urlButton, 5, 0);
+			gridButton.add(export, 6, 0);
 
 			grid.add(gridParam, 0, 1);
 
 			ScrollPane sp = new ScrollPane();
 			sp.setFitToWidth(true);
 			sp.setContent(grid);
-			//grid.add(sp, 0, 1);
+
 			tab.setContent(sp);
 
 		}
@@ -316,6 +352,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			Tab tab) {
 		int i = 0;
 		numGridi = numGrid;
+		System.out.println(numGridi);
 		for (Parametre param : listeParam) {
 			Label label = new Label(param.getLabel() + " : ");
 
@@ -335,7 +372,8 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 								gridSub.setId(check.getId() + "Sub");
 								// TODO
-//								 traitementParametre(check.getParametres(), gridSub, gridMain, numGridi + 1, tab);
+								// traitementParametre(check.getParametres(),
+								// gridSub, gridMain, numGridi + 1, tab);
 							} else {
 								for (Node n : tab.getContent().lookupAll("GridPane")) {
 									if (n instanceof GridPane) {
@@ -356,12 +394,12 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					// afin de pouvoir le récuperé plus tard
 					input.setId(Integer.toString(param.getId()));
 					ParametreInput p = (ParametreInput) param;
-					if (typeInput.DOUBLE == p.getType()){
+					if (typeInput.DOUBLE == p.getType()) {
 						input.setTextFormatter(new TextFormatter<>(new NumberStringConverter()));
-					}else if (typeInput.INTEGER == p.getType()){
+					} else if (typeInput.INTEGER == p.getType()) {
 						input.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
-					}else if (typeInput.STRING == p.getType()){
-						
+					} else if (typeInput.STRING == p.getType()) {
+
 					}
 					grid.add(input, 1, i);
 				}

@@ -1,26 +1,10 @@
 package InterfaceAdmin;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import ModelObject.GestionnaireConfig;
 import ObjectData.GestionnaireDonnees;
-import de.saxsys.mvvmfx.FluentViewLoader;
 import de.saxsys.mvvmfx.ViewModel;
-import de.saxsys.mvvmfx.ViewTuple;
-import de.saxsys.mvvmfx.FluentViewLoader.FxmlViewStep;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import model.json.JsonOnglet;
 import model.json.JsonProperty;
 import model.json.JsonSelect;
