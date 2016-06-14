@@ -242,7 +242,7 @@ public class GestionnaireDonnees {
 		String document;
 		
 		ObjectClass objet = this.getObject(id);
-		chaineFichier = objet.getId()+"-"+objet.getDonnees().get(0).getValue();
+		chaineFichier = objet.getId()+"_"+objet.getDonnees().get(0).getValue();
 		File file = new File("src/main/resources/Export/"+chaineFichier+".json");
 	
 		document= "[{";
