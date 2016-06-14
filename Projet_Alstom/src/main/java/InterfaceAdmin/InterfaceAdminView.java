@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
-import javax.print.attribute.standard.NumberOfDocuments;
-
 import ModelObject.Onglet;
 import ModelObject.Parametre;
 import ModelObject.Parametre.typeParametre;
@@ -222,25 +220,27 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			save.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					HashMap<Integer, String> map = new HashMap<>();
+//					HashMap<Integer, String> map = new HashMap<>();
 					Boolean AsChampNull = false;
-					HashMap<Integer, String> name = new HashMap<>();
-					boolean first = true;
+//					HashMap<Integer, String> name = new HashMap<>();
+					ArrayList<String[]> saveResult = new ArrayList<>();
+//					boolean first = true;
 					for (Node n : tab.getContent().lookupAll("TextField")) {
 
 						if (n instanceof TextField) {
 							n.getId();
 							// System.out.println(n.getId());
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
+//							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
 							if (null != ((TextField) n).getText()) {
-								if (first) {
-									System.out.println("check");
-									name.put(p.getId(), ((TextField) n).getText());
-									first = false;
-								} else
-									map.put(p.getId(), ((TextField) n).getText());
-
+//								if (first) {
+//									System.out.println("check");
+//									name.put(p.getId(), ((TextField) n).getText());
+//									first = false;
+//								} else
+//									map.put(p.getId(), ((TextField) n).getText());
+								String[] toAdd = {Integer.toString(p.getId()),((TextField) n).getText()};
+								saveResult.add(toAdd);
 							} else {
 								AsChampNull = true;
 							}
@@ -252,7 +252,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 								n.getId();
 								// System.out.println(n.getId());
 								Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-								System.out.println("id: " + p.getId() + " | value : " + ((ChoiceBox) n).getValue());
+//								System.out.println("id: " + p.getId() + " | value : " + ((ChoiceBox) n).getValue());
 								if (null != ((ChoiceBox) n).getValue()) {
 									int id = -1;
 									for (Parametre param : ((ParametreCombo) p).getSelects()) {
@@ -260,7 +260,9 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 											id = param.getId();
 										}
 									}
-									map.put(p.getId(), Integer.toString(id));
+									String[] toAdd = {Integer.toString(p.getId()),Integer.toString(id)};
+									saveResult.add(toAdd);
+//									map.put(p.getId(), Integer.toString(id));
 								} else {
 									AsChampNull = true;
 								}
@@ -272,16 +274,20 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							n.getId();
 							// System.out.println(n.getId());
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-							System.out.println("id: " + p.getId() + " | value : " + ((CheckBox) n).isSelected());
-							map.put(p.getId(), Boolean.toString(((CheckBox) n).isSelected()));
-
+//							System.out.println("id: " + p.getId() + " | value : " + ((CheckBox) n).isSelected());
+//							map.put(p.getId(), Boolean.toString(((CheckBox) n).isSelected()));
+							String[] toAdd = {Integer.toString(p.getId()),Boolean.toString(((CheckBox) n).isSelected())};
+							saveResult.add(toAdd);
 						}
 					}
 					System.out.println("map : " + mapIdCreat.get(tab.getText()));
 					if (!AsChampNull) {
-						System.out.println("save : " + mapIdCreat.get(tab.getText()));
-						System.out.println(name.size());
-						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), map, name);
+//						System.out.println("save : " + mapIdCreat.get(tab.getText()));
+//						System.out.println(saveResult);
+//						for (String[] save : saveResult) {
+//							System.out.println(save[0]+" : "+save[1]);
+//						}
+						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), saveResult);
 					} else {
 						// do something to show the user is a fool
 						System.out.println("crétin");
