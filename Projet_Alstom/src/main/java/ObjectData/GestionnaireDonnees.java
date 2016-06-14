@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.json.simple.JSONArray;
@@ -172,6 +173,72 @@ public class GestionnaireDonnees {
 			if(ite.getId()==id) o =ite;
 		}
 		return o;
+	}
+
+	public void exportToJson(String nomConvoi, List<ObjectClass> objects) {
+
+		File convoiFile = new File("src/main/resources/data/convois/"+nomConvoi+".json");
+		try {
+			convoiFile.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		System.out.println("File has been created");
+		
+		String document = "{";
+		document += "\"nomConvoi\":\""+nomConvoi+"\"";
+		document += ", \"elements\":[";
+		for(ObjectClass o : objects){
+			
+			document+="\""+o.getId()+"\",";
+			
+		}
+		document = document.substring(0, document.length()-1);
+		document += "]}";
+		
+		FileWriter writer;
+		try {
+			writer = new FileWriter(convoiFile);
+			writer.write(document);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+	}
+
+	public List<Integer> parseJsonConvoi(File jsonFile) {
+		
+		JSONParser parser = new JSONParser();
+
+		JSONObject a = null;
+		
+		try {
+			a = (JSONObject) parser.parse(new FileReader(jsonFile));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		List<Integer> elementsIds = new ArrayList<Integer>();
+		
+		String nomConvoi = a.get("nomConvoi").toString();
+		
+		JSONArray tabDonnees = (JSONArray) a.get("elements");
+		for(Object obj : tabDonnees){
+			
+			elementsIds.add(Integer.parseInt(obj.toString()));
+			
+		}
+		
+		return elementsIds;
 	}
 
 	

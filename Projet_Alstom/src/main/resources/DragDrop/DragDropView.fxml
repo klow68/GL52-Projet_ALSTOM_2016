@@ -26,12 +26,12 @@
                 <Label fx:id="gestionLabel" text="Gestion" VBox.margin="$x1" />
                 <HBox fx:id="gestionBox" prefHeight="155.0" prefWidth="700.0">
                   <children>
-                    <Button id="chargerConvoi" mnemonicParsing="false" text="Charger convoi">
+                    <Button fx:id="chargerConvoi" mnemonicParsing="false" text="Charger convoi">
                       <HBox.margin>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" fx:id="x1" />
                       </HBox.margin>
                     </Button>
-                    <Button id="chargerElements" mnemonicParsing="false" text="Charger éléments" HBox.margin="$x1" />
+                    <Button fx:id="chargerElements" mnemonicParsing="false" text="Charger éléments" HBox.margin="$x1" />
                     <Button fx:id="save" mnemonicParsing="false" text="Sauvegarder">
                       <HBox.margin>
                         <Insets bottom="150.0" left="15.0" right="15.0" top="15.0" />

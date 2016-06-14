@@ -1,5 +1,6 @@
 package DragDrop;
 
+import ObjectData.ObjectClass;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -142,15 +143,18 @@ public class DraggableImageView extends ImageView {
 	                	if(parent.convoiBox.getChildren().contains(source)) belongsToConvoi = true;
 	                	if((source.getElemType() == ImageViewType.IMAGE)) {
 	                		if((separator && !belongsToConvoi) || !separator) {
-			                    Image temp = source.getImage();
+			                    Image tempImage = source.getImage();
+			                    ObjectClass ocTemp = (ObjectClass) source.getUserData();
 			                    if(separator && source.getElemType() == ImageViewType.IMAGE) {
 			                    	source.setVisible(false);
 			                    	source.setFitWidth(10);
 			                    } else {
 			                    	source.setImage(getImage());
+			                    	source.setUserData(getUserData());
 			                    }
-			                    setImage(temp);
+			                    setImage(tempImage);
 			                    setElemType(source.getElemType());
+			                    setUserData(ocTemp);
 	                		}
 	                	}
                 	}
@@ -185,6 +189,15 @@ public class DraggableImageView extends ImageView {
                 event.consume();
             }
         });
+        
+        setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+			@Override
+			public void handle(MouseEvent event) {
+				// TODO Auto-generated method stub
+				System.out.println(((ObjectClass) getUserData()).getId());
+			}
+		});
 		
 	}
 
