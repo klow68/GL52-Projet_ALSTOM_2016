@@ -2,6 +2,7 @@ package InterfaceAdmin;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import ModelObject.Onglet;
@@ -42,15 +43,20 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
 
+	private HashMap<String, Integer> mapIdCreat;
+
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		viewModel.getGestionaire().run();
 		viewModel.getGestionaireDonnees().run(viewModel.getGestionaire());
+		mapIdCreat = new HashMap<>();
 
 		GestionnaireDonnees gestionnaireData = viewModel.getGestionaireDonnees();
 
 		for (Onglet onglet : viewModel.getGestionaire().getOnglets()) {
-
+			// permet de retenir l'id quand un object à été charger (-1 =
+			// nouveau)
+			mapIdCreat.put(String.valueOf(onglet.getName()), -1);
 			// Pour chaque onglet on ajoute le bouton créer et modifier
 
 			Tab tab = new Tab(onglet.getName());
@@ -71,7 +77,6 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 			ArrayList<Object> cbList = new ArrayList<>();
 			ArrayList<Integer> idList = new ArrayList<>();
-			int i = 0;
 			for (ObjectClass objectC : gestionnaireData.getObjets()) {
 				if (objectC.getTypeClass().equals(tab.getText())) {
 					cbList.add(objectC.getDonnees().get(0).getValue());
@@ -79,7 +84,6 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					idList.add((Integer) objectC.getId());
 					System.out.println(objectC.getId());
 				}
-				i++;
 			}
 
 			final ChoiceBox<Object> cb;
@@ -93,13 +97,30 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 						// chargement des donnée
 						for (ObjectClass objectD : gestionnaireData.getObjets()) {
-							System.out.println(objectD.getId() + " : " + idList.get(new_value.intValue()));
+
+							mapIdCreat.put(tab.getText(), objectD.getId());
 							// si bon numéro d'objet à charger
 							if (objectD.getId() == idList.get(new_value.intValue())) {
 								// selectiond de tous les paramètres
 								for (DataObject data : objectD.getDonnees()) {
 
 									// ********************************
+									for (Node n : tab.getContent().lookupAll("ChoiceBox")) {
+										if (n instanceof ChoiceBox) {
+											if (n.getId() != null) {
+												n.getId();
+												if (Integer.parseInt(n.getId()) == data.getParametre().getId()) {
+													Parametre p = viewModel.getGestionaire()
+															.getParametre(data.getParametre().getId());
+													if (p instanceof ParametreCombo) {
+														((ChoiceBox) n).setValue(((ParametreCombo) p)
+																.getParametre((int) data.getValue()).getLabel());
+													}
+
+												}
+											}
+										}
+									}
 									for (Node n : tab.getContent().lookupAll("CheckBox")) {
 										if (n instanceof CheckBox) {
 											n.getId();
@@ -116,47 +137,24 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 												ParametreInput paramI = (ParametreInput) data.getParametre();
 												switch (paramI.getType()) {
 												case DOUBLE:
-													System.out.println("double");
-													System.out.println(data.getValue());
 													((TextField) n).setText(Double.toString((double) data.getValue()));
 													break;
 												case INTEGER:
-													System.out.println("integer");
-													System.out.println(data.getValue());
-													((TextField) n).setText(Integer.toString((Integer) data.getValue()));
+													((TextField) n)
+															.setText(Integer.toString((Integer) data.getValue()));
 													break;
 												case STRING:
-													System.out.println("string");
-													System.out.println(data.getValue());
 													((TextField) n).setText((String) data.getValue());
 													break;
-												// case default :
-												// System.out.println("Erreur
-												// interne : mauvaise type
-												// input"); break;
+												default:
+													System.out.println("Erreur interne : mauvaise type input");
+													break;
 												}
 
 											}
 										}
 									}
-									for (Node n : tab.getContent().lookupAll("ChoiceBox")) {
-										if (n instanceof ChoiceBox) {
-											if (n.getId() != null) {
-												n.getId();
-												if (Integer.parseInt(n.getId()) == data.getParametre().getId()) {
-													Parametre p = viewModel.getGestionaire()
-															.getParametre(data.getParametre().getId());
-													if (p instanceof ParametreCombo) {
-														System.out.println(((ParametreCombo) p)
-																.getParametre((int) data.getValue()).getLabel());
-														((ChoiceBox) n).setValue(((ParametreCombo) p)
-																.getParametre((int) data.getValue()).getLabel());
-													}
 
-												}
-											}
-										}
-									}
 									// ********************************
 
 								}
@@ -177,6 +175,15 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				public void handle(ActionEvent event) {
 					label.setVisible(false);
 					cb.setVisible(false);
+					 mapIdCreat.put(tab.getText(), -1);
+					 for (Node n : tab.getContent().lookupAll("GridPane")) {
+							if (n instanceof GridPane) {
+								GridPane gride = (GridPane) n;
+								if (gride.getId().contains("Sub")) {
+									((GridPane) n).getChildren().clear();
+								}
+							}
+						}
 					afficherOnglet(tab, onglet);
 				}
 			});
@@ -193,12 +200,31 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			save.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
+					HashMap<Integer, String> map = new HashMap<>();
+					Boolean AsChampNull = false;
+					for (Node n : tab.getContent().lookupAll("ChoiceBox")) {
+						if (n instanceof ChoiceBox) {
+							if (n.getId() != null) {
+								n.getId();
+								// System.out.println(n.getId());
+								Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
+								System.out.println("id: " + p.getId() + " | value : " + ((ChoiceBox) n).getValue());
+								if (null != ((ChoiceBox) n).getValue()) {
+									map.put(p.getId(), ((ChoiceBox) n).getValue().toString());
+								} else {
+									AsChampNull = true;
+								}
+							}
+						}
+					}
 					for (Node n : tab.getContent().lookupAll("CheckBox")) {
 						if (n instanceof CheckBox) {
 							n.getId();
 							// System.out.println(n.getId());
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
 							System.out.println("id: " + p.getId() + " | value : " + ((CheckBox) n).isSelected());
+							map.put(p.getId(), Boolean.toString(((CheckBox) n).isSelected()));
+
 						}
 					}
 					for (Node n : tab.getContent().lookupAll("TextField")) {
@@ -207,17 +233,19 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							// System.out.println(n.getId());
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
 							System.out.println("id: " + p.getId() + " | value : " + ((TextField) n).getText());
-						}
-					}
-					for (Node n : tab.getContent().lookupAll("ChoiceBox")) {
-						if (n instanceof ChoiceBox) {
-							if (n.getId() != null) {
-								n.getId();
-								// System.out.println(n.getId());
-								Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-								System.out.println("id: " + p.getId() + " | value : " + ((ChoiceBox) n).getValue());
+							if (null != ((TextField) n).getText()) {
+								map.put(p.getId(), ((TextField) n).getText());
+							} else {
+								AsChampNull = true;
 							}
 						}
+					}
+					System.out.println("map : " + mapIdCreat.get(tab.getText()));
+					if (!AsChampNull) {
+						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), map);
+					} else {
+						// do something to show the user is a fool
+						System.out.println("crétin");
 					}
 				}
 			});
