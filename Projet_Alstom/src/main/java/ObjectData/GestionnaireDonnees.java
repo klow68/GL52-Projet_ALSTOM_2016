@@ -93,7 +93,7 @@ public class GestionnaireDonnees {
 		
 	}
 	
-	public void sauvegarde(int id, String type, ArrayList<String[]> donnees){
+	public void sauvegarde(int id, String type, String URL, ArrayList<String[]> donnees){
 		// map Name ne contien que le name et donnees ne contient PAS le name dans ça liste
 		boolean existe = false;
 		ObjectClass objet = null;
@@ -115,13 +115,15 @@ public class GestionnaireDonnees {
 				if(id < oc.getId()) id = oc.getId();
 			}
 			id++;
-			objet = new ObjectClass(id,type,"");			
+			objet = new ObjectClass(id,type,URL);
 			
 		}else{
 			//On mets à jour la liste
 			objets.remove(index);
+			objet.setURL(URL);
 		}
 		
+
 		
 		ArrayList<DataObject> data = new ArrayList<DataObject>();
 
@@ -275,7 +277,7 @@ public class GestionnaireDonnees {
 		
 	}
 	
-	public void importerObject(String URL){
+	public int importerObject(String URL){
 		File file = new File(URL);
 		JSONParser parser = new JSONParser();
 
@@ -290,7 +292,6 @@ public class GestionnaireDonnees {
 		for (Object o : a) {
 			JSONObject job = (JSONObject) o;
 			ObjectClass objet = new ObjectClass(Integer.parseInt(job.get("id").toString()),job.get("typeObject").toString(),job.get("URL").toString());
-			
 			JSONArray data = (JSONArray) job.get("data");
 			for(Object ob : data){
 				JSONObject da = (JSONObject) ob;
@@ -298,7 +299,6 @@ public class GestionnaireDonnees {
 				if(da.get("inputType").toString().equals("COMBO")){
 					String tmp[] = da.get("inputValue").toString().split("-");
 					 dataobject = new DataObject(tmp[0],GC.getParametre(Integer.parseInt(da.get("inputId").toString())));
-					 System.out.println("-->"+dataobject.getParametre().getLabel());
 					
 				}else {
 					dataobject = new DataObject(da.get("inputValue"),GC.getParametre(Integer.parseInt(da.get("inputId").toString())));
@@ -318,13 +318,13 @@ public class GestionnaireDonnees {
 				
 				st[0] = String.valueOf(dao.getParametre().getId());
 				st[1] = String.valueOf(dao.getValue());
-				System.out.println(st[0] + " o " +st[1]);
 				donnees.add(st);
 			}
-			sauvegarde(objet.getId() , objet.getTypeClass() , donnees);
+			sauvegarde(objet.getId() , objet.getTypeClass() ,objet.getURL(), donnees);
+			return objet.getId();
 		}
 		
-		
+		return -1;
 	}
 
 
