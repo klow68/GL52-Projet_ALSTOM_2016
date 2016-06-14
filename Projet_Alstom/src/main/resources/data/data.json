@@ -1,1 +1,14 @@
-[{"typeObject":"Loco","idObject":"1","data":[{"idConfig":"9","values":"ZUBZUB"},{"idConfig":"8","values":"1"},{"idConfig":"10","values":"13.54"},{"idConfig":"11","values":"15"},]},{"typeObject":"Loco","idObject":"2","data":[{"idConfig":"9","values":"eeee"},{"idConfig":"19","values":"45.0"},{"idConfig":"8","values":"2"}]},]
+[{"typeObject":"Loco"
+,"idObject":"1"
+,"data"
+:[{"idConfig":"9","values":"YOLO"}
+,{"idConfig":"19","values":"23.0"}
+,{"idConfig":"8","values":"2"}
+,]},{"typeObject":"Loco"
+,"idObject":"2"
+,"data"
+:[{"idConfig":"9","values":"ZUBZUB"}
+,{"idConfig":"8","values":"1"}
+,{"idConfig":"10","values":"4.0"}
+,{"idConfig":"11","values":"15"}
+,]},]
