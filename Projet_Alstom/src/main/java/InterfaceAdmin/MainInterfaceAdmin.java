@@ -15,13 +15,27 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The Class MainInterfaceAdmin.
+ */
 public class MainInterfaceAdmin extends Application {
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws FileNotFoundException the file not found exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ParseException the parse exception
+	 * @throws URISyntaxException the URI syntax exception
+	 */
 	public static void main(String... args)
 			throws FileNotFoundException, IOException, ParseException, URISyntaxException {
 		Application.launch(args);
 
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public void start(Stage stage) throws Exception {
 		try {
