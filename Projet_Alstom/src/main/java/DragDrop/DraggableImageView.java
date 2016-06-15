@@ -21,6 +21,9 @@ public class DraggableImageView extends ImageView {
 		this.elemType = elemType;
 		this.parent = parent;
 		this.instance = this;
+		
+		System.out.println("SET URL TO DRAG IMAGE : " + url);
+		
 		setImage(new Image(url));
 		
 		updateRights();

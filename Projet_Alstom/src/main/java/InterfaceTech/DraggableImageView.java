@@ -63,7 +63,7 @@ public class DraggableImageView extends ImageView {
 	                /* allow any transfer mode */
 	                Dragboard db = startDragAndDrop(TransferMode.ANY);
 	                
-	                /* put a string on dragboard */
+	                /* put an image on dragboard */
 	                ClipboardContent content = new ClipboardContent();
 	                content.putImage(getImage());
 	                db.setContent(content);
@@ -84,7 +84,6 @@ public class DraggableImageView extends ImageView {
                  * and if it has a string data */
                 if (event.getGestureSource() != this &&
                         event.getDragboard().hasString()) {
-                    /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
                 }
                 
@@ -96,12 +95,6 @@ public class DraggableImageView extends ImageView {
             public void handle(DragEvent event) {
                 /* the drag-and-drop gesture entered the target */
                 System.out.println("onDragEntered");
-                /* show to the user that it is an actual gesture target */
-                if (event.getGestureSource() != this &&
-                        event.getDragboard().hasString()) {
-//                    setFill(Color.GREEN);
-                }
-                
                 event.consume();
             }
         });
@@ -109,8 +102,6 @@ public class DraggableImageView extends ImageView {
         setOnDragExited(new EventHandler <DragEvent>() {
             public void handle(DragEvent event) {
                 /* mouse moved away, remove the graphical cues */
-//                setFill(Color.BLACK);
-                
                 event.consume();
             }
         });
@@ -130,7 +121,7 @@ public class DraggableImageView extends ImageView {
                 if (db.hasImage()) {
                     
                 	System.out.println("HAS IMAGE");
-                	
+                	// gestion corbeille
                 	if(source.getElemType() == ImageViewType.IMAGE && getElemType() == ImageViewType.RECYCLE_BIN) {
                 		
                 		if(!parent.getElementsBox().getChildren().contains(source)) {
@@ -138,7 +129,7 @@ public class DraggableImageView extends ImageView {
 	                		parent.getElementsBox().getChildren().add(source);
                 		}
                 	} else {
-                	
+                		
 	                	if(getElemType() == ImageViewType.SEPARATOR) separator = true;
 	                	if(parent.convoiBox.getChildren().contains(source)) belongsToConvoi = true;
 	                	if((source.getElemType() == ImageViewType.IMAGE)) {
@@ -169,6 +160,7 @@ public class DraggableImageView extends ImageView {
                 updateSize();
                 
 				System.out.println(parent.convoiBox.getChildren().contains(instance));
+				// ajout des séparateurs
 				if(separator && !belongsToConvoi) {
 					parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(instance), new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
 					parent.convoiBox.getChildren().add(parent.convoiBox.getChildren().indexOf(instance)+1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, parent));
@@ -181,11 +173,6 @@ public class DraggableImageView extends ImageView {
             public void handle(DragEvent event) {
                 /* the drag-and-drop gesture ended */
                 System.out.println("onDragDone");
-                /* if the data was successfully moved, clear it */
-                if (event.getTransferMode() == TransferMode.MOVE) {
-//                    source.setText("");
-                }
-                
                 event.consume();
             }
         });
@@ -194,7 +181,6 @@ public class DraggableImageView extends ImageView {
 
 			@Override
 			public void handle(MouseEvent event) {
-				// TODO Auto-generated method stub
 				System.out.println(((ObjectClass) getUserData()).getId());
 			}
 		});

@@ -86,7 +86,6 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println("SAVE THE CONVOI");
 	    		
 				boolean valide = false;
 				valide = checkConvoi();
@@ -103,20 +102,11 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 		    		List<ObjectClass> objects = new ArrayList<ObjectClass>();
 		    		for(DraggableImageView dg : convoiSave) {
 		    			
-	//	    			System.out.println(dg.getElemType());
-		    			System.out.println("RECUPERATION DES OBJECT CLASS");
+		    			// Récupération des ObjectClass
 		    			ObjectClass object = (ObjectClass) dg.getUserData();
 		    			
-		    			System.out.println("ID : " + object.getId());
-		    			System.out.println("Type : " + object.getTypeClass());
 		    			ArrayList<DataObject> datas = object.getDonnees();
-		    			System.out.println("Données : ");
-		    			for(DataObject data : datas) {
-		    				System.out.println("Value : " + data.getValue() + "(" + data.getParametre().getLabel() + ")");
-		    			}
-		    			System.out.println("URL : " + object.getURL());
-		    			System.out.println("URL NULL ? WTF");
-		    			
+
 		    			objects.add(object);
 		    			
 		    		}
@@ -133,15 +123,9 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 		    		dialog.setHeaderText("Nommez le convoi");
 		    		dialog.setContentText("Entrez le nom du convoi :");
 	
-		    		// Traditional way to get the response value.
 		    		Optional<String> result = dialog.showAndWait();
 		    		String nomConvoi = "";
-		    		if (result.isPresent()){
-		    		    System.out.println("Nom du convoi: " + result.get());
-		    		    nomConvoi = result.get();
-		    		}
 	
-		    		// The Java 8 way to get the response value (with lambda expression).
 		    		result.ifPresent(name -> System.out.println("Your name: " + name));
 		    		
 		    		gd.exportToJson(nomConvoi, objects);
@@ -164,9 +148,7 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 			@Override
 			public void handle(MouseEvent event) {
 				
-//				elementsBox.getChildren().clear();
 				chargerElements();
-//				elementsBox.getChildren().addAll(convoiBox.getChildren());
 				
 				GestionnaireDonnees gd = new GestionnaireDonnees();
 	    		GestionnaireConfig gc = new GestionnaireConfig();
@@ -180,16 +162,11 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 	    		
 	    		List<Integer> elementsIds = gd.parseJsonConvoi(jsonFile);
 	    		
-	    		for(Integer i : elementsIds) System.out.println(i);
-	    		
 	    		convoiBox.getChildren().clear();
 	    		
-//	    		ObservableList<Node> elements = elementsBox.getChildren();
-//	    		 convoi = convoiBox.getChildren();
-//	    		convoiList.clear();
 	    		convoiBox.getChildren().add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, instance));
 	    		ObservableList<Node> elements = elementsBox.getChildren();
-//	    		elements.addAll(elementsBox.getChildren());
+
 	    		for(Integer elementId : elementsIds) {
 	    			for(int i = 0; i < elements.size(); i++) {
 	    				
@@ -198,15 +175,7 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 	    				int id = oc.getId();
 	    				if(id == elementId.intValue()) {
 	    					
-	    					System.out.println("AJOUT DE ELEMENT ID = " + id);
-	    					
-	    					
-	    					System.out.println("ADD TO CONVOI BOX FROM ELEMENTS BOX");
 	    					convoiBox.getChildren().add((DraggableImageView) elementsBox.getChildren().get(elementsBox.getChildren().indexOf(node)));
-	    					System.out.println("REMOVE FROM ELEMENTS BOX");
-//	    					elementsBox.getChildren().remove(node);
-	    					
-	    					System.out.println("ADD SEPARATOR");
 	    					convoiBox.getChildren().add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, instance));
 	    					
 	    				}
@@ -221,28 +190,11 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
         
     	convoiList = new ArrayList<DraggableImageView>();
     	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
-//    	convoiList.add(new DraggableImageView("DragDrop/Images/voiture.jpg", ImageViewType.IMAGE, this));
-//    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
-//    	convoiList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
-//    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
-//    	convoiList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
-//    	convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
-//    	convoiList.add(test);
-
-    	
     	
     	chargerElements();
     	
-//    	elementsList.add(new DraggableImageView("DragDrop/Images/voiture.jpg", ImageViewType.IMAGE, this));
-//    	elementsList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
-//    	elementsList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
-//    	elementsList.add(new DraggableImageView("DragDrop/Images/wagon.jpg", ImageViewType.IMAGE, this));
-//    	elementsList.add(new DraggableImageView("DragDrop/Images/loco.jpg", ImageViewType.IMAGE, this));
-    	
     	List<DraggableImageView> gestionList = new ArrayList<DraggableImageView>();
     	gestionList.add(new DraggableImageView("DragDrop/Images/corbeille.png", ImageViewType.RECYCLE_BIN, this));
-    	
-    	
     	
     	viewModel.setConvoiList(convoiList);
     	viewModel.setElementsList(elementsList);
@@ -254,11 +206,11 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
     }
 
 	private void chargerElements() {
-		// TODO Auto-generated method stub
 		
 		elementsList = new ArrayList<DraggableImageView>();
 		elementsBox.getChildren().clear();
-		System.out.println("Chargement des elements");
+		
+		// Chargement des elements
 		GestionnaireDonnees gestionnaireDonnees = new GestionnaireDonnees();
 		GestionnaireConfig GC = new GestionnaireConfig();
 		GC.run();
@@ -267,72 +219,26 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 		ArrayList<ObjectClass> objects = gestionnaireDonnees.getObjets();
 		
 		for(ObjectClass object : objects) {
-			System.out.println("ID : " + object.getId());
-			System.out.println("Type : " + object.getTypeClass());
 			ArrayList<DataObject> datas = object.getDonnees();
-			System.out.println("Données : ");
-			for(DataObject data : datas) {
-				System.out.println("Value : " + data.getValue() + "(" + data.getParametre().getLabel() + ")");
-			}
-			System.out.println("URL : " + object.getURL());
-			System.out.println("URL NULL ? WTF");
+
 			DraggableImageView dg = new DraggableImageView(object.getURL(), ImageViewType.IMAGE, this);
 			dg.setUserData(object);
-//			elementsList.add(dg);
+
 			elementsBox.getChildren().add(dg);
 			
-			
 		}
-		
-//		elementsBox.getChildren().addAll(elementsList);
+
 	}
 
 	public void updateList(int id) {
 
-		System.out.println("UPDATE LIST : adding separators");
 		convoiBox.getChildren().add(id-1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
 		convoiBox.getChildren().add(id+1, new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
 		
-		
 	}
-	
-	@FXML
-	public void saveConvoi() {
 		
-		System.out.println("SAVE THE CONVOI !");
-		
-		List<DraggableImageView> convoiSave = new ArrayList<DraggableImageView>();
-		List<Node> convoiNodes = convoiBox.getChildren();
-		
-		for(Node node : convoiNodes) {
-			convoiSave.add((DraggableImageView) node);
-		}
-		
-		for(DraggableImageView dg : convoiSave) {
-			
-//			System.out.println(dg.getElemType());
-			System.out.println("RECUPERATION DES OBJECT CLASS");
-			ObjectClass object = (ObjectClass) dg.getUserData();
-			
-			System.out.println("ID : " + object.getId());
-			System.out.println("Type : " + object.getTypeClass());
-			ArrayList<DataObject> datas = object.getDonnees();
-			System.out.println("Données : ");
-			for(DataObject data : datas) {
-				System.out.println("Value : " + data.getValue() + "(" + data.getParametre().getLabel() + ")");
-			}
-			System.out.println("URL : " + object.getURL());
-			System.out.println("URL NULL ? WTF");
-			
-		}
-		
-		viewModel.setConvoiList(convoiSave);
-		
-	}
-	
 	public void addSeparator() {
 		
-		System.out.println("ADD SEPARATOR");
 		convoiList.add(new DraggableImageView("DragDrop/Images/insert.png", ImageViewType.SEPARATOR, this));
 		
 	}
@@ -341,8 +247,6 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 		
 		if(convoiBox.getChildren().size() < 3) return false;
 		
-		System.out.println(((ObjectClass) convoiBox.getChildren().get(1).getUserData()).getTypeClass() + " : " + 1);
-		System.out.println(((ObjectClass) convoiBox.getChildren().get(convoiBox.getChildren().size()-2).getUserData()).getTypeClass() + " : " + (convoiBox.getChildren().size()-2));
 		String type1 = ((ObjectClass) convoiBox.getChildren().get(1).getUserData()).getTypeClass();
 		String type2 = ((ObjectClass) convoiBox.getChildren().get(convoiBox.getChildren().size()-2).getUserData()).getTypeClass();
 		
@@ -374,7 +278,4 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 		this.gestionBox = gestionBox;
 	}
 
-	
-	
-	
 }
