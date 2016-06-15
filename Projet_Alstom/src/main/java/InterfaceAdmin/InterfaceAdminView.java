@@ -26,26 +26,39 @@ import javafx.scene.control.TabPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
+/**
+ * The Class InterfaceAdminView.
+ */
 public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, Initializable {
 
+	/** The tab pane admin. */
 	@FXML
 	private TabPane tabPaneAdmin;
 
+	/**
+	 * Close app.
+	 */
 	@FXML
 	private void closeApp() {
 		viewModel.closeApp();
 	}
 
+	/**
+	 * About.
+	 */
 	@FXML
 	private void about() {
 		viewModel.about();
 	}
 
+	/** The view model. */
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
 
+	/** The map id creat. */
 	private HashMap<String, Integer> mapIdCreat;
 
+	/** {@inheritDoc} */
 	@Override
 	public void initialize(URL url, ResourceBundle resourceBundle) {
 		viewModel.getGestionaire().run();

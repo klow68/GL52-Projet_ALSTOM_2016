@@ -8,8 +8,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * The Class Main.
+ */
 public class Main extends Application {
 
+	/** {@inheritDoc} */
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Gestionnaire de convoi");
@@ -21,6 +25,11 @@ public class Main extends Application {
 	     primaryStage.show();
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

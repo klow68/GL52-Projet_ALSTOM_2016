@@ -38,32 +38,55 @@ import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
 
+/**
+ * The Class InterfaceAdminViewModel.
+ */
 public class InterfaceAdminViewModel implements ViewModel {
 
+	/** The gestionaire. */
 	private GestionnaireConfig gestionaire;
 
+	/** The gestionaire donnees. */
 	private GestionnaireDonnees gestionaireDonnees;
 
+	/**
+	 * Instantiates a new interface admin view model.
+	 */
 	public InterfaceAdminViewModel() {
 		gestionaire = new GestionnaireConfig();
 		gestionaireDonnees = new GestionnaireDonnees();
 	}
 
+	/**
+	 * Gets the gestionaire donnees.
+	 *
+	 * @return the gestionaire donnees
+	 */
 	public GestionnaireDonnees getGestionaireDonnees() {
 		return gestionaireDonnees;
 	}
 
+	/**
+	 * Gets the gestionaire.
+	 *
+	 * @return the gestionaire
+	 */
 	public GestionnaireConfig getGestionaire() {
 		return gestionaire;
 	}
 
-	/************************ MENU ************************/
+	/**
+	 * ********************** MENU ***********************.
+	 */
 
 	public void closeApp() {
 		Platform.exit();
 		System.exit(0);
 	}
 
+	/**
+	 * About.
+	 */
 	public void about() {
 		Alert alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("Version 1.0");
@@ -73,7 +96,19 @@ public class InterfaceAdminViewModel implements ViewModel {
 		alert.showAndWait();
 	}
 
-	/*****************************************************/
+	/**
+	 * **************************************************.
+	 *
+	 * Cette fonction permet de récupérer les information de l'objet choisi et de compléter les champs remplis
+	 *
+	 * @param new_value the new_value
+	 * @param urlButton the url button
+	 * @param gestionnaireData the gestionnaire data
+	 * @param mapIdCreat the map id creat
+	 * @param tab the tab
+	 * @param idList the id list
+	 * @param fileImage the file image
+	 */
 
 	public void chargerObject(Number new_value, Button urlButton, GestionnaireDonnees gestionnaireData,
 			HashMap<String, Integer> mapIdCreat, Tab tab, ArrayList<Integer> idList, Label fileImage) {
@@ -144,6 +179,13 @@ public class InterfaceAdminViewModel implements ViewModel {
 		}
 	}
 
+	/**
+	 * Url button action.
+	 * Action d'ouverture de la fenêtre de dialogue afin de récupérer l'url de l'image de l'objet
+	 *
+	 * @param fileImage the file image
+	 * @param error the error
+	 */
 	public void UrlButtonAction(Label fileImage, Label error) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Choisir une image");
@@ -161,10 +203,30 @@ public class InterfaceAdminViewModel implements ViewModel {
 		}
 	}
 
+	/**
+	 * Export action.
+	 * Permet d'exporter un objet en json
+	 *
+	 * @param gestionnaireData the gestionnaire data
+	 * @param mapIdCreat the map id creat
+	 * @param tab the tab
+	 */
 	public void exportAction(GestionnaireDonnees gestionnaireData, HashMap<String, Integer> mapIdCreat, Tab tab) {
 		gestionnaireData.exporterObjet(mapIdCreat.get(tab.getText()));
 	}
 
+	/**
+	 * Import button.
+	 * Permet d'importer un objet en json
+	 *
+	 * @param error the error
+	 * @param gestionnaireData the gestionnaire data
+	 * @param tab the tab
+	 * @param cbList the cb list
+	 * @param idList the id list
+	 * @param onglet the onglet
+	 * @param cb the cb
+	 */
 	public void importButtonAction(Label error, GestionnaireDonnees gestionnaireData, Tab tab, ArrayList<Object> cbList,
 			ArrayList<Integer> idList, Onglet onglet, ChoiceBox<Object> cb) {
 		FileChooser fileChooser = new FileChooser();
@@ -200,6 +262,18 @@ public class InterfaceAdminViewModel implements ViewModel {
 		}
 	}
 
+	/**
+	 * Creer action.
+	 * 
+	 * Permet de crée un nouvelle objet
+	 *
+	 * @param tab the tab
+	 * @param mapIdCreat the map id creat
+	 * @param onglet the onglet
+	 * @param cb the cb
+	 * @param urlButton the url button
+	 * @param label the label
+	 */
 	public void creerAction(Tab tab, HashMap<String, Integer> mapIdCreat, Onglet onglet, ChoiceBox<Object> cb,
 			Button urlButton, Label label) {
 		label.setVisible(false);
@@ -220,6 +294,16 @@ public class InterfaceAdminViewModel implements ViewModel {
 		afficherOnglet(tab, onglet);
 	}
 
+	/**
+	 * Ouvrir action.
+	 * Permet d'ouvrir un objet
+	 *
+	 * @param tab the tab
+	 * @param cb the cb
+	 * @param label the label
+	 * @param urlButton the url button
+	 * @param onglet the onglet
+	 */
 	public void ouvrirAction(Tab tab, ChoiceBox<Object> cb, Label label, Button urlButton, Onglet onglet) {
 		label.setVisible(true);
 		cb.setVisible(true);
@@ -239,6 +323,15 @@ public class InterfaceAdminViewModel implements ViewModel {
 		afficherOnglet(tab, onglet);
 	}
 
+	/**
+	 * Save action.
+	 * Permet de sauvegarder un objet
+	 *
+	 * @param tab the tab
+	 * @param mapIdCreat the map id creat
+	 * @param gestionnaireData the gestionnaire data
+	 * @param error the error
+	 */
 	public void saveAction(Tab tab, HashMap<String, Integer> mapIdCreat, GestionnaireDonnees gestionnaireData,
 			Label error) {
 		Boolean AsChampNull = false;
@@ -317,10 +410,20 @@ public class InterfaceAdminViewModel implements ViewModel {
 		}
 	}
 
-	/**********************************************************/
+	/** *******************************************************. */
 
 	private int numGridi;
 
+	/**
+	 * Traitement parametre.
+	 * Affichage des champ de l'objet ainsi que de ces sous champ par récursivité
+	 *
+	 * @param listeParam the liste param
+	 * @param grid the grid
+	 * @param gridMain the grid main
+	 * @param numGrid the num grid
+	 * @param tab the tab
+	 */
 	// num grid strat à 2 pour correspondre à la grid de Param
 	private void traitementParametre(ArrayList<Parametre> listeParam, GridPane grid, GridPane gridMain, int numGrid,
 			Tab tab) {
@@ -431,6 +534,13 @@ public class InterfaceAdminViewModel implements ViewModel {
 		}
 	}
 
+	/**
+	 * Afficher onglet.
+	 * Récupère le gridPanel et fait appel à traitementParametre pour afficher les champs
+	 *
+	 * @param tab the tab
+	 * @param onglet the onglet
+	 */
 	public void afficherOnglet(Tab tab, Onglet onglet) {
 		GridPane grid = new GridPane();
 		GridPane gridMain = new GridPane();

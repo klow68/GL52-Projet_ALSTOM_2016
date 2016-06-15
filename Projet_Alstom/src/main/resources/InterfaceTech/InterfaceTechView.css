@@ -125,7 +125,6 @@
 GridPane{
 	-fx-padding : 5 5 5 5;
 	-fx-hgap :10.0;
-	-fx-vgap: 20.0;
 }
 
 /*******************************************************************************
@@ -164,7 +163,7 @@ GridPane{
 }
 
 .toggle-button:focused, .button:focused, .button:default:focused {
-	
+
 }
 
 .toggle-button:focused:selected {
