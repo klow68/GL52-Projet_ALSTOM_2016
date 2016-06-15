@@ -48,6 +48,16 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 	@FXML
 	private TabPane tabPaneAdmin;
+	
+	@FXML
+	private void closeApp(){
+		viewModel.closeApp();
+	}
+	
+	@FXML
+	private void about(){
+		viewModel.about();
+	}
 
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
