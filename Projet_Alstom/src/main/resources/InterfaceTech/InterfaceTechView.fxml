@@ -6,11 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
 
-<<<<<<< HEAD
+
 <VBox prefHeight="800.0" prefWidth="1200.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="InterfaceTech.InterfaceTechView">
-=======
-<VBox prefHeight="800.0" prefWidth="1200.0" stylesheets="@InterfaceTechView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="DragDrop.DragDropView">
->>>>>>> 762aaba534bf833cdb420bb7b44bc31be6b281a1
   <!-- TODO Add Nodes -->
   <children>
     <Pane prefHeight="800.0" prefWidth="1200.0">
