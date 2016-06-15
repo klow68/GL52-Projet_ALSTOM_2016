@@ -1,40 +1,40 @@
 [
     {
 	"id":"8",
-        "class":"Loco",
+        "class":"Locomotive",
         "label":"Type",
         "type":"combo",
         "select":[
             {
                 "id":"1",
-                "class":"Loco",
+                "class":"Locomotive",
                 "label":"Vapeur",
                 "type":"select",
 		"select":[
                     {
 			"id":"10",
-                        "class":"Loco",
-                        "label":"Qte charbon",
+                        "class":"Locomotive",
+                        "label":"Qte charbon (Kg)",
                         "type":"input",
 			"input":"double"
                     },
 		    {
 			"id":"11",
-                        "class":"Loco",
-                        "label":"MERDE",
+                        "class":"Locomotive",
+                        "label":"Gaz",
                         "type":"combo",
 			 "select":[
 				{
 					"id":"12",
-				        "class":"Loco",
+				        "class":"Locomotive",
 				        "label":"CO2",
 				        "type":"select"
 					
                     		},
 				{
 					"id":"15",
-				        "class":"Loco",
-				        "label":"CO2",
+				        "class":"Locomotive",
+				        "label":"H2O",
 				        "type":"select"
 					
 
@@ -45,14 +45,14 @@
             },
             {
                 "id":"2",
-                "class":"Loco",
+                "class":"Locomotive",
                 "label":"Electrique",
                 "type":"select",
 		"select":[
                     {
 			"id":"19",
-                        "class":"Loco",
-                        "label":"36 WATT",
+                        "class":"Locomotive",
+                        "label":"Consommation WATT",
                         "type":"input",
 			"input":"double"
                     }
@@ -63,8 +63,15 @@
     },
     {
 	"id":"9",
-        "class":"Loco",
-        "label":"nom de ta mère",
+        "class":"Locomotive",
+        "label":"Nom de la locomotive",
+        "type":"input",
+	"input":"string"
+    },
+    {
+	"id":"10",
+        "class":"Wagon",
+        "label":"Nom du wagon",
         "type":"input",
 	"input":"string"
     }
