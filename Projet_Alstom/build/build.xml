@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<project name="mvvmfx-helloworld" default="do-deploy" basedir="."  xmlns:fx="javafx:com.sun.javafx.tools.ant">
+	<target name="init-fx-tasks">
+		<path id="fxant">
+			<filelist>
+				<file name="${java.home}\..\lib\ant-javafx.jar"/>
+				<file name="${java.home}\lib\jfxrt.jar"/>
+			</filelist>
+		</path>
+	
+		<taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+			uri="javafx:com.sun.javafx.tools.ant"
+			classpathref="fxant"/>
+	</target>
+	<target name="setup-staging-area">
+		<delete dir="externalLibs" />
+		<delete dir="project" />
+		<delete dir="projectRefs" />
+	
+		<mkdir dir="externalLibs" />
+	
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/net/jodah/typetools/0.4.1">
+				<filename name="typetools-0.4.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/de/saxsys/mvvmfx/1.3.0">
+				<filename name="mvvmfx-1.3.0.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/org/slf4j/slf4j-api/1.7.12">
+				<filename name="slf4j-api-1.7.12.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/log4j/log4j/1.2.17">
+				<filename name="log4j-1.2.17.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/eu/lestard/doc-annotations/0.2">
+				<filename name="doc-annotations-0.2.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/com/googlecode/json-simple/json-simple/1.1.1">
+				<filename name="json-simple-1.1.1.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/org/slf4j/slf4j-log4j12/1.7.21">
+				<filename name="slf4j-log4j12-1.7.21.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/junit/junit/4.10">
+				<filename name="junit-4.10.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="externalLibs">
+			<fileset dir="/home/klow/.m2/repository/org/hamcrest/hamcrest-core/1.1">
+				<filename name="hamcrest-core-1.1.jar"/>
+			</fileset>
+		</copy>
+	
+		<mkdir dir="project" />
+		<copy todir="project">
+			<fileset dir="/home/klow/workspace/GL52-Projet_ALSTOM_2016/Projet_Alstom">
+				<include name="src/main/java/**" />
+			</fileset>
+		</copy>
+		<copy todir="project">
+			<fileset dir="/home/klow/workspace/GL52-Projet_ALSTOM_2016/Projet_Alstom">
+				<include name="src/main/resources/**" />
+			</fileset>
+		</copy>
+	
+		<mkdir dir="projectRefs" />
+	</target>
+	<target name='do-compile'>
+		<delete dir="build" />
+		<mkdir dir="build/src" />
+		<mkdir dir="build/libs" />
+		<mkdir dir="build/classes" />
+	
+		<!-- Copy project-libs references -->
+		<copy todir="build/libs">
+			<fileset dir="externalLibs">
+				<include name="typetools-0.4.1.jar"/>
+				<include name="mvvmfx-1.3.0.jar"/>
+				<include name="slf4j-log4j12-1.7.21.jar"/>
+				<include name="slf4j-api-1.7.12.jar"/>
+				<include name="json-simple-1.1.1.jar"/>
+				<include name="log4j-1.2.17.jar"/>
+				<include name="hamcrest-core-1.1.jar"/>
+				<include name="junit-4.10.jar"/>
+				<include name="doc-annotations-0.2.jar"/>
+			</fileset>
+		</copy>
+	
+		<!-- Copy project references -->
+	
+		<!-- Copy project sources itself -->
+		<copy todir="build/src">
+			<fileset dir="project/src/main/resources">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="build/src">
+			<fileset dir="project/src/main/java">
+				<include name="**/*"/>
+			</fileset>
+		</copy>
+	
+		<javac includeantruntime="false" source="1.8" target="1.8" srcdir="build/src" destdir="build/classes" encoding="UTF-8">
+			<classpath>
+				<fileset dir="build/libs">
+					<include name="*"/>
+				</fileset>
+			</classpath>
+		</javac>
+	
+		<!-- Copy over none Java-Files -->
+		<copy todir="build/classes">
+		<fileset dir="project/src/main/resources">
+			<exclude name="**/*.java"/>
+		</fileset>
+		<fileset dir="project/src/main/java">
+			<exclude name="**/*.java"/>
+		</fileset>
+		</copy>
+	
+	
+	</target>
+	<target name="do-deploy" depends="setup-staging-area, do-compile, init-fx-tasks">
+		<delete file="dist"/>
+		<delete file="deploy" />
+	
+		<mkdir dir="dist" />
+		<mkdir dir="dist/libs" />
+	
+		<copy todir="dist/libs">
+			<fileset dir="externalLibs">
+				<include name="*" />
+			</fileset>
+		</copy>
+	
+	
+		<fx:resources id="appRes">
+			<fx:fileset dir="dist" includes="mvvmfx-helloworld.jar"/>
+			<fx:fileset dir="dist" includes="libs/*"/>
+		</fx:resources>
+	
+		<fx:application id="fxApplication"
+			name="GL52-Projet_Alstom"
+			mainClass="MainMenu.Main"
+			toolkit="fx"
+		/>
+	
+		<mkdir dir="build/classes/META-INF" />
+	
+	
+	
+		<fx:jar destfile="dist/mvvmfx-helloworld.jar">
+			<fx:application refid="fxApplication"/>
+			<fileset dir="build/classes">
+			</fileset>
+			<fx:resources refid="appRes"/>
+	
+			<manifest>
+				<attribute name="Implementation-Vendor" value="UTBM"/>
+				<attribute name="Implementation-Title" value="GL52-Projet_Alstom"/>
+				<attribute name="Implementation-Version" value="1.0"/>
+				<attribute name="JavaFX-Feature-Proxy" value="None"/>
+			</manifest>
+		</fx:jar>
+	
+	
+	
+	
+	</target>
+</project>
