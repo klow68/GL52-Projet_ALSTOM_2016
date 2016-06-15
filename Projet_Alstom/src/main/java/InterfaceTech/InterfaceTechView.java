@@ -62,15 +62,9 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
     @FXML
     private Button chargerConvoi;
     
-//    @FXML
-//    private Button chargerElements;
-    
     @FXML
     private Button save;
     
-//    @FXML
-//    private Button cancel;
-
     @InjectViewModel
     private InterfaceTechViewModel viewModel;
     
@@ -81,6 +75,7 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    	
     	
     	save.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -102,11 +97,20 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 		    		List<ObjectClass> objects = new ArrayList<ObjectClass>();
 		    		for(DraggableImageView dg : convoiSave) {
 		    			
-		    			// Récupération des ObjectClass
+	//	    			System.out.println(dg.getElemType());
+		    			System.out.println("RECUPERATION DES OBJECT CLASS");
 		    			ObjectClass object = (ObjectClass) dg.getUserData();
 		    			
+		    			System.out.println("ID : " + object.getId());
+		    			System.out.println("Type : " + object.getTypeClass());
 		    			ArrayList<DataObject> datas = object.getDonnees();
-
+		    			System.out.println("Données : ");
+		    			for(DataObject data : datas) {
+		    				System.out.println("Value : " + data.getValue() + "(" + data.getParametre().getLabel() + ")");
+		    			}
+		    			System.out.println("URL : " + object.getURL());
+		    			System.out.println("URL NULL ? WTF");
+		    			
 		    			objects.add(object);
 		    			
 		    		}
@@ -123,9 +127,15 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 		    		dialog.setHeaderText("Nommez le convoi");
 		    		dialog.setContentText("Entrez le nom du convoi :");
 	
+		    		// Traditional way to get the response value.
 		    		Optional<String> result = dialog.showAndWait();
 		    		String nomConvoi = "";
+		    		if (result.isPresent()){
+		    		    System.out.println("Nom du convoi: " + result.get());
+		    		    nomConvoi = result.get();
+		    		}
 	
+		    		// The Java 8 way to get the response value (with lambda expression).
 		    		result.ifPresent(name -> System.out.println("Your name: " + name));
 		    		
 		    		gd.exportToJson(nomConvoi, objects);

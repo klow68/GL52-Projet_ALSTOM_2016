@@ -198,6 +198,7 @@ public class GestionnaireDonnees {
 		try {
 			writer = new FileWriter(convoiFile);
 			writer.write(document);
+			System.out.println("WRITTEN");
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
