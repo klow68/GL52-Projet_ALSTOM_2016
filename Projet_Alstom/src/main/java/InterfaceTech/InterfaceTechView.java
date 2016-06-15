@@ -65,6 +65,16 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
     @FXML
     private Button save;
     
+    @FXML
+	private void closeApp() {
+		viewModel.closeApp();
+	}
+
+	@FXML
+	private void about() {
+		viewModel.about();
+	}
+    
     @InjectViewModel
     private InterfaceTechViewModel viewModel;
     
