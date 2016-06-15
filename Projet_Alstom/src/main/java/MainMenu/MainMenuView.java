@@ -21,46 +21,75 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable  {
+/**
+ * The Class MainMenuView.
+ */
+public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable {
 
-	 @InjectViewModel
-	    private MainMenuViewModel viewModel;
+	/** The view model. */
+	@InjectViewModel
+	private MainMenuViewModel viewModel;
+	
+	/** The ap. */
 	@FXML
-		private VBox ap;
-	
-	 
-	 @FXML
-	 private void changeWindowToAdmin(){
-		 
-		 Stage stage = new Stage();
-		 FxmlViewStep<InterfaceAdminView, InterfaceAdminViewModel> view = FluentViewLoader.fxmlView(InterfaceAdminView.class);
-	     ViewTuple<InterfaceAdminView, InterfaceAdminViewModel> viewTuple =	view.load();
-	     Parent root = viewTuple.getView();
-	     stage.setScene(new Scene(root));
-	     ((Stage)ap.getScene().getWindow()).close();
-	     stage.show();
-	     
-	     
-	 }
-	 @FXML
-	 private void changeWindowToTechnicien(){
-		 Stage stage = new Stage();
-		 FxmlViewStep<InterfaceTechView, InterfaceTechViewModel> view = FluentViewLoader.fxmlView(InterfaceTechView.class);
-	     ViewTuple<InterfaceTechView, InterfaceTechViewModel> viewTuple =	view.load();
-	     Parent root = viewTuple.getView();
-	     stage.setScene(new Scene(root));
-	     ((Stage)ap.getScene().getWindow()).close();
-	     stage.show();
-		 
-	 }
-	
-	 
+	private VBox ap;
+
+	/**
+	 * Close app.
+	 */
+	@FXML
+	private void closeApp() {
+		viewModel.closeApp();
+	}
+
+	/**
+	 * About.
+	 */
+	@FXML
+	private void about() {
+		viewModel.about();
+	}
+
+	/**
+	 * Change window to admin.
+	 */
+	@FXML
+	private void changeWindowToAdmin() {
+
+		Stage stage = new Stage();
+		FxmlViewStep<InterfaceAdminView, InterfaceAdminViewModel> view = FluentViewLoader
+				.fxmlView(InterfaceAdminView.class);
+		ViewTuple<InterfaceAdminView, InterfaceAdminViewModel> viewTuple = view.load();
+		Parent root = viewTuple.getView();
+		stage.setScene(new Scene(root));
+		((Stage) ap.getScene().getWindow()).close();
+		stage.show();
+
+	}
+
+	/**
+	 * Change window to technicien.
+	 */
+	@FXML
+	private void changeWindowToTechnicien() {
+		Stage stage = new Stage();
+		FxmlViewStep<InterfaceTechView, InterfaceTechViewModel> view = FluentViewLoader
+				.fxmlView(InterfaceTechView.class);
+		ViewTuple<InterfaceTechView, InterfaceTechViewModel> viewTuple = view.load();
+		Parent root = viewTuple.getView();
+		stage.setScene(new Scene(root));
+		((Stage) ap.getScene().getWindow()).close();
+		stage.show();
+
+	}
+
+	/** {@inheritDoc} */
 	public void initialize(URL location, ResourceBundle resources) {
-		 GestionnaireConfig GC = new  GestionnaireConfig();
-		 GC.run();
-		 GestionnaireDonnees GD = new GestionnaireDonnees();
-		 GD.run(GC);
-		 
+		GestionnaireConfig GC = new GestionnaireConfig();
+		GC.run();
+		GestionnaireDonnees GD = new GestionnaireDonnees();
+		GD.run(GC);
+
 	}
 
 }

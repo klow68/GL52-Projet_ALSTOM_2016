@@ -1,8 +1,0 @@
-{
- ["id":"1", "onglet":"Locomotive"]
-,["id":"2", "onglet":"Wagon"]
-,["id":"3", "idOnglet":"1", "property":"Nom",  "type":"input"]
-,["id":"4", "idOnglet":"1", "property":"Type Locomotive", "type":"select"]
-,["id":"5", "idType":"4", "Name":"Electrique"]
-,["id":"6", "idType":"4", "Name":"Vapeur"]
-}
