@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Main.
  */
