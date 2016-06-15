@@ -145,6 +145,8 @@ public class InterfaceTechView implements FxmlView<InterfaceTechViewModel>, Init
 					alert.setTitle("Convoi non valide");
 					alert.setHeaderText("Le convoi n'est pas valide");
 					alert.setContentText("Le convoi n'est pas valide, le train doit avoir une locomotique a une extremité minimum");
+					alert.setResizable(true);
+					alert.getDialogPane().setPrefSize(400, 200);
 					alert.showAndWait();
 					
 				}
