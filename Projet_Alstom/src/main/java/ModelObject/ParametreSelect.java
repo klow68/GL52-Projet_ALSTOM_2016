@@ -10,13 +10,6 @@ public class ParametreSelect extends Parametre {
 
 	private ArrayList<Parametre> parametres = null;
 
-	public ParametreSelect(int _id, String _classe, String _label, typeParametre _type,
-			ArrayList<Parametre> _parametres) {
-		super(_id, _classe, _label, _type);
-		parametres = _parametres;
-	}
-
-	@SuppressWarnings("unchecked")
 	public ParametreSelect(int _id, String _classe, String _label, typeParametre _type, JSONArray tableau) {
 		super(_id, _classe, _label, _type);
 		// Le tab est composé des parametres que doit afficher le select une
