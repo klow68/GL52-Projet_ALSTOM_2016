@@ -8,8 +8,8 @@ public class ObjectClass {
 	String typeClass;
 	ArrayList<DataObject> donnees;
 	String URLImage = "";
-	
-	public ObjectClass(int _id, String _typeClass, String URL){
+
+	public ObjectClass(int _id, String _typeClass, String URL) {
 		id = _id;
 		typeClass = _typeClass;
 		URLImage = URL;
@@ -27,18 +27,21 @@ public class ObjectClass {
 	public String getTypeClass() {
 		return typeClass;
 	}
-	
-	public void addData(DataObject da){
+
+	public void addData(DataObject da) {
 		donnees.add(da);
 	}
-	public void setParametres(ArrayList<DataObject> _donnees){
+
+	public void setParametres(ArrayList<DataObject> _donnees) {
 		donnees = _donnees;
 	}
-	public void setURL(String URL){
+
+	public void setURL(String URL) {
 		URLImage = URL;
 	}
-	public String getURL(){
+
+	public String getURL() {
 		return URLImage;
 	}
-	
+
 }
