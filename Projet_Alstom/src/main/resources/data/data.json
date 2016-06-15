@@ -1,11 +1,4 @@
-[{"typeObject":"Loco"
-,"idObject":"2"
-,"URLImage":"DragDrop/Images/loco.jpg"
-,"data"
-:[{"idConfig":"9","values":"yhgf"}
-,{"idConfig":"19","values":"45.0"}
-,{"idConfig":"8","values":"2"}
-,]},{"typeObject":"Wagon"
+[{"typeObject":"Wagon"
 ,"idObject":"3"
 ,"URLImage":"DragDrop/Images/wagon.jpg"
 ,"data"
@@ -17,6 +10,29 @@
 ,"URLImage":"DragDrop/Images/loco.jpg"
 ,"data"
 :[{"idConfig":"9","values":"ZUBZUB"}
+,{"idConfig":"8","values":"1"}
+,{"idConfig":"11","values":"15"}
+,{"idConfig":"10","values":"13.0"}
+,]},{"typeObject":"Loco"
+,"idObject":"2"
+,"URLImage":"DragDrop/Images/loco.jpg"
+,"data"
+:[{"idConfig":"9","values":"yhgf"}
+,{"idConfig":"8","values":"2"}
+,{"idConfig":"19","values":"78.0"}
+,]},{"typeObject":"Loco"
+,"idObject":"10"
+,"URLImage":"coffee.jpg"
+,"data"
+:[{"idConfig":"9","values":"RER 247899"}
+,{"idConfig":"8","values":"1"}
+,{"idConfig":"11","values":"15"}
+,{"idConfig":"10","values":"13.0"}
+,]},{"typeObject":"Loco"
+,"idObject":"17"
+,"URLImage":"DragDrop/Images/loco.jpg"
+,"data"
+:[{"idConfig":"9","values":"TER 247899"}
 ,{"idConfig":"8","values":"1"}
 ,{"idConfig":"11","values":"15"}
 ,{"idConfig":"10","values":"13.0"}

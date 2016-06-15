@@ -62,6 +62,8 @@ public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable 
 		 GestionnaireDonnees GD = new GestionnaireDonnees();
 		 GD.run(GC);
 		 //GD.test();
+		 //GD.importerObject("/home/flodov/workspace/GL52-Projet_ALSTOM_2016/Projet_Alstom/src/main/resources/Export/4-ZUBZUB.json");
+		 
 	}
 
 }

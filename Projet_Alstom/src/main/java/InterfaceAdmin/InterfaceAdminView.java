@@ -39,6 +39,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.util.converter.IntegerStringConverter;
 import javafx.util.converter.NumberStringConverter;
@@ -47,6 +48,16 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 	@FXML
 	private TabPane tabPaneAdmin;
+	
+	@FXML
+	private void closeApp(){
+		viewModel.closeApp();
+	}
+	
+	@FXML
+	private void about(){
+		viewModel.about();
+	}
 
 	@InjectViewModel
 	private InterfaceAdminViewModel viewModel;
@@ -82,7 +93,16 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			Button ouvrir = new Button("Ouvrir");
 			Button save = new Button("Sauvegarder");
 			Button export = new Button("Export");
+			Button importB = new Button("Import");
 			Button urlButton = new Button("url");
+			Label fileImage = new Label();
+			fileImage.setWrapText(true);
+			fileImage.setId("urlId");
+			Label error = new Label();
+			error.setWrapText(true);
+			error.setTextFill(Color.RED);
+			error.setStyle("-fx-color: red");
+
 			urlButton.setVisible(false);
 			final Label label = new Label("Sélection : ");
 
@@ -102,7 +122,6 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 				cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
 					public void changed(ObservableValue ov, Number value, Number new_value) {
-						// System.out.println(idList.get(new_value.intValue()));
 						if (new_value.intValue() != -1) {
 							urlButton.setVisible(true);
 							// chargement des donnée
@@ -164,7 +183,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 												}
 											}
 										}
-
+										fileImage.setText(objectD.getURL());
 										// ********************************
 
 									}
@@ -188,25 +207,60 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					fileChooser.setTitle("Choisir une image");
 					File selectedFile = fileChooser.showOpenDialog(null);
 					if (selectedFile != null) {
-						System.out.println("File selected: " + selectedFile.getName());
-						String mimetype= new MimetypesFileTypeMap().getContentType(selectedFile);
-				        String type = mimetype.split("/")[0];
-				        if(type.equals("image")){
-				        	for (Integer integer : idList) {
-								
-							}
-				        	System.out.println("It's an image");
-				        }
-				        else 
-				            System.out.println("It's NOT an image");
+						String mimetype = new MimetypesFileTypeMap().getContentType(selectedFile);
+						String type = mimetype.split("/")[0];
+						if (type.equals("image")) {
+							fileImage.setText(selectedFile.getName());
+							error.setText("");
+						} else {
+							error.setText("Erreur : Ce n'est pas une image");
+							fileImage.setText("");
+						}
 					}
 				}
 			});
-			
+
 			export.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
 					gestionnaireData.exporterObjet(mapIdCreat.get(tab.getText()));
+				}
+			});
+
+			importB.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					FileChooser fileChooser = new FileChooser();
+					fileChooser.setTitle("Choisir une image");
+					File selectedFile = fileChooser.showOpenDialog(null);
+					if (selectedFile != null) {
+						String name = selectedFile.getName();
+						if (name.substring(name.lastIndexOf(".") + 1).equals("json")) {
+							error.setText("");
+							// ajouter
+							int id = gestionnaireData.importerObject(selectedFile.getPath());
+							// refresh data
+							gestionnaireData.run(viewModel.getGestionaire());
+							// afficher les valeur a remplir
+							afficherOnglet(tab, onglet);
+							
+							// modifier la selection de cb
+							// avec la val ajouter
+							ObjectClass oc = gestionnaireData.getObject(id);
+
+							if (oc.getTypeClass().equals(tab.getText())) {
+								cbList.add(oc.getDonnees().get(0).getValue());
+								idList.add((Integer) oc.getId());
+							}
+							cb .getItems().add(oc.getDonnees().get(0).getValue());
+							cb.setValue(oc.getDonnees().get(0).getValue());
+							
+
+						} else {
+							error.setText("Erreur : le fichier n'est pas un fichier json");
+						}
+
+					}
 				}
 			});
 
@@ -215,7 +269,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 				public void handle(ActionEvent event) {
 					label.setVisible(false);
 					cb.setVisible(false);
-					urlButton.setVisible(false);
+					urlButton.setVisible(true);
 					mapIdCreat.put(tab.getText(), -1);
 					for (Node n : tab.getContent().lookupAll("GridPane")) {
 						if (n instanceof GridPane) {
@@ -238,6 +292,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 					label.setVisible(true);
 					cb.setVisible(true);
 					cb.valueProperty().set(null);
+					urlButton.setVisible(true);
 					for (Node n : tab.getContent().lookupAll("GridPane")) {
 						if (n instanceof GridPane) {
 							GridPane gride = (GridPane) n;
@@ -264,7 +319,7 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 						if (n instanceof TextField) {
 							n.getId();
 							Parametre p = viewModel.getGestionaire().getParametre(Integer.parseInt(n.getId()));
-							if (null != ((TextField) n).getText()) {
+							if (null != ((TextField) n).getText() && !((TextField) n).getText().equals("")) {
 								String[] toAdd = { Integer.toString(p.getId()), ((TextField) n).getText() };
 								textResult.add(toAdd);
 							} else {
@@ -272,8 +327,10 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 							}
 						}
 					}
-					saveResult.add(textResult.get(0));
-					textResult.remove(0);
+					if (textResult.size() > 0) {
+						saveResult.add(textResult.get(0));
+						textResult.remove(0);
+					}
 					for (Node n : tab.getContent().lookupAll("ChoiceBox")) {
 						if (n instanceof ChoiceBox) {
 							if (n.getId() != null) {
@@ -304,16 +361,30 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 						}
 					}
 					saveResult.addAll(textResult);
-					System.out.println("map : " + mapIdCreat.get(tab.getText()));
-					if (!AsChampNull) {
-						// System.out.println(saveResult);
-						// for (String[] save : saveResult) {
-						// System.out.println(save[0]+" : "+save[1]);
-						// }
-						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), saveResult);
+
+					String UrlImage = "";
+					for (Node n : tab.getContent().lookupAll("Label")) {
+						if (n instanceof Label) {
+							n.getId();
+							if (n.getId() != null && n.getId().equals("urlId")) {
+								UrlImage = ((Label) n).getText();
+							}
+						}
+					}
+
+					if (!AsChampNull && !UrlImage.equals("")) {
+						error.setText("");
+						gestionnaireData.sauvegarde(mapIdCreat.get(tab.getText()), tab.getText(), UrlImage, saveResult);
 					} else {
 						// do something to show the user is a fool
-						System.out.println("crétin");
+						String s = "Erreur : ";
+						if (UrlImage.equals("")) {
+							s = "Il manque l'image. ";
+						}
+						if (AsChampNull) {
+							s += "Un des champs n'est pas remplie. ";
+						}
+						error.setText(s);
 					}
 				}
 			});
@@ -334,8 +405,13 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 
 			gridButton.add(label, 3, 0);
 			gridButton.add(cb, 4, 0);
-			gridButton.add(urlButton, 5, 0);
 			gridButton.add(export, 6, 0);
+			gridButton.add(importB, 7, 0);
+
+			gridButton.add(urlButton, 0, 1);
+			gridButton.add(fileImage, 1, 1, 6, 1);
+
+			gridButton.add(error, 0, 2, 6, 1);
 
 			grid.add(gridParam, 0, 1);
 
@@ -356,7 +432,6 @@ public class InterfaceAdminView implements FxmlView<InterfaceAdminViewModel>, In
 			Tab tab) {
 		int i = 0;
 		numGridi = numGrid;
-		System.out.println(numGridi);
 		for (Parametre param : listeParam) {
 			Label label = new Label(param.getLabel() + " : ");
 

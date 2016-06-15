@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import ModelObject.GestionnaireConfig;
 import ObjectData.GestionnaireDonnees;
 import de.saxsys.mvvmfx.ViewModel;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import model.json.JsonOnglet;
 import model.json.JsonProperty;
 import model.json.JsonSelect;
@@ -43,15 +46,6 @@ public class InterfaceAdminViewModel implements ViewModel {
 	public void setListeSelect(ArrayList<JsonSelect> listeSelect) {
 		this.listeSelect = listeSelect;
 	}
-	
-//	public Integer getIdOnglet(String labelOnglet){
-//		
-//		int id = -1;
-//		for (JsonOnglet onglet : listeOnglet){
-//			if( onglet.getOnglet().equals(labelOnglet)) id = onglet.getId();
-//		}
-//		return id;
-//	}
 
 	public ArrayList<JsonProperty> getListeProperty() {
 		return listeProperty;
@@ -65,7 +59,19 @@ public class InterfaceAdminViewModel implements ViewModel {
 		return listeSelect;
 	}
 	
+	public void closeApp(){
+		Platform.exit();
+	    System.exit(0);
+	}
 	
+	public void about(){
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Version 1.0");
+		alert.setHeaderText("A propos");
+		alert.setContentText("\tDAUDAN Florian \t \tDUPONT Arnaud \t \n\tGUIMARAES Patrick \t \tRENARD Lucas \t");
+
+		alert.showAndWait();
+	}
 	
 	
 }
