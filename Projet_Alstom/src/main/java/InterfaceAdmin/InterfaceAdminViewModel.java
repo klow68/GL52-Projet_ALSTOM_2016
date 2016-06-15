@@ -308,10 +308,10 @@ public class InterfaceAdminViewModel implements ViewModel {
 			// do something to show the user is a fool
 			String s = "Erreur : ";
 			if (UrlImage.equals("")) {
-				s = "Il manque l'image. ";
+				s += "Il manque l'image. ";
 			}
 			if (AsChampNull) {
-				s += "Un des champs n'est pas remplie. ";
+				s += "Un des champs n'est pas rempli. ";
 			}
 			error.setText(s);
 		}
