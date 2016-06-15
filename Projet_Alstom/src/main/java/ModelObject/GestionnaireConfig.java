@@ -10,18 +10,29 @@ import org.json.simple.parser.JSONParser;
 
 import ModelObject.Parametre.typeParametre;
 
+/**
+ * The Class GestionnaireConfig.
+ */
 public class GestionnaireConfig {
 
+	/** The onglets. */
 	private ArrayList<Onglet> onglets = null;
 
+	/** The file. */
 	private File file = null; // = new
 								// File("src/main/resources/InterfaceAdmin/admin.json");
 
+	/**
+	 * Instantiates a new gestionnaire config.
+	 */
 	public GestionnaireConfig() {
 
 		onglets = new ArrayList<Onglet>();
 	}
 
+	/**
+	 * Run. Permet charger toutes les configs depuis le fichier JSON
+	 */
 	public void run() {
 		// On ouvre le fichier des configs
 		file = new File("src/main/resources/configs/config.json");
@@ -82,10 +93,22 @@ public class GestionnaireConfig {
 
 	}
 
+	/**
+	 * Gets the onglets.
+	 *
+	 * @return the onglets
+	 */
 	public ArrayList<Onglet> getOnglets() {
 		return onglets;
 	}
 
+	/**
+	 * Class exist.
+	 *
+	 * @param _name
+	 *            the _name
+	 * @return true, if successful
+	 */
 	public boolean ClassExist(String _name) {
 
 		for (Onglet onglet : onglets) {
@@ -95,6 +118,13 @@ public class GestionnaireConfig {
 		return false;
 	}
 
+	/**
+	 * Gets the onglet.
+	 *
+	 * @param name
+	 *            the name
+	 * @return the onglet
+	 */
 	public Onglet getOnglet(String name) {
 		for (Onglet o : onglets) {
 			if (o.getName().equals(name))
@@ -103,6 +133,13 @@ public class GestionnaireConfig {
 		return null;
 	}
 
+	/**
+	 * Gets the parametre.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the parametre
+	 */
 	public Parametre getParametre(int id) {
 		Parametre tmp = null;
 		for (Onglet o : onglets) {

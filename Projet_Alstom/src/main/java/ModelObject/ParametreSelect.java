@@ -6,10 +6,28 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+/**
+ * The Class ParametreSelect.
+ */
 public class ParametreSelect extends Parametre {
 
+	/** The parametres. */
 	private ArrayList<Parametre> parametres = null;
 
+	/**
+	 * Instantiates a new parametre select.
+	 *
+	 * @param _id
+	 *            the _id
+	 * @param _classe
+	 *            the _classe
+	 * @param _label
+	 *            the _label
+	 * @param _type
+	 *            the _type
+	 * @param tableau
+	 *            the tableau
+	 */
 	public ParametreSelect(int _id, String _classe, String _label, typeParametre _type, JSONArray tableau) {
 		super(_id, _classe, _label, _type);
 		// Le tab est composé des parametres que doit afficher le select une
@@ -53,10 +71,22 @@ public class ParametreSelect extends Parametre {
 		}
 	}
 
+	/**
+	 * Gets the parametres.
+	 *
+	 * @return the parametres
+	 */
 	public ArrayList<Parametre> getParametres() {
 		return parametres;
 	}
 
+	/**
+	 * Gets the parametre.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the parametre
+	 */
 	public Parametre getParametre(int id) {
 
 		Parametre tmp = null;

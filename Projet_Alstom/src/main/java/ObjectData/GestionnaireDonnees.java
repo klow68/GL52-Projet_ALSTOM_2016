@@ -15,22 +15,44 @@ import ModelObject.GestionnaireConfig;
 import ModelObject.Parametre;
 import ModelObject.Parametre.typeParametre;
 
+/**
+ * The Class GestionnaireDonnees.
+ */
 public class GestionnaireDonnees {
 
+	/** The objets. */
 	ArrayList<ObjectClass> objets;
+
+	/** The fichier. */
 	File fichier;
 
+	/** The gc. */
 	GestionnaireConfig GC = null;
 
+	/**
+	 * Instantiates a new gestionnaire donnees.
+	 */
 	public GestionnaireDonnees() {
 		objets = new ArrayList<ObjectClass>();
 
 	}
 
+	/**
+	 * Gets the objets.
+	 *
+	 * @return the objets
+	 */
 	public ArrayList<ObjectClass> getObjets() {
 		return objets;
 	}
 
+	/**
+	 * Run. Permet de charger toutes les données sous forme d'objets à l'aide du
+	 * fichier JSON de données
+	 * 
+	 * @param GC
+	 *            the gc
+	 */
 	public void run(GestionnaireConfig GC) {
 		fichier = new File("src/main/resources/data/data.json");
 		objets = new ArrayList<ObjectClass>();
@@ -79,6 +101,18 @@ public class GestionnaireDonnees {
 		}
 	}
 
+	/**
+	 * Sauvegarde.
+	 *
+	 * @param id
+	 *            the id
+	 * @param type
+	 *            the type
+	 * @param URL
+	 *            the url
+	 * @param donnees
+	 *            the donnees
+	 */
 	public void sauvegarde(int id, String type, String URL, ArrayList<String[]> donnees) {
 		boolean existe = false;
 		ObjectClass objet = null;
@@ -144,6 +178,13 @@ public class GestionnaireDonnees {
 
 	}
 
+	/**
+	 * Gets the object.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the object
+	 */
 	public ObjectClass getObject(int id) {
 
 		ObjectClass o = null;
@@ -154,6 +195,14 @@ public class GestionnaireDonnees {
 		return o;
 	}
 
+	/**
+	 * Export to json.
+	 *
+	 * @param nomConvoi
+	 *            the nom convoi
+	 * @param objects
+	 *            the objects
+	 */
 	public void exportToJson(String nomConvoi, List<ObjectClass> objects) {
 
 		File convoiFile = new File("src/main/resources/data/convois/" + nomConvoi + ".json");
@@ -189,6 +238,13 @@ public class GestionnaireDonnees {
 
 	}
 
+	/**
+	 * Parses the json convoi.
+	 *
+	 * @param jsonFile
+	 *            the json file
+	 * @return the list
+	 */
 	public List<Integer> parseJsonConvoi(File jsonFile) {
 
 		JSONParser parser = new JSONParser();
@@ -215,6 +271,12 @@ public class GestionnaireDonnees {
 		return elementsIds;
 	}
 
+	/**
+	 * Exporter objet.
+	 *
+	 * @param id
+	 *            the id
+	 */
 	public void exporterObjet(int id) {
 		String chaineFichier;
 		String document;
@@ -256,6 +318,13 @@ public class GestionnaireDonnees {
 
 	}
 
+	/**
+	 * Importer object.
+	 *
+	 * @param URL
+	 *            the url
+	 * @return the int
+	 */
 	public int importerObject(String URL) {
 		File file = new File(URL);
 		JSONParser parser = new JSONParser();
