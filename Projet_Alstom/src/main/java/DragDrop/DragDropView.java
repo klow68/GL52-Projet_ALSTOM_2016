@@ -18,6 +18,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -60,14 +62,14 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
     @FXML
     private Button chargerConvoi;
     
-    @FXML
-    private Button chargerElements;
+//    @FXML
+//    private Button chargerElements;
     
     @FXML
     private Button save;
     
-    @FXML
-    private Button cancel;
+//    @FXML
+//    private Button cancel;
 
     @InjectViewModel
     private DragDropViewModel viewModel;
@@ -86,61 +88,75 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
 			public void handle(MouseEvent event) {
 				System.out.println("SAVE THE CONVOI");
 	    		
-	    		List<DraggableImageView> convoiSave = new ArrayList<DraggableImageView>();
-	    		List<Node> convoiNodes = convoiBox.getChildren();
-	    		
-	    		for(Node node : convoiNodes) {
-	    			if(((DraggableImageView) node).getElemType() != ImageViewType.SEPARATOR) convoiSave.add((DraggableImageView) node);
-	    		}
-	    		
-	    		List<ObjectClass> objects = new ArrayList<ObjectClass>();
-	    		for(DraggableImageView dg : convoiSave) {
-	    			
-//	    			System.out.println(dg.getElemType());
-	    			System.out.println("RECUPERATION DES OBJECT CLASS");
-	    			ObjectClass object = (ObjectClass) dg.getUserData();
-	    			
-	    			System.out.println("ID : " + object.getId());
-	    			System.out.println("Type : " + object.getTypeClass());
-	    			ArrayList<DataObject> datas = object.getDonnees();
-	    			System.out.println("Données : ");
-	    			for(DataObject data : datas) {
-	    				System.out.println("Value : " + data.getValue() + "(" + data.getParametre().getLabel() + ")");
-	    			}
-	    			System.out.println("URL : " + object.getURL());
-	    			System.out.println("URL NULL ? WTF");
-	    			
-	    			objects.add(object);
-	    			
-	    		}
-	    		
-	    		viewModel.setConvoiList(convoiSave);
-	    		
-	    		GestionnaireDonnees gd = new GestionnaireDonnees();
-	    		GestionnaireConfig gc = new GestionnaireConfig();
-	    		gc.run();
-	    		gd.run(gc);
-	    		
-	    		TextInputDialog dialog = new TextInputDialog("newConvoi");
-	    		dialog.setTitle("Nom pour le convoi");
-	    		dialog.setHeaderText("Nommez le convoi");
-	    		dialog.setContentText("Entrez le nom du convoi :");
-
-	    		// Traditional way to get the response value.
-	    		Optional<String> result = dialog.showAndWait();
-	    		String nomConvoi = "";
-	    		if (result.isPresent()){
-	    		    System.out.println("Nom du convoi: " + result.get());
-	    		    nomConvoi = result.get();
-	    		}
-
-	    		// The Java 8 way to get the response value (with lambda expression).
-	    		result.ifPresent(name -> System.out.println("Your name: " + name));
-	    		
-	    		gd.exportToJson(nomConvoi, objects);
-	    		
+				boolean valide = false;
+				valide = checkConvoi();
+				
+				if(valide) {
+				
+		    		List<DraggableImageView> convoiSave = new ArrayList<DraggableImageView>();
+		    		List<Node> convoiNodes = convoiBox.getChildren();
+		    		
+		    		for(Node node : convoiNodes) {
+		    			if(((DraggableImageView) node).getElemType() != ImageViewType.SEPARATOR) convoiSave.add((DraggableImageView) node);
+		    		}
+		    		
+		    		List<ObjectClass> objects = new ArrayList<ObjectClass>();
+		    		for(DraggableImageView dg : convoiSave) {
+		    			
+	//	    			System.out.println(dg.getElemType());
+		    			System.out.println("RECUPERATION DES OBJECT CLASS");
+		    			ObjectClass object = (ObjectClass) dg.getUserData();
+		    			
+		    			System.out.println("ID : " + object.getId());
+		    			System.out.println("Type : " + object.getTypeClass());
+		    			ArrayList<DataObject> datas = object.getDonnees();
+		    			System.out.println("Données : ");
+		    			for(DataObject data : datas) {
+		    				System.out.println("Value : " + data.getValue() + "(" + data.getParametre().getLabel() + ")");
+		    			}
+		    			System.out.println("URL : " + object.getURL());
+		    			System.out.println("URL NULL ? WTF");
+		    			
+		    			objects.add(object);
+		    			
+		    		}
+		    		
+		    		viewModel.setConvoiList(convoiSave);
+		    		
+		    		GestionnaireDonnees gd = new GestionnaireDonnees();
+		    		GestionnaireConfig gc = new GestionnaireConfig();
+		    		gc.run();
+		    		gd.run(gc);
+		    		
+		    		TextInputDialog dialog = new TextInputDialog("newConvoi");
+		    		dialog.setTitle("Nom pour le convoi");
+		    		dialog.setHeaderText("Nommez le convoi");
+		    		dialog.setContentText("Entrez le nom du convoi :");
+	
+		    		// Traditional way to get the response value.
+		    		Optional<String> result = dialog.showAndWait();
+		    		String nomConvoi = "";
+		    		if (result.isPresent()){
+		    		    System.out.println("Nom du convoi: " + result.get());
+		    		    nomConvoi = result.get();
+		    		}
+	
+		    		// The Java 8 way to get the response value (with lambda expression).
+		    		result.ifPresent(name -> System.out.println("Your name: " + name));
+		    		
+		    		gd.exportToJson(nomConvoi, objects);
+				} else {
+					
+					Alert alert = new Alert(AlertType.INFORMATION);
+					alert.setTitle("Convoi non valide");
+					alert.setHeaderText("Le convoi n'est pas valide");
+					alert.setContentText("Le convoi n'est pas valide, le train doit avoir une locomotique a une extremité minimum");
+					alert.showAndWait();
+					
+				}
 			}
-    		
+
+			
 		});
     	
     	chargerConvoi.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -321,6 +337,19 @@ public class DragDropView implements FxmlView<DragDropViewModel>, Initializable 
 		
 	}
 
+	private boolean checkConvoi() {
+		
+		if(convoiBox.getChildren().size() < 3) return false;
+		
+		System.out.println(((ObjectClass) convoiBox.getChildren().get(1).getUserData()).getTypeClass() + " : " + 1);
+		System.out.println(((ObjectClass) convoiBox.getChildren().get(convoiBox.getChildren().size()-2).getUserData()).getTypeClass() + " : " + (convoiBox.getChildren().size()-2));
+		String type1 = ((ObjectClass) convoiBox.getChildren().get(1).getUserData()).getTypeClass();
+		String type2 = ((ObjectClass) convoiBox.getChildren().get(convoiBox.getChildren().size()-2).getUserData()).getTypeClass();
+		
+		if((type1.equals("Loco")) || (type2.equals("Loco"))) return true;
+		else return false;
+	}
+	
 	public HBox getConvoiBox() {
 		return convoiBox;
 	}

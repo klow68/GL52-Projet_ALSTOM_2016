@@ -5,7 +5,8 @@
 :[{"idConfig":"9","values":"yhgf"}
 ,{"idConfig":"19","values":"45.0"}
 ,{"idConfig":"8","values":"2"}
-,]},{"typeObject":"Loco"
+,]}
+,{"typeObject":"Loco"
 ,"idObject":"1"
 ,"URLImage":"DragDrop/Images/loco.jpg"
 ,"data"
@@ -22,7 +23,7 @@
 ,{"idConfig":"19","values":"78.0"}
 ,]},{"typeObject":"Loco"
 ,"idObject":"10"
-,"URLImage":"coffee.jpg"
+,"URLImage":"DragDrop/Images/loco.jpg"
 ,"data"
 :[{"idConfig":"9","values":"RER 247899"}
 ,{"idConfig":"8","values":"1"}
