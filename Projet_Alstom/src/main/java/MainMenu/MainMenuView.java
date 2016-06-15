@@ -58,11 +58,8 @@ public class MainMenuView implements FxmlView<MainMenuViewModel>, Initializable 
 	public void initialize(URL location, ResourceBundle resources) {
 		 GestionnaireConfig GC = new  GestionnaireConfig();
 		 GC.run();
-		//GC.test();
 		 GestionnaireDonnees GD = new GestionnaireDonnees();
 		 GD.run(GC);
-		 //GD.test();
-		 //GD.importerObject("/home/flodov/workspace/GL52-Projet_ALSTOM_2016/Projet_Alstom/src/main/resources/Export/4-ZUBZUB.json");
 		 
 	}
 

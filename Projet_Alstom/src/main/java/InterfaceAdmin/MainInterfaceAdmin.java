@@ -1,6 +1,5 @@
 package InterfaceAdmin;
 
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -16,33 +15,31 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class MainInterfaceAdmin extends Application {
-	public static void main(String... args) throws FileNotFoundException, IOException, ParseException, URISyntaxException {
+	public static void main(String... args)
+			throws FileNotFoundException, IOException, ParseException, URISyntaxException {
 		Application.launch(args);
-		
-		
+
 	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		try{
-			stage.setTitle("Hello World Application");
+		try {
+			stage.setTitle("Projet GL52 - Interface Admin");
 
-			 FxmlViewStep<InterfaceAdminView, InterfaceAdminViewModel> view = FluentViewLoader.fxmlView(InterfaceAdminView.class);
-		     ViewTuple<InterfaceAdminView, InterfaceAdminViewModel> viewTuple =	view.load();
+			FxmlViewStep<InterfaceAdminView, InterfaceAdminViewModel> view = FluentViewLoader
+					.fxmlView(InterfaceAdminView.class);
+			ViewTuple<InterfaceAdminView, InterfaceAdminViewModel> viewTuple = view.load();
 
-		    GestionnaireConfig GC = new GestionnaireConfig();
-		    GC.run();
-		    Parent root = viewTuple.getView();
-		    stage.setScene(new Scene(root));
-		    stage.show();
-		    
-		    
-		}catch(Exception e){
+			GestionnaireConfig GC = new GestionnaireConfig();
+			GC.run();
+			Parent root = viewTuple.getView();
+			stage.setScene(new Scene(root));
+			stage.show();
+
+		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
-		
-		
+
 	}
 }

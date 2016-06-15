@@ -11,140 +11,115 @@ import org.json.simple.parser.JSONParser;
 import ModelObject.Parametre.typeParametre;
 
 public class GestionnaireConfig {
-	
-	private ArrayList<Onglet> onglets = null;
-	
-	private File file = null; //= new File("src/main/resources/InterfaceAdmin/admin.json");
 
-	public GestionnaireConfig(){
-		
+	private ArrayList<Onglet> onglets = null;
+
+	private File file = null; // = new
+								// File("src/main/resources/InterfaceAdmin/admin.json");
+
+	public GestionnaireConfig() {
+
 		onglets = new ArrayList<Onglet>();
 	}
-	
-	public void run(){
-		//On ouvre le fichier des configs
+
+	public void run() {
+		// On ouvre le fichier des configs
 		file = new File("src/main/resources/configs/config.json");
-		
+
 		JSONParser parser = new JSONParser();
 
 		JSONArray a = null;
-		
-		
-		
+
 		try {
 			a = (JSONArray) parser.parse(new FileReader(file));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//Nous allons parcourir chaque ligne du fichier selon une procédure
-		
-		//1er On récupère tous les onglets
-		
+		// Nous allons parcourir chaque ligne du fichier selon une procédure
+
+		// 1er On récupère tous les onglets
+
 		for (Object o : a) {
 			JSONObject ob = (JSONObject) o;
-			
+
 			Parametre para;
-			
-			//si l'onglet n'existe pas
+
+			// si l'onglet n'existe pas
 			Onglet onglet = null;
-			if(!this.ClassExist(ob.get("class").toString())){
+			if (!this.ClassExist(ob.get("class").toString())) {
 				onglets.add(new Onglet(ob.get("class").toString()));
 			}
-			
+
 			onglet = getOnglet(ob.get("class").toString());
-			
+
 			int id;
 			String label;
 			typeParametre type = null;
-			
+
 			id = new Integer(ob.get("id").toString());
 			label = ob.get("label").toString();
 			type = Parametre.convertTypePara(ob.get("type").toString());
-			//On va   de quel type de parametre on traite
-			
-			switch(type){
-			case COMBO:				
-				para = new ParametreCombo(id,onglet.getName(),label,typeParametre.COMBO,(JSONArray)ob.get("select"));
-				
+			// On va de quel type de parametre on traite
+
+			switch (type) {
+			case COMBO:
+				para = new ParametreCombo(id, onglet.getName(), label, typeParametre.COMBO,
+						(JSONArray) ob.get("select"));
+
 				onglet.addParametre(para);
 				break;
 			case INPUT:
-				para = new ParametreInput(id,onglet.getName(),label,type,ob.get("input").toString());
+				para = new ParametreInput(id, onglet.getName(), label, type, ob.get("input").toString());
 				onglet.addParametre(para);
 				break;
 			default:
 				System.out.println("ERREUR INTERNE : mauvais type");
 				break;
-				
+
 			}
-		
-			
+
 		}
-		
-		
-		
+
 	}
-	
-	public void test(){
-		//Bienvenue en enfer
-		
-		Onglet onglet = onglets.get(0);
-		//System.out.println("Onglet : " + onglet.getName());
-	//	onglet.getParametres().size();
-		
-		for(Parametre p : onglet.getParametres()){
-			if(p.getTypePara()==typeParametre.COMBO){
-				ParametreCombo combo = (ParametreCombo) p;
-				System.out.println("Combobox : " +combo.getLabel());
-				for(Parametre s : combo.getSelects() ){
-					System.out.println("Select : " +s.getLabel());
-					ParametreSelect sq = (ParametreSelect) s;
-					for(Parametre q : sq.getParametres()){
-						System.out.println(q.getLabel());
-					}
-				}
-			}
-			else{
-				ParametreInput input = (ParametreInput)p;
-				System.out.println("input " +input.getLabel());
-				
-			}
-		}
-		
-	}
+
 	public ArrayList<Onglet> getOnglets() {
 		return onglets;
 	}
-	
-	public boolean ClassExist(String _name){
-		
-		for(Onglet onglet : onglets){
-			if(onglet.getName().equals(_name)) return true;
+
+	public boolean ClassExist(String _name) {
+
+		for (Onglet onglet : onglets) {
+			if (onglet.getName().equals(_name))
+				return true;
 		}
 		return false;
 	}
-	
-	public Onglet getOnglet(String name){
-		for(Onglet o : onglets){
-			if(o.getName().equals(name)) return o;
+
+	public Onglet getOnglet(String name) {
+		for (Onglet o : onglets) {
+			if (o.getName().equals(name))
+				return o;
 		}
 		return null;
 	}
-	
-	public Parametre getParametre(int id){
+
+	public Parametre getParametre(int id) {
 		Parametre tmp = null;
-		for(Onglet o : onglets){
-			
-			for(Parametre p : o.getParametres()){
-				if(p.getId()==id){ tmp = p;return tmp;}
-				
-				if(p.getTypePara()==typeParametre.COMBO) tmp = ((ParametreCombo) p).getParametre(id);
-				if(tmp != null)return tmp;
+		for (Onglet o : onglets) {
+
+			for (Parametre p : o.getParametres()) {
+				if (p.getId() == id) {
+					tmp = p;
+					return tmp;
+				}
+
+				if (p.getTypePara() == typeParametre.COMBO)
+					tmp = ((ParametreCombo) p).getParametre(id);
+				if (tmp != null)
+					return tmp;
 			}
 		}
 		return tmp;
 	}
-	
-	
 
 }

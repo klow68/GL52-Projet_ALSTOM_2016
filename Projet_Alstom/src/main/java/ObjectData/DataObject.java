@@ -8,16 +8,14 @@ public class DataObject {
 
 	Object value;
 	Parametre parametre;
-	
+
 	public DataObject(Object _value, Parametre _parametre) {
-		//this.value = value;
-		//this.parametre = parametre;
-		
-		switch(_parametre.getTypePara()){
+
+		switch (_parametre.getTypePara()) {
 		case INPUT:
-			 
+
 			this.parametre = (ParametreInput) _parametre;
-			switch(((ParametreInput) parametre).getType()){
+			switch (((ParametreInput) parametre).getType()) {
 			case INTEGER:
 				value = new Integer(_value.toString());
 				break;
@@ -50,10 +48,9 @@ public class DataObject {
 	public Parametre getParametre() {
 		return parametre;
 	}
-	
-	public void addValue(Object _data){
+
+	public void addValue(Object _data) {
 		value = _data;
 	}
-	
-	
+
 }
