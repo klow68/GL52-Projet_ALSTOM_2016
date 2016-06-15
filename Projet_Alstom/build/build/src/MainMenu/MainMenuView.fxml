@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="ap" prefHeight="322.0" prefWidth="375.0" stylesheets="@InterfaceAdminView.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainMenu.MainMenuView">
+  <!-- TODO Add Nodes -->
+  <children>
+    <Pane prefHeight="265.0" prefWidth="286.0">
+      <children>
+        <MenuBar layoutX="0.0" layoutY="0.0" prefWidth="374.9999755859375">
+          <menus>
+            <Menu mnemonicParsing="false" text="Fichier">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#closeApp" text="Fermer" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Aide">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#about" text="A propos" />
+              </items>
+            </Menu>
+          </menus>
+        </MenuBar>
+        <Button fx:id="buttonAdmin" layoutX="95.0" layoutY="97.0" mnemonicParsing="false" onMouseClicked="#changeWindowToAdmin" prefWidth="186.0" text="Administrateur">
+               <opaqueInsets>
+                  <Insets bottom="10.0" />
+               </opaqueInsets></Button>
+        <Button fx:id="buttonTechnicien" layoutX="95.0" layoutY="172.0" mnemonicParsing="false" onMouseClicked="#changeWindowToTechnicien" prefWidth="186.0" text="Technicien">
+               <opaqueInsets>
+                  <Insets top="10.0" />
+               </opaqueInsets></Button>
+      </children>
+    </Pane>
+  </children>
+</VBox>

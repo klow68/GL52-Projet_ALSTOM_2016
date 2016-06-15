@@ -1,0 +1,71 @@
+[
+    {
+	"id":"8",
+        "class":"Loco",
+        "label":"Type",
+        "type":"combo",
+        "select":[
+            {
+                "id":"1",
+                "class":"Loco",
+                "label":"Vapeur",
+                "type":"select",
+		"select":[
+                    {
+			"id":"10",
+                        "class":"Loco",
+                        "label":"Qte charbon",
+                        "type":"input",
+			"input":"double"
+                    },
+		    {
+			"id":"11",
+                        "class":"Loco",
+                        "label":"MERDE",
+                        "type":"combo",
+			 "select":[
+				{
+					"id":"12",
+				        "class":"Loco",
+				        "label":"CO2",
+				        "type":"select"
+					
+                    		},
+				{
+					"id":"15",
+				        "class":"Loco",
+				        "label":"CO2",
+				        "type":"select"
+					
+
+                    		}
+			]
+                    }
+                ]
+            },
+            {
+                "id":"2",
+                "class":"Loco",
+                "label":"Electrique",
+                "type":"select",
+		"select":[
+                    {
+			"id":"19",
+                        "class":"Loco",
+                        "label":"36 WATT",
+                        "type":"input",
+			"input":"double"
+                    }
+                ]
+            },
+            
+        ]
+    },
+    {
+	"id":"9",
+        "class":"Loco",
+        "label":"nom de ta mère",
+        "type":"input",
+	"input":"string"
+    }
+]
