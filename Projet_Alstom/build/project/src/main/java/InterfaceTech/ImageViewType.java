@@ -1,9 +1,15 @@
 package InterfaceTech;
 
+/**
+ * The Enum ImageViewType.
+ */
 public enum ImageViewType {
 
-	SEPARATOR
-	, IMAGE
-	, RECYCLE_BIN;
-	
+	/** The separator. */
+	SEPARATOR,
+	/** The image. */
+	IMAGE,
+	/** The recycle bin. */
+	RECYCLE_BIN;
+
 }

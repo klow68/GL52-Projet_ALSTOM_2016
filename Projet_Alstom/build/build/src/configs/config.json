@@ -14,27 +14,27 @@
                     {
 			"id":"10",
                         "class":"Loco",
-                        "label":"Qte charbon",
+                        "label":"aramVapeur",
                         "type":"input",
 			"input":"double"
                     },
 		    {
 			"id":"11",
                         "class":"Loco",
-                        "label":"MERDE",
+                        "label":"ListeParamVapeur",
                         "type":"combo",
 			 "select":[
 				{
 					"id":"12",
 				        "class":"Loco",
-				        "label":"CO2",
+				        "label":"paramVapeur1",
 				        "type":"select"
 					
                     		},
 				{
 					"id":"15",
 				        "class":"Loco",
-				        "label":"CO2",
+				        "label":"paramVapeur2",
 				        "type":"select"
 					
 
@@ -52,7 +52,7 @@
                     {
 			"id":"19",
                         "class":"Loco",
-                        "label":"36 WATT",
+                        "label":"WATT",
                         "type":"input",
 			"input":"double"
                     }
@@ -64,7 +64,7 @@
     {
 	"id":"9",
         "class":"Loco",
-        "label":"nom de ta mère",
+        "label":"paramètre",
         "type":"input",
 	"input":"string"
     }

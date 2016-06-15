@@ -2,7 +2,7 @@
 ,"idObject":"3"
 ,"URLImage":"DragDrop/Images/wagon.jpg"
 ,"data"
-:[{"idConfig":"9","values":"yhgf"}
+:[{"idConfig":"9","values":"NomWageon"}
 ,{"idConfig":"19","values":"45.0"}
 ,{"idConfig":"8","values":"2"}
 ,]}
@@ -10,7 +10,7 @@
 ,"idObject":"1"
 ,"URLImage":"DragDrop/Images/loco.jpg"
 ,"data"
-:[{"idConfig":"9","values":"ZUBZUB"}
+:[{"idConfig":"9","values":"NomLoco"}
 ,{"idConfig":"8","values":"1"}
 ,{"idConfig":"11","values":"15"}
 ,{"idConfig":"10","values":"13.0"}
@@ -18,7 +18,7 @@
 ,"idObject":"2"
 ,"URLImage":"DragDrop/Images/loco.jpg"
 ,"data"
-:[{"idConfig":"9","values":"yhgf"}
+:[{"idConfig":"9","values":"NomLoco"}
 ,{"idConfig":"8","values":"2"}
 ,{"idConfig":"19","values":"78.0"}
 ,]},{"typeObject":"Loco"

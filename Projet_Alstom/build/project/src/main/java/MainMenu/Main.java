@@ -16,7 +16,7 @@ public class Main extends Application {
 	/** {@inheritDoc} */
 	@Override
 	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Hello World Application");
+		primaryStage.setTitle("Gestionnaire de convoi");
 
 		 FxmlViewStep<MainMenuView, MainMenuViewModel> view = FluentViewLoader.fxmlView(MainMenuView.class);
 	     ViewTuple<MainMenuView, MainMenuViewModel> viewTuple =	view.load();

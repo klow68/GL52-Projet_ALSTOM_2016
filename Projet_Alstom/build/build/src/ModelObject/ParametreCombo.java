@@ -6,10 +6,28 @@ import java.util.Iterator;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+/**
+ * The Class ParametreCombo.
+ */
 public class ParametreCombo extends Parametre {
 
+	/** The selects. */
 	private ArrayList<Parametre> selects = null;
 
+	/**
+	 * Instantiates a new parametre combo.
+	 *
+	 * @param _id
+	 *            the _id
+	 * @param _classe
+	 *            the _classe
+	 * @param _label
+	 *            the _label
+	 * @param _type
+	 *            the _type
+	 * @param tableau
+	 *            the tableau
+	 */
 	@SuppressWarnings("unchecked")
 	public ParametreCombo(int _id, String _classe, String _label, typeParametre _type, JSONArray tableau) {
 		super(_id, _classe, _label, _type);
@@ -38,6 +56,12 @@ public class ParametreCombo extends Parametre {
 
 	}
 
+	/**
+	 * Adds the select.
+	 *
+	 * @param para
+	 *            the para
+	 */
 	public void addSelect(Parametre para) {
 		if (para.typePara.equals(typeParametre.SELECT)) {
 			selects.add(para);
@@ -46,10 +70,22 @@ public class ParametreCombo extends Parametre {
 		}
 	}
 
+	/**
+	 * Gets the selects.
+	 *
+	 * @return the selects
+	 */
 	public ArrayList<Parametre> getSelects() {
 		return selects;
 	}
 
+	/**
+	 * Gets the parametre.
+	 *
+	 * @param id
+	 *            the id
+	 * @return the parametre
+	 */
 	public Parametre getParametre(int id) {
 		Parametre tmp = null;
 		for (Parametre p : selects) {
